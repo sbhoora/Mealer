@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbf2ff"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="100dp"
+            android:src="@drawable/mealer_logo" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:paddingTop="200dp"
+            android:text="Sign in"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signin"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/white"
+            android:hint="email"
+            android:padding="20dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_baseline_remove_red_eye_24"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:padding="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signinbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="#e4024d"
+            android:padding="10dp"
+            android:text="Sign in"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signupbutton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signinbutton"
+            android:layout_marginVertical="50dp"
+            android:layout_marginLeft="250dp"
+            android:backgroundTint="@color/black"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:textColor="#e4024d"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
