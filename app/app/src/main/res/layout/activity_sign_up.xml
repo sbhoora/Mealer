@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dbf2ff"
-    tools:context=".MainActivity">
+    tools:context=".SignUp">
 
     <RelativeLayout
         android:id="@+id/elements"

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
                    // correct
                     Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    goHome(v);
                 } else {
                     Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -36,5 +37,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void goToSignUp(View v) {
         startActivity(new Intent(MainActivity.this,SignUp.class));
+    }
+
+    public void goHome(View v) {
+        startActivity(new Intent(MainActivity.this,Home.class));
     }
 }
