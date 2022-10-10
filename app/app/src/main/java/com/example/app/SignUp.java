@@ -10,31 +10,26 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
-public class MainActivity extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_up);
 
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.password);
 
-        MaterialButton signInButton = (MaterialButton) findViewById(R.id.signinbutton);
+        MaterialButton signInButton = (MaterialButton) findViewById(R.id.signupbutton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
-                   // correct
-                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public void goToSignUp(View v) {
-        startActivity(new Intent(MainActivity.this,SignUp.class));
+    public void goHome(View v) {
+        startActivity(new Intent(SignUp.this,MainActivity.class));
     }
 }
