@@ -74,9 +74,9 @@
             android:layout_height="120dp"
             android:layout_below="@id/signupbutton"
             android:layout_marginTop="160dp"
-            android:src="@drawable/mealer_logo_text"
             android:onClick="goHome"
-            />
+            android:src="@drawable/mealer_logo_text"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     </RelativeLayout>
 
