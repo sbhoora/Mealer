@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="visible_user_types">
+        <item>Client</item>
+        <item>Cook</item>
+    </string-array>
+</resources>

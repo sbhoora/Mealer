@@ -8,52 +8,32 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="50dp"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_margin="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="75dp"
             android:src="@drawable/mealer_logo" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/signin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            android:paddingTop="200dp"
             android:text="Sign in"
             android:textColor="@color/black"
             android:textSize="35dp"
             android:textStyle="bold" />
 
-
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/signin"
-            android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="10dp"
             android:background="@color/white"
             android:hint="email"
@@ -63,8 +43,6 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/email"
-            android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="10dp"
             android:background="@color/white"
             android:drawableRight="@drawable/ic_baseline_remove_red_eye_24"
@@ -76,9 +54,6 @@
             android:id="@+id/signinbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="10dp"
             android:backgroundTint="#e4024d"
             android:padding="10dp"
@@ -91,25 +66,14 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/signinbutton"
-            android:layout_marginVertical="50dp"
-            android:layout_marginLeft="250dp"
-            android:backgroundTint="@color/black"
+            android:layout_marginVertical="10dp"
+            android:gravity="right"
+            android:onClick="goToSignUp"
             android:text="Sign up"
             android:textAllCaps="false"
             android:textColor="#e4024d"
-            android:textSize="20dp"
-            android:onClick="goToSignUp"/>
-
-
-    </RelativeLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="411dp" />
+            android:textSize="20dp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
