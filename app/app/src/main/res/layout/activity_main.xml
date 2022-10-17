@@ -18,8 +18,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="75dp"
-            android:src="@drawable/mealer_logo" />
+            android:layout_marginBottom="75dp" />
 
         <TextView
             android:id="@+id/signin"
@@ -62,7 +61,7 @@
             android:textSize="15dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signupbutton"
+            android:id="@+id/signUpButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

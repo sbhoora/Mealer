@@ -16,8 +16,7 @@
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:onClick="goHome"
-            android:src="@drawable/mealer_logo_text" />
+            android:onClick="goHome" />
 
         <TextView
             android:id="@+id/signup"
