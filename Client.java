@@ -35,4 +35,12 @@ public class Client implements Account {
         return "Client";
     }
 
+    public String getAddress(){
+        return address;
+    }
+
+    public int getCreditCard(){
+        return creditCard;
+    }
+
 }
