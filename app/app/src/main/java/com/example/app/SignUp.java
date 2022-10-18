@@ -12,12 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+
 import com.google.android.material.button.MaterialButton;
 
 public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DatabaseReference databaseAccounts;
+        databaseAccounts = FirebaseDatabase.getInstance("https://mealer-2f04c-default-rtdb.firebaseio.com/").getReference().child("Accounts");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
@@ -78,6 +89,18 @@ public class SignUp extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check if all fields are filled in (NOT DONE)
+                if(userType.getSelectedItem().toString().equals("Client")){
+                    System.out.println("onClick Client");
+                    Client client = new Client(firstName.toString(),lastName.toString(),email.toString(),
+                            password.toString(),address.toString(),Integer.parseInt(creditCardNumber.toString()));
+
+                    databaseAccounts.child("Clients").setValue(client);
+                } else {
+                    System.out.println("onClick Cook");
+                    Cook cook = new Cook(firstName.toString(),lastName.toString(),email.toString(),
+                            password.toString(),description.toString());
+                }
                 Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
             }
         });
