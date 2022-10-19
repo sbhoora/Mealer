@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,8 +27,11 @@ import java.util.Map;
 
 import com.google.android.material.button.MaterialButton;
 
-public class SignUp extends AppCompatActivity {
+import org.w3c.dom.Text;
 
+public class SignUp extends AppCompatActivity {
+    // Error Message
+    TextView errorMessage = (TextView) findViewById(R.id.errorMessage);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DatabaseReference databaseAccounts;
@@ -58,6 +63,11 @@ public class SignUp extends AppCompatActivity {
 
         // Sign Up
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
+
+        // Groups
+        TextView[] commonFields = {firstName, lastName, address, email, password, passwordConfirm};
+        TextView[] cookFields = {description};
+        TextView[] clientFields = {creditCardNumber,creditCardExpirationDate,creditCardCVV};
 
         userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,14 +103,23 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //check if all fields are filled in (NOT DONE)
-
-                if(userType.getSelectedItem().toString().equals("Client")){
+                if (password.getText().toString() != passwordConfirm.getText().toString()) displayError("Password and Confrim Password do not match");
+                if (areEmpty(commonFields)){
+                    displayError("Please fill all fields");
+                }
+                if(userType.getSelectedItemPosition() == 0){
                     System.out.println("onClick Client");
+                    if (areEmpty(clientFields)){
+                        displayError("Please fill all fields");
+                    }
                     Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
                             password.getText().toString(),address.getText().toString(),123);
                     databaseAccounts.child("Clients").setValue(client);
                 } else {
                     System.out.println("onClick Cook");
+                    if (areEmpty(cookFields)){
+                        displayError("Please fill all fields");
+                    }
                     Cook cook = new Cook(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
                             password.getText().toString(),description.getText().toString());
                     databaseAccounts.child("Cooks").setValue(cook);
@@ -130,4 +149,18 @@ public class SignUp extends AppCompatActivity {
     public void goHome(View v) {
         startActivity(new Intent(SignUp.this,MainActivity.class));
     }
+    private void displayError(String msg){
+        errorMessage.setText(msg);
+    }
+
+    private boolean areEmpty(TextView[] views){
+        for (TextView view : views){
+            if (isEmpty(view)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isEmpty(TextView view) {return view.getText().toString().isEmpty();}
 }
