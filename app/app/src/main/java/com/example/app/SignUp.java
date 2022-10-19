@@ -93,7 +93,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //check if all fields are filled in (NOT DONE)
-                ///*
+
                 if(userType.getSelectedItem().toString().equals("Client")){
                     System.out.println("onClick Client");
                     Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
@@ -105,7 +105,7 @@ public class SignUp extends AppCompatActivity {
                             password.getText().toString(),description.getText().toString());
                     databaseAccounts.child("Cooks").setValue(cook);
                 }
-                //*/
+
                 /*
                 if(userType.getSelectedItem().toString().equals("Client")){
                     Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
