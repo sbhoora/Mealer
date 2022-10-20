@@ -1,10 +1,10 @@
 public class CreditCard {
-    private int cardNumber;
-    private int cvv;
-    private int exp;
+    private String cardNumber;
+    private String cvv;
+    private String exp;
     private String cardName;
 
-    public CreditCard (String cardName, int cardNumber, int cvv, int exp) {
+    public CreditCard (String cardName, String cardNumber, String cvv, String exp) {
         this.cardName = cardName;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
@@ -15,23 +15,25 @@ public class CreditCard {
         return cardName;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public int getExp() {
+    public String getExp() {
         return exp;
     }
 
-    public int[] paymentInfo() {
-        int[] info = new int[2];
+    public String[] paymentInfo() {
+        String[] info = new int[2];
         info[0] = getCardNumber();
         info[1] = getCvv();
         info[2] = getExp();
+
+        return info;
         
     }
 

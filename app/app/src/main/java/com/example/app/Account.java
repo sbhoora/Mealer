@@ -1,11 +1,33 @@
 package com.example.app;
 
-public interface Account {
+public class Account {
 
-    String getFirstName();
-    String getLastName();
-    String getEmail();
-    String getPassword();
-    String getAccountType();
+    String firstName;
+    String lastName;
+    String email;
+    String password;
+
+    public Account(String first, String last, String mail, String pass) {
+        String firstName = first;
+        String lastName = last;
+        String email = mail;
+        String password = pass; 
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }
