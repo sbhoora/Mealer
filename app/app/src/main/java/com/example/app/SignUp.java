@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,9 +68,9 @@ public class SignUp extends AppCompatActivity {
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
 
         // Groups
-        TextView[] commonFields = {firstName, lastName, address, email, password, passwordConfirm};
-        TextView[] cookFields = {description};
-        TextView[] clientFields = {creditCardNumber,creditCardExpirationDate,creditCardCVV};
+        EditText[] commonFields = {firstName, lastName, address, email, password, passwordConfirm};
+        EditText[] cookFields = {description};
+        EditText[] clientFields = {creditCardNumber,creditCardExpirationDate,creditCardCVV};
 
         userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -100,54 +101,58 @@ public class SignUp extends AppCompatActivity {
         });
 
         MaterialButton signInButton = (MaterialButton) findViewById(R.id.signUpButton);
+        DatabaseReference clientDB = databaseAccounts.child("Clients");
+        DatabaseReference cookDB = databaseAccounts.child("Cooks");
 
         signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //check if all fields are filled in (NOT DONE)
-                if (password.getText().toString() != passwordConfirm.getText().toString()) displayError("Password and Confrim Password do not match");
-                if (areEmpty(commonFields)){
-                    displayError("Please fill all fields");
-                }
-                if(userType.getSelectedItemPosition() == 0){
-                    System.out.println("onClick Client");
-                    if (areEmpty(clientFields)){
-                        displayError("Please fill all fields");
-                    }
-                    Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
-                            password.getText().toString(),address.getText().toString(),123);
-                    databaseAccounts.child("Clients").setValue(client);
-                } else {
-                    System.out.println("onClick Cook");
-                    if (areEmpty(cookFields)) {
-                        displayError("Please fill all fields");
-                    }
-                    Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                            password.getText().toString(), description.getText().toString());
-                    databaseAccounts.child("Cooks").setValue(cook);
-                }
-
-                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
-            }
-
             public void goHome(View v) {
                 startActivity(new Intent(SignUp.this,MainActivity.class));
             }
-            private void displayError(String msg){
-                errorMessage.setText(msg);
+
+            private void areEmpty(EditText[] texts){
+                for (EditText text : texts){
+                    errorMsg(text);
+                }
             }
 
-            private boolean areEmpty(TextView[] views){
-                for (TextView view : views){
-                    if (isEmpty(view)){
-                        return true;
-                    }
+            private void errorMsg(EditText v){
+                if(TextUtils.isEmpty(v.getText().toString())) {
+                    v.setError("Please fill in this field.");
+                    return;
                 }
-                return false;
             }
 
             private boolean isEmpty(TextView view) {return view.getText().toString().isEmpty();}
+            @Override
+            public void onClick(View v) {
+                areEmpty(commonFields);
+
+                if (password.getText().toString().equals(passwordConfirm.getText().toString()) == false) {
+                   passwordConfirm.setError("Passwords don't match!");
+                }
+
+                if(userType.getSelectedItemPosition() == 0){
+                    Log.i("CLIENT","onClick Client");
+                    areEmpty(cookFields);
+                    //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                    Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
+                            password.getText().toString(), address.getText().toString(), 123);
+
+                    clientDB.setValue(client);
+                } else {
+                    Log.i("COOK","onClick Cook");
+                    areEmpty(cookFields);
+                    //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                    Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
+                            password.getText().toString(), description.getText().toString());
+
+                    cookDB.setValue(cook);
+                }
+                //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+            }
+
+
         });
     }
 
