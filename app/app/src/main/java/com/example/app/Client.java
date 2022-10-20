@@ -5,14 +5,14 @@ public class Client implements Account {
     String lastName;
     String email;
     String password;
-    String address;
-    int creditCard;
+    Address address;
+    CreditCard creditCard;
 
-    public Client(String f, String l, String e, String p, String address, int creditCard) {
-        firstName = f;
-        lastName = l;
-        email = e;
-        password = p;
+    public Client(String first, String last, String mail, String pass, Address address, CreditCard creditCard) {
+        firstName = first;
+        lastName = last;
+        email = mail;
+        password = pass;
         this.address = address;
         this.creditCard = creditCard;
     }
@@ -38,11 +38,11 @@ public class Client implements Account {
     }
 
     public String getAddress(){
-        return address;
+        return adress.toString;
     }
 
     public int getCreditCard(){
-        return creditCard;
+        return paymentInfo();
     }
 
 }

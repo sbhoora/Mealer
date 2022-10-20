@@ -5,15 +5,17 @@ public class Cook implements Account {
     String lastName;
     String email;
     String password;
+    Address Address;
     String description;
 
-    public Cook(String f, String l, String e, String p, String d) 
+    public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
-        firstName = f;
-        lastName = l;
-        email = e;
-        password = p;
-        description = d;
+        firstName = first;
+        lastName = last;
+        email = mail;
+        password = pass;
+        this.address = address;
+        this.description = description;
         
     }
 
@@ -35,6 +37,10 @@ public class Cook implements Account {
 
     public String getAccountType(){
         return "Cook";
+    }
+
+    public String getAddress(){
+        return adress.toString;
     }
 
     public String getDescription() {
