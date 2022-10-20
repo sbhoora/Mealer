@@ -30,10 +30,12 @@ import com.google.android.material.button.MaterialButton;
 import org.w3c.dom.Text;
 
 public class SignUp extends AppCompatActivity {
-    // Error Message
-    TextView errorMessage = (TextView) findViewById(R.id.errorMessage);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Error Message
+        TextView errorMessage = (TextView) findViewById(R.id.errorMessage);
+
         DatabaseReference databaseAccounts;
         databaseAccounts = FirebaseDatabase.getInstance("https://mealer-2f04c-default-rtdb.firebaseio.com/").getReference().child("Accounts");
 
@@ -102,6 +104,7 @@ public class SignUp extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //check if all fields are filled in (NOT DONE)
                 if (password.getText().toString() != passwordConfirm.getText().toString()) displayError("Password and Confrim Password do not match");
                 if (areEmpty(commonFields)){
@@ -117,15 +120,38 @@ public class SignUp extends AppCompatActivity {
                     databaseAccounts.child("Clients").setValue(client);
                 } else {
                     System.out.println("onClick Cook");
-                    if (areEmpty(cookFields)){
+                    if (areEmpty(cookFields)) {
                         displayError("Please fill all fields");
                     }
-                    Cook cook = new Cook(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
-                            password.getText().toString(),description.getText().toString());
+                    Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
+                            password.getText().toString(), description.getText().toString());
                     databaseAccounts.child("Cooks").setValue(cook);
                 }
 
-                /*
+                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+            }
+
+            public void goHome(View v) {
+                startActivity(new Intent(SignUp.this,MainActivity.class));
+            }
+            private void displayError(String msg){
+                errorMessage.setText(msg);
+            }
+
+            private boolean areEmpty(TextView[] views){
+                for (TextView view : views){
+                    if (isEmpty(view)){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            private boolean isEmpty(TextView view) {return view.getText().toString().isEmpty();}
+        });
+    }
+
+    /*
                 if(userType.getSelectedItem().toString().equals("Client")){
                     Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
                             password.getText().toString(),address.getText().toString(),123);
@@ -142,25 +168,5 @@ public class SignUp extends AppCompatActivity {
                 }
                  */
 
-                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    public void goHome(View v) {
-        startActivity(new Intent(SignUp.this,MainActivity.class));
-    }
-    private void displayError(String msg){
-        errorMessage.setText(msg);
-    }
 
-    private boolean areEmpty(TextView[] views){
-        for (TextView view : views){
-            if (isEmpty(view)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isEmpty(TextView view) {return view.getText().toString().isEmpty();}
 }
