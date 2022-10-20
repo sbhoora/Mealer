@@ -117,10 +117,17 @@ public class SignUp extends AppCompatActivity {
                         atLeastOneEmpty = true;
                     }
                 }
-                if (atLeastOneEmpty == true){
-                    Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
-                }
                 return atLeastOneEmpty;
+            }
+
+            private boolean isMatching(){
+                boolean match = false;
+                if (password.getText().toString().equals(passwordConfirm.getText().toString())){
+                    match = true;
+                } else {
+                    passwordConfirm.setError("Passwords don't match!");
+                }
+                return match;
             }
 
             private void errorMsg(EditText v){
@@ -131,10 +138,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!areEmpty(commonFields)) {
-                    if (password.getText().toString().equals(passwordConfirm.getText().toString()) == false) {
-                        passwordConfirm.setError("Passwords don't match!");
-                    }
+                if (!areEmpty(commonFields) && isMatching()) {
                     Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
                     if(userType.getSelectedItemPosition() == 0){
                         Log.i("CLIENT","onClick Client");
@@ -146,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                         Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
                                 password.getText().toString(), add, card);
 
-                        clientDB.child(client.getEmail()).setValue(client);
+                        clientDB.child(client.getEmail().substring(0,client.getEmail().length()-4)).setValue(client);
                     } else {
                         Log.i("COOK","onClick Cook");
                         areEmpty(cookFields);
@@ -154,10 +158,12 @@ public class SignUp extends AppCompatActivity {
                         Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
                                 password.getText().toString(), add, description.getText().toString());
 
-                        cookDB.child(cook.getEmail()).setValue(cook);
+                        cookDB.child(cook.getEmail().substring(0,cook.getEmail().length()-4)).setValue(cook);
                     }
                     //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
                 };
             }
         });

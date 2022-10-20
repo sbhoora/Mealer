@@ -29,14 +29,4 @@ public class CreditCard {
         return exp;
     }
 
-    public String[] paymentInfo() {
-        String[] info = new String[2];
-        info[0] = getCardNumber();
-        info[1] = getCvv();
-        info[2] = getExp();
-
-        return info;
-        
-    }
-
 }

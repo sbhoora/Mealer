@@ -20,7 +20,7 @@ public class Client extends Account {
     }
 
     public String getCreditCard(){
-        return creditCard.paymentInfo()[0];
+        return creditCard.getCardNumber();
     }
 
 }

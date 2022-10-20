@@ -8,10 +8,10 @@ public class Account {
     String password;
 
     public Account(String first, String last, String mail, String pass) {
-        String firstName = first;
-        String lastName = last;
-        String email = mail;
-        String password = pass; 
+         this.firstName = first;
+         this.lastName = last;
+         this.email = mail;
+         this.password = pass;
     }
 
     public String getFirstName() {
