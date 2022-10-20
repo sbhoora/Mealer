@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Login"
+                    android:text="Account Information"
                     android:textColor="@color/black"
                     android:textSize="24dp" />
 
