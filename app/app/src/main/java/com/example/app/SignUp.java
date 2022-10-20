@@ -117,6 +117,9 @@ public class SignUp extends AppCompatActivity {
                         atLeastOneEmpty = true;
                     }
                 }
+                if (atLeastOneEmpty == true){
+                    Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
+                }
                 return atLeastOneEmpty;
             }
 
@@ -140,7 +143,7 @@ public class SignUp extends AppCompatActivity {
                         Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
                                 password.getText().toString(), address.getText().toString(), 123);
 
-                        clientDB.setValue(client);
+                        clientDB.child(client.getEmail()).setValue(client);
                     } else {
                         Log.i("COOK","onClick Cook");
                         areEmpty(cookFields);
@@ -148,7 +151,7 @@ public class SignUp extends AppCompatActivity {
                         Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
                                 password.getText().toString(), description.getText().toString());
 
-                        cookDB.setValue(cook);
+                        cookDB.child(cook.getEmail()).setValue(cook);
                     }
                     //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
@@ -156,23 +159,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
-
-    /*
-                if(userType.getSelectedItem().toString().equals("Client")){
-                    Client client = new Client(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
-                            password.getText().toString(),address.getText().toString(),123);
-                    Map<String, Client> users = new HashMap<>();
-                    users.put(email.toString(),client);
-                    //Client a = users.get(email.toString());
-                    //String b = a.getFirstName();
-                    //Log.i("OUTPUT!!",b);
-                } else {
-                    Cook cook = new Cook(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
-                            password.getText().toString(),description.getText().toString());
-                    Map<String, Cook> users = new HashMap<>();
-                    users.put(email.toString(),cook);
-                }
-                 */
 
 
 }
