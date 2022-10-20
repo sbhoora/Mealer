@@ -135,13 +135,16 @@ public class SignUp extends AppCompatActivity {
                     if (password.getText().toString().equals(passwordConfirm.getText().toString()) == false) {
                         passwordConfirm.setError("Passwords don't match!");
                     }
-
+                    Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
                     if(userType.getSelectedItemPosition() == 0){
                         Log.i("CLIENT","onClick Client");
                         areEmpty(cookFields);
                         //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                        CreditCard card = new CreditCard(firstName.getText().toString(),creditCardNumber.getText().toString(),
+                                creditCardCVV.getText().toString(),creditCardExpirationDate.getText().toString());
+
                         Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                                password.getText().toString(), address.getText().toString(), 123);
+                                password.getText().toString(), add, card);
 
                         clientDB.child(client.getEmail()).setValue(client);
                     } else {
@@ -149,7 +152,7 @@ public class SignUp extends AppCompatActivity {
                         areEmpty(cookFields);
                         //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
                         Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                                password.getText().toString(), description.getText().toString());
+                                password.getText().toString(), add, description.getText().toString());
 
                         cookDB.child(cook.getEmail()).setValue(cook);
                     }

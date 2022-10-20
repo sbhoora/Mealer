@@ -19,8 +19,8 @@ public class Client extends Account {
         return address;
     }
 
-    public int getCreditCard(){
-        return paymentInfo();
+    public String getCreditCard(){
+        return creditCard.paymentInfo()[0];
     }
 
 }

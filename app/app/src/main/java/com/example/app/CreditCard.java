@@ -1,3 +1,5 @@
+package com.example.app;
+
 public class CreditCard {
     private String cardNumber;
     private String cvv;
@@ -28,7 +30,7 @@ public class CreditCard {
     }
 
     public String[] paymentInfo() {
-        String[] info = new int[2];
+        String[] info = new String[2];
         info[0] = getCardNumber();
         info[1] = getCvv();
         info[2] = getExp();
