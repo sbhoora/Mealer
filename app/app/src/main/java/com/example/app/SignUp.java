@@ -109,50 +109,51 @@ public class SignUp extends AppCompatActivity {
                 startActivity(new Intent(SignUp.this,MainActivity.class));
             }
 
-            private void areEmpty(EditText[] texts){
-                for (EditText text : texts){
-                    errorMsg(text);
+            private boolean areEmpty(EditText[] texts){
+                boolean atLeastOneEmpty = false;
+                for (EditText text : texts) {
+                    if (TextUtils.isEmpty(text.getText().toString())) {
+                        errorMsg(text);
+                        atLeastOneEmpty = true;
+                    }
                 }
+                return atLeastOneEmpty;
             }
 
             private void errorMsg(EditText v){
-                if(TextUtils.isEmpty(v.getText().toString())) {
-                    v.setError("Please fill in this field.");
-                    return;
-                }
+                v.setError("Please fill in this field.");
             }
 
             private boolean isEmpty(TextView view) {return view.getText().toString().isEmpty();}
             @Override
             public void onClick(View v) {
-                areEmpty(commonFields);
 
-                if (password.getText().toString().equals(passwordConfirm.getText().toString()) == false) {
-                   passwordConfirm.setError("Passwords don't match!");
-                }
+                if (!areEmpty(commonFields)) {
+                    if (password.getText().toString().equals(passwordConfirm.getText().toString()) == false) {
+                        passwordConfirm.setError("Passwords don't match!");
+                    }
 
-                if(userType.getSelectedItemPosition() == 0){
-                    Log.i("CLIENT","onClick Client");
-                    areEmpty(cookFields);
+                    if(userType.getSelectedItemPosition() == 0){
+                        Log.i("CLIENT","onClick Client");
+                        areEmpty(cookFields);
+                        //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                        Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
+                                password.getText().toString(), address.getText().toString(), 123);
+
+                        clientDB.setValue(client);
+                    } else {
+                        Log.i("COOK","onClick Cook");
+                        areEmpty(cookFields);
+                        //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                        Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
+                                password.getText().toString(), description.getText().toString());
+
+                        cookDB.setValue(cook);
+                    }
                     //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
-                    Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                            password.getText().toString(), address.getText().toString(), 123);
-
-                    clientDB.setValue(client);
-                } else {
-                    Log.i("COOK","onClick Cook");
-                    areEmpty(cookFields);
-                    //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
-                    Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                            password.getText().toString(), description.getText().toString());
-
-                    cookDB.setValue(cook);
-                }
-                //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
-                Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                };
             }
-
-
         });
     }
 
