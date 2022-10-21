@@ -38,6 +38,7 @@ public class SignUp extends AppCompatActivity {
         TextView errorMessage = (TextView) findViewById(R.id.errorMessage);
 
         DatabaseReference databaseAccounts;
+        DatabaseReference cu;
         databaseAccounts = FirebaseDatabase.getInstance("https://mealer-2f04c-default-rtdb.firebaseio.com/").getReference().child("Accounts");
 
         super.onCreate(savedInstanceState);
@@ -110,6 +111,7 @@ public class SignUp extends AppCompatActivity {
 
         DatabaseReference clientDB = databaseAccounts.child("Clients");
         DatabaseReference cookDB = databaseAccounts.child("Cooks");
+        cu = FirebaseDatabase.getInstance().getReference("Accounts");
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void goHome(View v) {
@@ -150,6 +152,7 @@ public class SignUp extends AppCompatActivity {
                 String eMail = email.getText().toString();
                 String pWord = password.getText().toString();
                 Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
+                HashMap<String, String> currentUser = new HashMap<String, String>();
 
                 if (userType.getSelectedItemPosition() == 0 && !areEmpty(clientFields) && isMatching()) {
                     Log.i("CLIENT","onClick Client");
@@ -163,6 +166,9 @@ public class SignUp extends AppCompatActivity {
                     String temp = client.getEmail().replace(".", "");
                     clientDB.child(temp).setValue(client);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                    currentUser.put(client.getEmail(),"Client");
+                    cu.child("CurrentUser").setValue(currentUser);
+                    goHome(v);
 
                 } else if (userType.getSelectedItemPosition() == 1 && !areEmpty(cookFields) && isMatching()){
                     Log.i("COOK","onClick Cook");
@@ -172,6 +178,9 @@ public class SignUp extends AppCompatActivity {
                     String temp = cook.getEmail().replace(".", "");
                     cookDB.child(temp).setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                    currentUser.put(cook.getEmail(),"Cook");
+                    cu.child("CurrentUser").setValue(currentUser);
+                    goHome(v);
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
                 };
@@ -179,5 +188,8 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    public void goHome(View v) {
+        startActivity(new Intent(SignUp.this,Home.class));
+    }
 
 }

@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    Log.i("FIREBASE", "FAIL");
+                    Log.i("FIREBASE", "FAIL0");
                     reference2.child("Cooks").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -100,12 +100,14 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                                    cu.child("CurrentUser").setValue(email);
+                                    HashMap<String, String> currentUser = new HashMap<String, String>();
+                                    currentUser.put(email,"Cook");
+                                    cu.child("CurrentUser").setValue(currentUser);
                                     goHome(v);
                                 }
 
                             } else {
-                                Log.i("FIREBASE", "FAIL");
+                                Log.i("FIREBASE", "FAIL1");
                                 Toast.makeText(MainActivity.this,"This user doesn't exist.", Toast.LENGTH_SHORT).show();
                             }
                         }
