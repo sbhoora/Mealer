@@ -1,8 +1,12 @@
 package com.example.app;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -113,6 +117,7 @@ public class SignUp extends AppCompatActivity {
         DatabaseReference cookDB = databaseAccounts.child("Cooks");
         cu = FirebaseDatabase.getInstance().getReference("Accounts");
 
+        // Sign up Button Listener
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void goHome(View v) {
                 startActivity(new Intent(SignUp.this,MainActivity.class));
@@ -184,6 +189,14 @@ public class SignUp extends AppCompatActivity {
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
                 };
+            }
+        });
+
+        // Upload Cheque Button Listener
+        uploadVoidChequeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignUp.this, VoidCheque.class));
             }
         });
     }

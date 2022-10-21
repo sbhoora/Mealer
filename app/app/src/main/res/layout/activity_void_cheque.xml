@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbf2ff"
+    tools:context=".VoidCheque">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/voidCheque"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/uploadVoidChequeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="#e4024d"
+            android:text="Upload Void Cheque"
+            android:textSize="15dp"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="#e4024d"
+            android:text="Done"
+            android:textSize="15dp"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</RelativeLayout>
