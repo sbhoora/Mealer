@@ -204,5 +204,8 @@ public class SignUp extends AppCompatActivity {
     public void goHome(View v) {
         startActivity(new Intent(SignUp.this,Home.class));
     }
+    public void goSignIn(View v) {
+        startActivity(new Intent(SignUp.this,MainActivity.class));
+    }
 
 }

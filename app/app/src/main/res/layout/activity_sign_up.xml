@@ -221,11 +221,18 @@
                     android:textAllCaps="false"
                     android:textSize="15dp" />
 
-                <ImageView
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signInButton"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:onClick="goHome"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:gravity="right"
+                    android:onClick="goSignIn"
+                    android:text="Sign In"
+                    android:textAllCaps="false"
+                    android:textColor="#e4024d"
+                    android:textSize="20dp" />
 
             </LinearLayout>
         </ScrollView>
