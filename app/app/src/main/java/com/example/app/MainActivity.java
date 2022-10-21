@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,9 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                     isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
                     Log.i("onClick", "pass");
+                } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+                    email.setError("Please fill in this field.");
+                    password.setError("Please fill in this field.");
+                    Toast.makeText(MainActivity.this,"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 } else if (email.getText().toString().isEmpty()){
+                    email.setError("Please fill in this field.");
                     Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
                 } else if (password.getText().toString().isEmpty()){
+                    password.setError("Please fill in this field.");
                     Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                 }
 
