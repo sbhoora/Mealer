@@ -65,12 +65,12 @@ public class SignUp extends AppCompatActivity {
         Button uploadVoidChequeButton = (Button) findViewById(R.id.uploadVoidChequeButton);
 
         // Sign Up
-        Button signUpButton = (Button) findViewById(R.id.signUpButton);
+        MaterialButton signUpButton = (MaterialButton) findViewById(R.id.signUpButton);
 
         // Groups
         EditText[] commonFields = {firstName, lastName, address, email, password, passwordConfirm};
-        EditText[] cookFields = {description};
-        EditText[] clientFields = {creditCardNumber,creditCardExpirationDate,creditCardCVV};
+        EditText[] cookFields = {firstName, lastName, address, email, password, passwordConfirm, description};
+        EditText[] clientFields = {firstName, lastName, address, email, password, passwordConfirm, creditCardNumber,creditCardExpirationDate,creditCardCVV};
 
         userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -83,6 +83,7 @@ public class SignUp extends AppCompatActivity {
 
                     creditCardNumber.setVisibility(View.VISIBLE);
                     creditCardInfoLinearLayout.setVisibility(View.VISIBLE);
+                    clearErrors(clientFields);
                 }
                 else {
                     System.out.println("Switching to cook mode");
@@ -91,6 +92,7 @@ public class SignUp extends AppCompatActivity {
 
                     description.setVisibility(View.VISIBLE);
                     uploadVoidChequeButton.setVisibility(View.VISIBLE);
+                    clearErrors(cookFields);
                 }
             }
 
@@ -98,13 +100,18 @@ public class SignUp extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
 
             }
+
+            private void clearErrors(EditText[] texts) {
+                for (EditText text : texts) {
+                    text.setError(null);
+                }
+            }
         });
 
-        MaterialButton signInButton = (MaterialButton) findViewById(R.id.signUpButton);
         DatabaseReference clientDB = databaseAccounts.child("Clients");
         DatabaseReference cookDB = databaseAccounts.child("Cooks");
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        signUpButton.setOnClickListener(new View.OnClickListener() {
             public void goHome(View v) {
                 startActivity(new Intent(SignUp.this,MainActivity.class));
             }
@@ -138,29 +145,29 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!areEmpty(commonFields) && isMatching()) {
-                    Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
-                    if(userType.getSelectedItemPosition() == 0){
-                        Log.i("CLIENT","onClick Client");
-                        areEmpty(cookFields);
-                        //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
-                        CreditCard card = new CreditCard(firstName.getText().toString(),creditCardNumber.getText().toString(),
-                                creditCardCVV.getText().toString(),creditCardExpirationDate.getText().toString());
+                String fName = firstName.getText().toString();
+                String lName = lastName.getText().toString();
+                String eMail = email.getText().toString();
+                String pWord = password.getText().toString();
+                Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
 
-                        Client client = new Client(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                                password.getText().toString(), add, card);
+                if (userType.getSelectedItemPosition() == 0 && !areEmpty(clientFields) && isMatching()) {
+                    Log.i("CLIENT","onClick Client");
+                    String ccNumber = creditCardNumber.getText().toString();
+                    String cvv = creditCardCVV.getText().toString();
+                    String exp = creditCardExpirationDate.getText().toString();
+                    String cardName = fName + " " + lName;
 
-                        clientDB.child(client.getEmail().substring(0,client.getEmail().length()-4)).setValue(client);
-                    } else {
-                        Log.i("COOK","onClick Cook");
-                        areEmpty(cookFields);
-                        //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
-                        Cook cook = new Cook(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(),
-                                password.getText().toString(), add, description.getText().toString());
+                    CreditCard card = new CreditCard(cardName, ccNumber, cvv, exp);
+                    Client client = new Client(fName, lName, eMail, pWord, add, card);
+                    clientDB.child(client.getEmail().substring(0,client.getEmail().length()-4)).setValue(client);
+                    Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+                } else if (userType.getSelectedItemPosition() == 1 && !areEmpty(cookFields) && isMatching()){
+                    Log.i("COOK","onClick Cook");
+                    String desc = description.getText().toString();
 
-                        cookDB.child(cook.getEmail().substring(0,cook.getEmail().length()-4)).setValue(cook);
-                    }
-                    //SEE IF ALL FIELDS ARE FILLED CORRECTLY FIRST
+                    Cook cook = new Cook(fName, lName, eMail, pWord, add, desc);
+                    cookDB.child(cook.getEmail().substring(0,cook.getEmail().length()-4)).setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
