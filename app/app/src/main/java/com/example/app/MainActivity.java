@@ -38,24 +38,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //String a = email.getText().toString().substring(email.getText().toString().length()-4);
-
+                if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
+                    // correct
+                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    goHome(v);
+                }
                 if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
-                    isItUser(email.getText().toString(),password.getText().toString(), v);
+                    isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
                     Log.i("onClick", "pass");
                 } else if (email.getText().toString().isEmpty()){
                     Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
                 } else if (password.getText().toString().isEmpty()){
                     Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                 }
-                /*
-                if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
-                   // correct
-                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                    goHome(v);
-                } else {
-                    Toast.makeText(MainActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
-                }
-                */
+
             }
         });
     }
@@ -76,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     if(!pw.equals(password)){
                         Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                     } else {
+                        Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
                         goHome(v);
                     }
 
@@ -93,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(!pw.equals(password)){
                                     Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
                                     goHome(v);
                                 }
 

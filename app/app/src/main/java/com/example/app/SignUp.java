@@ -160,14 +160,17 @@ public class SignUp extends AppCompatActivity {
 
                     CreditCard card = new CreditCard(cardName, ccNumber, cvv, exp);
                     Client client = new Client(fName, lName, eMail, pWord, add, card);
-                    clientDB.child(client.getEmail().substring(0,client.getEmail().length()-4)).setValue(client);
+                    String temp = client.getEmail().replace(".", "");
+                    clientDB.child(temp).setValue(client);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
+
                 } else if (userType.getSelectedItemPosition() == 1 && !areEmpty(cookFields) && isMatching()){
                     Log.i("COOK","onClick Cook");
                     String desc = description.getText().toString();
 
                     Cook cook = new Cook(fName, lName, eMail, pWord, add, desc);
-                    cookDB.child(cook.getEmail().substring(0,cook.getEmail().length()-4)).setValue(cook);
+                    String temp = cook.getEmail().replace(".", "");
+                    cookDB.child(temp).setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
