@@ -48,22 +48,23 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
                     cu.child("CurrentUser").setValue("Admin");
                     goHome(v);
+                    return;
+                } else {
+                    if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
+                        isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
+                        Log.i("onClick", "pass");
+                    } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+                        email.setError("Please fill in this field.");
+                        password.setError("Please fill in this field.");
+                        Toast.makeText(MainActivity.this,"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                    } else if (email.getText().toString().isEmpty()){
+                        email.setError("Please fill in this field.");
+                        Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
+                    } else if (password.getText().toString().isEmpty()){
+                        password.setError("Please fill in this field.");
+                        Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
-                    isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
-                    Log.i("onClick", "pass");
-                } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
-                    email.setError("Please fill in this field.");
-                    password.setError("Please fill in this field.");
-                    Toast.makeText(MainActivity.this,"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
-                } else if (email.getText().toString().isEmpty()){
-                    email.setError("Please fill in this field.");
-                    Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
-                } else if (password.getText().toString().isEmpty()){
-                    password.setError("Please fill in this field.");
-                    Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
     }
