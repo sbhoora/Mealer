@@ -12,11 +12,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="421dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:backgroundTint="#e4024d"
+                android:insetLeft="10dp"
+                android:padding="10dp"
+                android:text="Sign Out"
+                android:textAllCaps="false"
+                android:textSize="15dp" />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:onClick="goHome" />
+            android:onClick="goHome"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/signup"
@@ -33,6 +52,7 @@
             android:textColor="@color/black"
             android:textSize="35dp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 

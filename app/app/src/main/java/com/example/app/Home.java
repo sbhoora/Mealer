@@ -3,17 +3,22 @@ package com.example.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
 
 public class Home extends AppCompatActivity {
     DatabaseReference ref;
@@ -22,10 +27,17 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutBtn);
+
         setContentView(R.layout.activity_home);
         TextView signup = (TextView) findViewById(R.id.signup);
         userType(signup);
+
+        this.findViewById(R.id.signOutBtn).setOnClickListener(view -> {
+            this.startActivity(new Intent(this,MainActivity.class));
+        });
     }
+
 
     private void userType(TextView tv){
         ref = FirebaseDatabase.getInstance().getReference("Accounts");
