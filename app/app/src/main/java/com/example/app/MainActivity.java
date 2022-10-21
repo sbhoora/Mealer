@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
                     isItUser(email.getText().toString(),password.getText().toString(), v);
                     Log.i("onClick", "pass");
                 } else if (email.getText().toString().isEmpty()){
-                    Toast.makeText(MainActivity.this,"Please enter email.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
                 } else if (password.getText().toString().isEmpty()){
-                    Toast.makeText(MainActivity.this,"Please enter password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                 }
                 /*
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
