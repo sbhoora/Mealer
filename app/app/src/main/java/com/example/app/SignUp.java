@@ -183,7 +183,7 @@ public class SignUp extends AppCompatActivity {
                     String temp = cook.getEmail().replace(".", "");
                     cookDB.child(temp).setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
-                    currentUser.put(cook.getEmail(),"Cook");
+                    currentUser.put(cook.getEmail().replace(".", ""),"Cook");
                     cu.child("CurrentUser").setValue(currentUser);
                     goHome(v);
                 } else {
