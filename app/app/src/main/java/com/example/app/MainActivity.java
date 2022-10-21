@@ -19,13 +19,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference reference1;
     DatabaseReference reference2;
+    DatabaseReference cu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        cu = FirebaseDatabase.getInstance().getReference("Accounts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
                     // correct
                     Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    cu.child("CurrentUser").setValue("Admin");
                     goHome(v);
                 }
                 if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void isItUser(String email, String pw, View v){
         reference1 = FirebaseDatabase.getInstance().getReference("Accounts");
         reference2 = FirebaseDatabase.getInstance().getReference("Accounts");
+        cu = FirebaseDatabase.getInstance().getReference("Accounts");
 
         reference1.child("Clients").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -73,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                        HashMap<String, String> currentUser = new HashMap<String, String>();
+                        currentUser.put(email,"Client");
+                        cu.child("CurrentUser").setValue(currentUser);
                         goHome(v);
                     }
 
@@ -91,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                                    cu.child("CurrentUser").setValue(email);
                                     goHome(v);
                                 }
 
@@ -103,10 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void isItCook(String email){
-        DatabaseReference cookDB = FirebaseDatabase.getInstance().getReference("Cooks");
     }
 
     public void goToSignUp(View v) {
