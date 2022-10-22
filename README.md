@@ -10,4 +10,4 @@ Shubhi Bhoora 300228522
 Username: admin
 <br>Password: admin
 
-### *The text fields require devices to have dark mode off*
+<br>*The text fields require devices to have dark mode off*
