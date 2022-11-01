@@ -1,14 +1,9 @@
 package com.example.app;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,19 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.google.android.material.button.MaterialButton;
-
-import org.w3c.dom.Text;
 
 public class SignUp extends AppCompatActivity {
 
@@ -120,7 +108,7 @@ public class SignUp extends AppCompatActivity {
         // Sign up Button Listener
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void goHome(View v) {
-                startActivity(new Intent(SignUp.this,MainActivity.class));
+                startActivity(new Intent(SignUp.this, SignIn.class));
             }
 
             private boolean areEmpty(EditText[] texts){
@@ -205,7 +193,7 @@ public class SignUp extends AppCompatActivity {
         startActivity(new Intent(SignUp.this,Home.class));
     }
     public void goSignIn(View v) {
-        startActivity(new Intent(SignUp.this,MainActivity.class));
+        startActivity(new Intent(SignUp.this, SignIn.class));
     }
 
 }

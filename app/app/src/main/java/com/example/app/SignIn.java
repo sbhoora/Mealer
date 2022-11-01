@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,14 +14,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     DatabaseReference reference1;
     DatabaseReference reference2;
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         cu = FirebaseDatabase.getInstance().getReference("Accounts");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_in);
 
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.password);
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 //String a = email.getText().toString().substring(email.getText().toString().length()-4);
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
                     // correct
-                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
                     cu.child("CurrentUser").setValue("Admin");
                     goHome(v);
                     return;
@@ -56,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
                     } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
                         email.setError("Please fill in this field.");
                         password.setError("Please fill in this field.");
-                        Toast.makeText(MainActivity.this,"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                     } else if (email.getText().toString().isEmpty()){
                         email.setError("Please fill in this field.");
-                        Toast.makeText(MainActivity.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Please enter your email.", Toast.LENGTH_SHORT).show();
                     } else if (password.getText().toString().isEmpty()){
                         password.setError("Please fill in this field.");
-                        Toast.makeText(MainActivity.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -84,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("FIREBASE", password);
 
                     if(!pw.equals(password)){
-                        Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
                         HashMap<String, String> currentUser = new HashMap<String, String>();
                         currentUser.put(email,"Client");
                         cu.child("CurrentUser").setValue(currentUser);
@@ -105,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("FIREBASE", password);
 
                                 if(!pw.equals(password)){
-                                    Toast.makeText(MainActivity.this,"Wrong password.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
                                     HashMap<String, String> currentUser = new HashMap<String, String>();
                                     currentUser.put(email,"Cook");
                                     cu.child("CurrentUser").setValue(currentUser);
@@ -116,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 Log.i("FIREBASE", "FAIL1");
-                                Toast.makeText(MainActivity.this,"This user doesn't exist.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignIn.this,"This user doesn't exist.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -126,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToSignUp(View v) {
-        startActivity(new Intent(MainActivity.this,SignUp.class));
+        startActivity(new Intent(SignIn.this,SignUp.class));
     }
 
     public void goHome(View v) {
-        startActivity(new Intent(MainActivity.this,Home.class));
+        startActivity(new Intent(SignIn.this,Home.class));
     }
 }
