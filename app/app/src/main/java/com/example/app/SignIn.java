@@ -122,11 +122,11 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-    public void goToSignUp(View v) {
+    private void goToSignUp(View v) {
         startActivity(new Intent(SignIn.this,SignUp.class));
     }
 
-    public void goHome(View v) {
+    private void goHome(View v) {
         startActivity(new Intent(SignIn.this,Home.class));
     }
 }
