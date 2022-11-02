@@ -35,6 +35,12 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Ended Activity: Home");
+    }
+
     private void userType(TextView tv){
         ref = FirebaseDatabase.getInstance().getReference("Accounts");
         userRef = FirebaseDatabase.getInstance().getReference("Accounts");

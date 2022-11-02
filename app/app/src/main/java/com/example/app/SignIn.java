@@ -82,6 +82,24 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("Resumed Activity: SignIn");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("Paused Activity: SignIn");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Ended Activity: SignIn");
+    }
+
     private void isItUser(String email, String pw, View v){
         reference1 = FirebaseDatabase.getInstance().getReference("Accounts");
         reference2 = FirebaseDatabase.getInstance().getReference("Accounts");

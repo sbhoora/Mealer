@@ -222,13 +222,12 @@
                     android:textSize="15dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/signInButton"
+                    android:id="@+id/goToSignInButton"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     android:gravity="right"
-                    android:onClick="goSignIn"
                     android:text="Sign In"
                     android:textAllCaps="false"
                     android:textColor="#e4024d"

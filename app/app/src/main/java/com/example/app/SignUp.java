@@ -55,10 +55,11 @@ public class SignUp extends AppCompatActivity {
         LinearLayout creditCardInfoLinearLayout = (LinearLayout) findViewById(R.id.creditCardInfoLinearLayout);
         EditText creditCardExpirationDate = (EditText) findViewById(R.id.creditCardExpirationDate);
         EditText creditCardCVV = (EditText) findViewById(R.id.creditCardCVV);
-        Button uploadVoidChequeButton = (Button) findViewById(R.id.uploadVoidChequeButton);
 
-        // Sign Up
+        // Buttons
         MaterialButton signUpButton = (MaterialButton) findViewById(R.id.signUpButton);
+        Button uploadVoidChequeButton = (Button) findViewById(R.id.uploadVoidChequeButton);
+        MaterialButton goToSignInButton = (MaterialButton) findViewById(R.id.goToSignInButton);
 
         // Groups
         EditText[] commonFields = {firstName, lastName, address, email, password, passwordConfirm};
@@ -185,13 +186,25 @@ public class SignUp extends AppCompatActivity {
                 startActivity(new Intent(SignUp.this, VoidCheque.class));
             }
         });
+
+        // Sign In Button Listener
+        // Ends current Sign Up activity and sends user back to Sign In
+        goToSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignUp.this.finish();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Ended Activity: SignUp");
     }
 
     public void goHome(View v) {
         startActivity(new Intent(SignUp.this,Home.class));
     }
-    public void goSignIn(View v) {
-        startActivity(new Intent(SignUp.this, SignIn.class));
-    }
-
 }
