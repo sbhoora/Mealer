@@ -61,13 +61,12 @@
             android:textSize="15dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUpButton"
+            android:id="@+id/goToSignUpButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:gravity="right"
-            android:onClick="goToSignUp"
             android:text="Sign up"
             android:textAllCaps="false"
             android:textColor="#e4024d"

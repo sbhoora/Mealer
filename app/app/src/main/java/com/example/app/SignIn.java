@@ -31,11 +31,18 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        System.out.println("New Activity: SignIn");
+
+        // Text Views
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.password);
 
+        // Buttons
         MaterialButton signInButton = (MaterialButton) findViewById(R.id.signinbutton);
+        MaterialButton goToSignUpButton = (MaterialButton) findViewById(R.id.goToSignUpButton);
 
+        // Authenticates user
+        // If input info is valid, the home activity is started and the user is sent there.
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +69,15 @@ public class SignIn extends AppCompatActivity {
                         Toast.makeText(SignIn.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        // Listens for sign up button click
+        // If clicked, sends user to the sign up activity.
+        goToSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignIn.this,SignUp.class));
             }
         });
     }
@@ -120,10 +136,6 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void goToSignUp(View v) {
-        startActivity(new Intent(SignIn.this,SignUp.class));
     }
 
     private void goHome(View v) {

@@ -27,6 +27,8 @@ public class VoidCheque extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_void_cheque);
 
+        System.out.println("New Activity: VoidCheque");
+
         cheque = (ImageView) findViewById(R.id.voidCheque);
         upload = (Button) findViewById(R.id.uploadVoidChequeButton);
         done = (Button) findViewById(R.id.doneButton);
@@ -50,6 +52,13 @@ public class VoidCheque extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("Ended Activity: VoidCheque");
     }
 
     @Override

@@ -65,6 +65,8 @@ public class SignUp extends AppCompatActivity {
         EditText[] cookFields = {firstName, lastName, address, email, password, passwordConfirm, description};
         EditText[] clientFields = {firstName, lastName, address, email, password, passwordConfirm, creditCardNumber,creditCardExpirationDate,creditCardCVV};
 
+        System.out.println("New Activity: SignUp");
+
         userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -107,10 +109,6 @@ public class SignUp extends AppCompatActivity {
 
         // Sign up Button Listener
         signUpButton.setOnClickListener(new View.OnClickListener() {
-            public void goHome(View v) {
-                startActivity(new Intent(SignUp.this, SignIn.class));
-            }
-
             private boolean areEmpty(EditText[] texts){
                 boolean atLeastOneEmpty = false;
                 for (EditText text : texts) {

@@ -22,6 +22,8 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        System.out.println("New Activity: Home");
         MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutBtn);
 
         setContentView(R.layout.activity_home);
@@ -32,7 +34,6 @@ public class Home extends AppCompatActivity {
             this.startActivity(new Intent(this, SignIn.class));
         });
     }
-
 
     private void userType(TextView tv){
         ref = FirebaseDatabase.getInstance().getReference("Accounts");
