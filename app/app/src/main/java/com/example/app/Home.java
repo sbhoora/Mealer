@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,16 +23,24 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        System.out.println("New Activity: Home");
-        MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutBtn);
-
         setContentView(R.layout.activity_home);
-        TextView signup = (TextView) findViewById(R.id.signup);
-        userType(signup);
 
-        this.findViewById(R.id.signOutBtn).setOnClickListener(view -> {
-            this.startActivity(new Intent(this, SignIn.class));
+        // Text Views
+        TextView welcome = (TextView) findViewById(R.id.welcomeMessage);
+
+        // Console message
+        System.out.println("New Activity: Home");
+
+        // Buttons
+        MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutButton);
+
+        userType(welcome);
+
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Home.this.finish();
+            }
         });
     }
 

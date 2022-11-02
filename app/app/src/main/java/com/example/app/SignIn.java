@@ -89,8 +89,8 @@ public class SignIn extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         System.out.println("Paused Activity: SignIn");
     }
 

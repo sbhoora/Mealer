@@ -19,7 +19,7 @@
             android:gravity="right">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/signOutBtn"
+                android:id="@+id/signOutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -31,7 +31,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/signup"
+            android:id="@+id/welcomeMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
