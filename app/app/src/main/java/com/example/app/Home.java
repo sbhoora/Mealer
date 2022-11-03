@@ -43,6 +43,25 @@ public class Home extends AppCompatActivity {
             welcome.setText("Welcome! You are signed in as " + type + ".");
         }
 
+        // To get signed in user email
+        String email = fromSignIn.getStringExtra("email");
+
+        // i.e.
+            // retrieve account info from db with email as key
+            // display user email on screen
+            // do what you want :)
+
+        // Essentially, to pass any info from SignIn, where user info is retrieved from db
+        // on SignIn do
+            // Bundle b = new Bundle() /// Essentially a Java Map but preferred for Android Studio
+            // b.putString("giveitaname", value) //// value can be any primitive data type
+            // yourIntent.putExtras(b)
+            // ....
+            // startActivity(yourIntent)
+        // on Home do
+            // retrievedValue = intent.getStringExtra("nameyougaveit")
+        // tada!
+
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
