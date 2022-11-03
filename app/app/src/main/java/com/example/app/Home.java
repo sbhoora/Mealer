@@ -38,17 +38,10 @@ public class Home extends AppCompatActivity {
         // Uses info to present proper account type on welcome
         Intent fromSignIn = getIntent();
         String type = fromSignIn.getStringExtra("accountType");
-        // if condition seems redundant right now
-        // but this is only until other accounts values are passed as well
-        if (type != null && type.equals("Administrator")) {
-            // ideally this is the only line necessary
+        if (type != null) {
             // whatever account type is passed will be added to the text view
             welcome.setText("Welcome! You are signed in as " + type + ".");
-        } else {
-            // temporary until can be implemented for all account types
-            userType(welcome);
         }
-
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,26 +56,4 @@ public class Home extends AppCompatActivity {
         super.onDestroy();
         System.out.println("Ended Activity: Home");
     }
-
-    private void userType(TextView tv){
-        ref = FirebaseDatabase.getInstance().getReference("Accounts");
-        userRef = FirebaseDatabase.getInstance().getReference("Accounts");
-        ref.child("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                String temp = "Welcome! You are signed in as ";
-                DataSnapshot dataSnapshot = task.getResult();
-                String currentUser = String.valueOf(dataSnapshot.getValue());
-                Log.i("CU",currentUser);
-                if(currentUser.contains("Client")){
-                    tv.setText(temp + "Client.");
-                } else if(currentUser.contains("Cook")){
-                    tv.setText(temp + "Cook.");
-                } else {
-                    tv.setText(temp + "Administrator.");
-                }
-            }
-        });
-    }
-
 }

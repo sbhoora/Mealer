@@ -63,7 +63,7 @@ public class SignIn extends AppCompatActivity {
                     // intent action type to sign in
                     Intent adminSignIn = new Intent(ACTION_SIGN_IN);
                     // activity intent is coming from and activity it's going to
-                    adminSignIn.setClass(SignIn.this, Home.class);
+                    adminSignIn.setClass(SignIn.this, AdminHome.class);
                     // string to be passed
                     String type = "Administrator";
                     // other types can be passed as well.
@@ -72,14 +72,9 @@ public class SignIn extends AppCompatActivity {
                     adminSignIn.putExtra("accountType", type);
                     // start activity with that intent
                     startActivity(adminSignIn);
-
-                    ////////////////////////// Following can be removed //////////////////////
-                    //cu.child("CurrentUser").setValue("Admin");
-                    //goHome(v);
-                    //return;
                 } else {
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
-                        isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
+                        isItUser(email.getText().toString().replace(".",""),password.getText().toString(), ACTION_SIGN_IN);
                         Log.i("onClick", "pass");
                     } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
                         email.setError("Please fill in this field.");
@@ -124,11 +119,12 @@ public class SignIn extends AppCompatActivity {
         System.out.println("Ended Activity: SignIn");
     }
 
-    private void isItUser(String email, String pw, View v){
+    private void isItUser(String email, String pw, String ACTION_SIGN_IN){
         reference1 = FirebaseDatabase.getInstance().getReference("Accounts");
         reference2 = FirebaseDatabase.getInstance().getReference("Accounts");
         cu = FirebaseDatabase.getInstance().getReference("Accounts");
 
+        System.out.println("Complete Listener");
         reference1.child("Clients").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -142,10 +138,15 @@ public class SignIn extends AppCompatActivity {
                         Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                        HashMap<String, String> currentUser = new HashMap<String, String>();
-                        currentUser.put(email,"Client");
-                        cu.child("CurrentUser").setValue(currentUser);
-                        goHome(v);
+
+                        // Passing client info to Home activity on activity start
+                        Intent clientSignIn = new Intent(ACTION_SIGN_IN);
+                        clientSignIn.setClass(SignIn.this, Home.class);
+                        Bundle info = new Bundle();
+                        info.putString("email", email);
+                        info.putString("accountType", "Client");
+                        clientSignIn.putExtras(info);
+                        startActivity(clientSignIn);
                     }
 
                 } else {
@@ -162,10 +163,15 @@ public class SignIn extends AppCompatActivity {
                                     Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                                    HashMap<String, String> currentUser = new HashMap<String, String>();
-                                    currentUser.put(email,"Cook");
-                                    cu.child("CurrentUser").setValue(currentUser);
-                                    goHome(v);
+
+                                    // Passing cook info to Home activity on activity start
+                                    Intent cookSignIn = new Intent(ACTION_SIGN_IN);
+                                    cookSignIn.setClass(SignIn.this, Home.class);
+                                    Bundle info = new Bundle();
+                                    info.putString("email", email);
+                                    info.putString("accountType", "Cook");
+                                    cookSignIn.putExtras(info);
+                                    startActivity(cookSignIn);
                                 }
 
                             } else {
@@ -177,9 +183,5 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void goHome(View v) {
-        startActivity(new Intent(SignIn.this,Home.class));
     }
 }

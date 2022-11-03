@@ -22,6 +22,9 @@ public class AdminHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
 
+        // Console Message
+        System.out.println("New Activity: AdminHome");
+
         // Buttons
         MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
 
@@ -67,5 +70,11 @@ public class AdminHome extends AppCompatActivity {
                 AdminHome.this.finish();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Ended Activity: AdminHome");
     }
 }

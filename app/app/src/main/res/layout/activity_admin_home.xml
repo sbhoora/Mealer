@@ -37,6 +37,16 @@
         android:textSize="35dp"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:text="Press and hold to open the complaint."
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:textAlignment="center" />
+
     <ListView
         android:id="@+id/complaintListView"
         android:layout_width="match_parent"
