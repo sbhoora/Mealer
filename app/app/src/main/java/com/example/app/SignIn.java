@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class SignIn extends AppCompatActivity {
 
         System.out.println("New Activity: SignIn");
 
+        // Sign In Intent action
+        final String ACTION_SIGN_IN = "com.example.action.LOG_IN";
+
         // Text Views
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.password);
@@ -50,9 +54,23 @@ public class SignIn extends AppCompatActivity {
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
                     // correct
                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                    cu.child("CurrentUser").setValue("Admin");
-                    goHome(v);
-                    return;
+
+                    // Passes account type to Home activity on activity start
+                    // Eliminates the need for storing a "CurrentUser" value on the database
+                    // Simply passes value between activities
+                    Intent adminSignIn = new Intent(ACTION_SIGN_IN);
+                    adminSignIn.setClass(SignIn.this, Home.class);
+                    String type = "Administrator";
+                    // adds a string as a passed value
+                    // other types can be passed as well.
+                    // see https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20byte)
+                    adminSignIn.putExtra("accountType", type);
+                    startActivity(adminSignIn);
+
+                    // Following can be removed
+                    //cu.child("CurrentUser").setValue("Admin");
+                    //goHome(v);
+                    //return;
                 } else {
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                         isItUser(email.getText().toString().replace(".",""),password.getText().toString(), v);
@@ -130,7 +148,6 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if(task.getResult().exists()){
-                                //Toast.makeText(MainActivity.this,"SUCCESS", Toast.LENGTH_SHORT).show();
                                 DataSnapshot dataSnapshot = task.getResult();
                                 String password = String.valueOf(dataSnapshot.child("password").getValue());
                                 Log.d("FIREBASE", password);

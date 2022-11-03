@@ -33,6 +33,7 @@ public class VoidCheque extends AppCompatActivity {
         upload = (Button) findViewById(R.id.uploadVoidChequeButton);
         done = (Button) findViewById(R.id.doneButton);
 
+        // Opens camera or gallery to upload void cheque picture
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,16 +45,14 @@ public class VoidCheque extends AppCompatActivity {
             }
         });
 
+        // Ends activity
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 VoidCheque.this.finish();
             }
         });
-
-
     }
-
 
     @Override
     protected void onStop() {

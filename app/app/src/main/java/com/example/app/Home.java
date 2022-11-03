@@ -34,7 +34,21 @@ public class Home extends AppCompatActivity {
         // Buttons
         MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutButton);
 
-        userType(welcome);
+        // Getting account info passed from Sign In activity
+        // Uses info to present proper account type on welcome
+        Intent fromSignIn = getIntent();
+        String type = fromSignIn.getStringExtra("accountType");
+        // if condition seems redundant right now
+        // but this is only until other accounts values are passed as well
+        if (type != null && type.equals("Administrator")) {
+            // ideally this is the only line necessary
+            // whatever account type is passed will be added to the text view
+            welcome.setText("Welcome! You are signed in as " + type + ".");
+        } else {
+            // temporary until can be implemented for all account types
+            userType(welcome);
+        }
+
 
         signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
