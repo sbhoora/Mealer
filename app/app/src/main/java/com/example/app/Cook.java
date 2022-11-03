@@ -11,7 +11,6 @@ public class Cook extends Account {
         super(first, last, mail, pass);
         this.address = address;
         this.description = description;
-        
     }
 
     // Getters
