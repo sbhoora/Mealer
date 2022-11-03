@@ -55,19 +55,25 @@ public class SignIn extends AppCompatActivity {
                     // correct
                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
+                    //////
                     // Passes account type to Home activity on activity start
                     // Eliminates the need for storing a "CurrentUser" value on the database
                     // Simply passes value between activities
+                    //////
+                    // intent action type to sign in
                     Intent adminSignIn = new Intent(ACTION_SIGN_IN);
+                    // activity intent is coming from and activity it's going to
                     adminSignIn.setClass(SignIn.this, Home.class);
+                    // string to be passed
                     String type = "Administrator";
-                    // adds a string as a passed value
                     // other types can be passed as well.
                     // see https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20byte)
+                    // adds the value to be passed to the intent
                     adminSignIn.putExtra("accountType", type);
+                    // start activity with that intent
                     startActivity(adminSignIn);
 
-                    // Following can be removed
+                    ////////////////////////// Following can be removed //////////////////////
                     //cu.child("CurrentUser").setValue("Admin");
                     //goHome(v);
                     //return;
