@@ -13,6 +13,11 @@ public class Cook extends Account {
         this.description = description;
     }
 
+    public Cook(String email, String password, Boolean suspended) {
+        super(email, password);
+        this.suspended = suspended;
+    }
+
     // Getters
     public String getAccountType(){
         return "Cook";
