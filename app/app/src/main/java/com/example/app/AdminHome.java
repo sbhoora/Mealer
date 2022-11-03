@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.app.AlertDialog;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 
 public class AdminHome extends AppCompatActivity {
@@ -19,10 +21,16 @@ public class AdminHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
+
+        // Buttons
+        MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
+
+        // List view
         complaintListView = (ListView) findViewById(R.id.complaintListView);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.complaint_list_item, R.id.textView, testArray);
         complaintListView.setAdapter(arrayAdapter);
 
+        // Opens info when complaint is pressed
         complaintListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -49,6 +57,14 @@ public class AdminHome extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
 
                 return false;
+            }
+        });
+
+        // Signs out user
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AdminHome.this.finish();
             }
         });
     }

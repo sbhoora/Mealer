@@ -32,7 +32,7 @@ public class Home extends AppCompatActivity {
         System.out.println("New Activity: Home");
 
         // Buttons
-        MaterialButton signOutBtn = (MaterialButton) findViewById(R.id.signOutButton);
+        MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
 
         // Getting account info passed from Sign In activity
         // Uses info to present proper account type on welcome
@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity {
         }
 
 
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Home.this.finish();
