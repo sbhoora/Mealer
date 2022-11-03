@@ -139,12 +139,14 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Intent Action Sign In
+                final String ACTION_SIGN_IN = "com.example.action.LOG_IN";
+
                 String fName = firstName.getText().toString();
                 String lName = lastName.getText().toString();
                 String eMail = email.getText().toString();
                 String pWord = password.getText().toString();
                 Address add = new Address(address.getText().toString(),"K1N 2S6","Canada","ON","Ottawa");
-                HashMap<String, String> currentUser = new HashMap<String, String>();
 
                 if (userType.getSelectedItemPosition() == 0 && !areEmpty(clientFields) && isMatching()) {
                     Log.i("CLIENT","onClick Client");
@@ -158,9 +160,12 @@ public class SignUp extends AppCompatActivity {
                     String temp = client.getEmail().replace(".", "");
                     clientDB.child(temp).setValue(client);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
-                    currentUser.put(client.getEmail(),"Client");
-                    cu.child("CurrentUser").setValue(currentUser);
-                    goHome(v);
+
+                    // After signing up, automatically signs in user
+                    Bundle info = new Bundle();
+                    info.putString("email", eMail);
+                    info.putString("accountType", "Client");
+                    signIn(info, Home.class);
 
                 } else if (userType.getSelectedItemPosition() == 1 && !areEmpty(cookFields) && isMatching()){
                     Log.i("COOK","onClick Cook");
@@ -170,9 +175,12 @@ public class SignUp extends AppCompatActivity {
                     String temp = cook.getEmail().replace(".", "");
                     cookDB.child(temp).setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
-                    currentUser.put(cook.getEmail().replace(".", ""),"Cook");
-                    cu.child("CurrentUser").setValue(currentUser);
-                    goHome(v);
+
+                    // After signing up, automatically signs in user
+                    Bundle info = new Bundle();
+                    info.putString("email", eMail);
+                    info.putString("accountType", "Cook");
+                    signIn(info, Home.class);
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
                 };
@@ -196,6 +204,20 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void signIn(Bundle info, Class destination){
+        // Sign In Intent action
+        final String ACTION_SIGN_IN = "com.example.action.LOG_IN";
+
+        // Passing client info to Home activity on activity start
+        Intent signIn = new Intent(ACTION_SIGN_IN);
+        signIn.setClass(SignUp.this, destination);
+        signIn.putExtras(info);
+        startActivity(signIn);
+
+        // End this activity
+        SignUp.this.finish();
     }
 
     @Override

@@ -34,9 +34,6 @@ public class SignIn extends AppCompatActivity {
 
         System.out.println("New Activity: SignIn");
 
-        // Sign In Intent action
-        final String ACTION_SIGN_IN = "com.example.action.LOG_IN";
-
         // Text Views
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.password);
@@ -63,10 +60,10 @@ public class SignIn extends AppCompatActivity {
                     // adds the value to be passed to the intent
                     Bundle info = new Bundle();
                     info.putString("accountType", "Administrator");
-                    signIn(ACTION_SIGN_IN, info, AdminHome.class);
+                    signIn(info, AdminHome.class);
                 } else {
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
-                        isItUser(email.getText().toString().replace(".",""),password.getText().toString(), ACTION_SIGN_IN);
+                        isItUser(email.getText().toString().replace(".",""),password.getText().toString());
                         Log.i("onClick", "pass");
                     } else if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
                         email.setError("Please fill in this field.");
@@ -111,7 +108,10 @@ public class SignIn extends AppCompatActivity {
         System.out.println("Ended Activity: SignIn");
     }
 
-    private void signIn(String ACTION_SIGN_IN, Bundle info, Class destination){
+    private void signIn(Bundle info, Class destination){
+        // Sign In Intent action
+        final String ACTION_SIGN_IN = "com.example.action.LOG_IN";
+
         // Passing client info to Home activity on activity start
         Intent signIn = new Intent(ACTION_SIGN_IN);
         signIn.setClass(SignIn.this, destination);
@@ -119,7 +119,7 @@ public class SignIn extends AppCompatActivity {
         startActivity(signIn);
     }
 
-    private void isItUser(String email, String pw, String ACTION_SIGN_IN){
+    private void isItUser(String email, String pw){
         reference1 = FirebaseDatabase.getInstance().getReference("Accounts");
         reference2 = FirebaseDatabase.getInstance().getReference("Accounts");
         cu = FirebaseDatabase.getInstance().getReference("Accounts");
@@ -143,7 +143,7 @@ public class SignIn extends AppCompatActivity {
                         Bundle info = new Bundle();
                         info.putString("email", email);
                         info.putString("accountType", "Client");
-                        signIn(ACTION_SIGN_IN, info, Home.class);
+                        signIn(info, Home.class);
                     }
 
                 } else {
@@ -165,7 +165,7 @@ public class SignIn extends AppCompatActivity {
                                     Bundle info = new Bundle();
                                     info.putString("email", email);
                                     info.putString("accountType", "Cook");
-                                    signIn(ACTION_SIGN_IN, info, Home.class);
+                                    signIn(info, Home.class);
                                 }
 
                             } else {
