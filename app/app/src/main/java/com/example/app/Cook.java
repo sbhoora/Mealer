@@ -14,7 +14,7 @@ public class Cook extends Account {
         
     }
 
-
+    // Getters
     public String getAccountType(){
         return "Cook";
     }
@@ -28,5 +28,10 @@ public class Cook extends Account {
     }
 
     public Boolean isSuspended() { return suspended;};
+
+    // Setters
+    public void suspend() {suspended = true;};
+
+    public void removeSuspension() {suspended = false;};
 
 }
