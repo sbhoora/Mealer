@@ -154,18 +154,25 @@ public class SignIn extends AppCompatActivity {
                             if(task.getResult().exists()){
                                 DataSnapshot dataSnapshot = task.getResult();
                                 String password = String.valueOf(dataSnapshot.child("password").getValue());
+                                Boolean suspended = (Boolean) dataSnapshot.child("suspended").getValue();
                                 Log.d("FIREBASE", password);
 
                                 if(!pw.equals(password)){
                                     Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                                    Cook cook = new Cook(email, pw, suspended);
+                                    if (cook.isSuspended()) {
+                                        System.out.println("we're putting you away for a long time");
+                                    } else {
+                                        Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
-                                    // Passing cook info to Home activity on activity start
-                                    Bundle info = new Bundle();
-                                    info.putString("email", email);
-                                    info.putString("accountType", "Cook");
-                                    signIn(info, Home.class);
+                                        // Passing cook info to Home activity on activity start
+                                        Bundle info = new Bundle();
+                                        info.putString("email", email);
+                                        info.putString("accountType", "Cook");
+                                        signIn(info, Home.class);
+                                    }
+
                                 }
 
                             } else {
