@@ -60,18 +60,10 @@ public class SignIn extends AppCompatActivity {
                     // Eliminates the need for storing a "CurrentUser" value on the database
                     // Simply passes value between activities
                     //////
-                    // intent action type to sign in
-                    Intent adminSignIn = new Intent(ACTION_SIGN_IN);
-                    // activity intent is coming from and activity it's going to
-                    adminSignIn.setClass(SignIn.this, AdminHome.class);
-                    // string to be passed
-                    String type = "Administrator";
-                    // other types can be passed as well.
-                    // see https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20byte)
                     // adds the value to be passed to the intent
-                    adminSignIn.putExtra("accountType", type);
-                    // start activity with that intent
-                    startActivity(adminSignIn);
+                    Bundle info = new Bundle();
+                    info.putString("accountType", "Administrator");
+                    signIn(ACTION_SIGN_IN, info, AdminHome.class);
                 } else {
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                         isItUser(email.getText().toString().replace(".",""),password.getText().toString(), ACTION_SIGN_IN);
@@ -119,6 +111,14 @@ public class SignIn extends AppCompatActivity {
         System.out.println("Ended Activity: SignIn");
     }
 
+    private void signIn(String ACTION_SIGN_IN, Bundle info, Class destination){
+        // Passing client info to Home activity on activity start
+        Intent signIn = new Intent(ACTION_SIGN_IN);
+        signIn.setClass(SignIn.this, destination);
+        signIn.putExtras(info);
+        startActivity(signIn);
+    }
+
     private void isItUser(String email, String pw, String ACTION_SIGN_IN){
         reference1 = FirebaseDatabase.getInstance().getReference("Accounts");
         reference2 = FirebaseDatabase.getInstance().getReference("Accounts");
@@ -140,13 +140,10 @@ public class SignIn extends AppCompatActivity {
                         Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
                         // Passing client info to Home activity on activity start
-                        Intent clientSignIn = new Intent(ACTION_SIGN_IN);
-                        clientSignIn.setClass(SignIn.this, Home.class);
                         Bundle info = new Bundle();
                         info.putString("email", email);
                         info.putString("accountType", "Client");
-                        clientSignIn.putExtras(info);
-                        startActivity(clientSignIn);
+                        signIn(ACTION_SIGN_IN, info, Home.class);
                     }
 
                 } else {
@@ -165,13 +162,10 @@ public class SignIn extends AppCompatActivity {
                                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
                                     // Passing cook info to Home activity on activity start
-                                    Intent cookSignIn = new Intent(ACTION_SIGN_IN);
-                                    cookSignIn.setClass(SignIn.this, Home.class);
                                     Bundle info = new Bundle();
                                     info.putString("email", email);
                                     info.putString("accountType", "Cook");
-                                    cookSignIn.putExtras(info);
-                                    startActivity(cookSignIn);
+                                    signIn(ACTION_SIGN_IN, info, Home.class);
                                 }
 
                             } else {
