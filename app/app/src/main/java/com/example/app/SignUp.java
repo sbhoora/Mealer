@@ -204,7 +204,7 @@ public class SignUp extends AppCompatActivity {
         System.out.println("Ended Activity: SignUp");
     }
 
-    public void goHome(View v) {
+    private void goHome(View v) {
         startActivity(new Intent(SignUp.this,Home.class));
     }
 }
