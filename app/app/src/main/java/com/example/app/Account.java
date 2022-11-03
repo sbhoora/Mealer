@@ -14,6 +14,11 @@ public class Account {
          this.password = pass;
     }
 
+    public Account(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getFirstName() {
         return firstName;
     }
