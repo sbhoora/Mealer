@@ -117,21 +117,13 @@ public class AdminHome extends AppCompatActivity {
                         builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Suspend button
-                                if(input == null){
-                                    database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            database.child("Cooks").child(cookEmail).child("banned").setValue(true);
-                                        }
-                                    });
-                                } else {
-                                    database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
-                                        }
-                                    });
-                                }
+                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
+                                        database.child("Cooks").child(cookEmail).child("banned").setValue(false);
+                                    }
+                                });
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
@@ -146,10 +138,19 @@ public class AdminHome extends AppCompatActivity {
                                 update();
                             }
                         });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("Ban", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
+                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        database.child("Cooks").child(cookEmail).child("banned").setValue(true);
+                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(false);
+                                    }
+                                });
                                 dialog.cancel();
+                                delete(cookEmail);
+                                update();
                             }
                         });
 
