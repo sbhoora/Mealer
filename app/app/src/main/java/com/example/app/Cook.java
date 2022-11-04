@@ -1,5 +1,7 @@
 package com.example.app;
 
+import java.util.Date;
+
 public class Cook extends Account {
     
     Address address;
@@ -37,6 +39,8 @@ public class Cook extends Account {
     public Boolean isSuspended() { return suspended;};
 
     public Boolean isBanned() { return banned; };
+
+    public Date getSuspendedUntil() {{return suspendedUntil;};
 
     // Setters
     public void suspend() {suspended = true;};
