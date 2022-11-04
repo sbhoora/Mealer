@@ -1,11 +1,13 @@
 package com.example.app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,12 +16,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.app.AlertDialog;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AdminHome extends AppCompatActivity {
     ListView complaintListView;
+    DatabaseReference database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +57,32 @@ public class AdminHome extends AppCompatActivity {
         super.onDestroy();
         System.out.println("Ended Activity: AdminHome");
     }
+
     private void update(){
         // The list of complaints, should be obtained from the database
         String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
+
+        database = FirebaseDatabase.getInstance().getReference("Accounts").child("admin");
+        database.child("Complaints").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot dataSnapshot = task.getResult();
+                Complaint compArray[] = new Complaint[Math.toIntExact(dataSnapshot.getChildrenCount())];
+                Log.i("SIZE",Integer.toString(compArray.length));
+
+                Map<String,Object> compMap =  (Map<String,Object>) dataSnapshot.getValue();
+
+                int i = 0;
+
+                for(Map.Entry<String, Object> entry : compMap.entrySet()){
+                    Map comp = (Map) entry.getValue();
+                    compArray[i] = new Complaint(comp.get("subject").toString(), comp.get("complaintAbout").toString(),
+                            comp.get("complaint").toString());
+                    i++;
+                }
+            }
+        });
+
         // List view
         complaintListView = (ListView) findViewById(R.id.complaintListView);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.complaint_list_item, R.id.textView, testArray);
