@@ -2,11 +2,15 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.app.AlertDialog;
 
@@ -34,32 +38,51 @@ public class AdminHome extends AppCompatActivity {
         complaintListView.setAdapter(arrayAdapter);
 
         // Opens info when complaint is pressed
-        complaintListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        complaintListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Information about the complaint, change this to match database
+                String title, message;
+                title = "No Title";
+                message = "No Message";
                 // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
 
                 // 2. Chain together various setter methods to set the dialog characteristics
                 builder.setTitle("Manage Complaint");
+                builder.setMessage(String.format("Title: %s\nMessage: %s\n\nSuspend Until (Blank for permanent)",title, message ));
+
+                final EditText input = new EditText(view.getContext());
+                input.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+                input.setHint("DD/MM/YYYY");
+                builder.setView(input);
+
 
                 // Add the buttons
                 builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Suspend button
+                        dialog.cancel();
+                    }
+                });
+                // Add the buttons
+                builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked Suspend button
+                        dialog.cancel();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
+                        dialog.cancel();
                     }
                 });
 
 
                 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
                 AlertDialog dialog = builder.create();
-
-                return false;
+                dialog.show();
             }
         });
 
