@@ -76,17 +76,18 @@ public class AdminHome extends AppCompatActivity {
                 Log.i("SIZE",Integer.toString(compArray.length));
 
                 Map<String,Object> compMap =  (Map<String,Object>) dataSnapshot.getValue();
+                if(compMap!=null) {
 
-                int i = 0;
+                    int i = 0;
 
-                for(Map.Entry<String, Object> entry : compMap.entrySet()){
-                    Map comp = (Map) entry.getValue();
-                    compArray[i] = new Complaint(comp.get("subject").toString(), comp.get("complaintAbout").toString(),
-                            comp.get("complaint").toString());
-                    compTitleArray[i] = comp.get("subject").toString();
-                    i++;
+                    for (Map.Entry<String, Object> entry : compMap.entrySet()) {
+                        Map comp = (Map) entry.getValue();
+                        compArray[i] = new Complaint(comp.get("subject").toString(), comp.get("complaintAbout").toString(),
+                                comp.get("complaint").toString());
+                        compTitleArray[i] = comp.get("subject").toString();
+                        i++;
+                    }
                 }
-
                 //Log.i("ARRAY",compArray[0].subject);
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, compTitleArray);
                 complaintListView.setAdapter(arrayAdapter);
@@ -98,7 +99,7 @@ public class AdminHome extends AppCompatActivity {
                         // Information about the complaint, change this to match database
                         String title, message, cookEmail;
                         title = compArray[i].getSubject();
-                        cookEmail = compArray[i].getComplaintAbout();
+                        cookEmail = compArray[i].getComplaintAbout().replace(".", "");
                         message = compArray[i].getComplaint();
                         // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
@@ -116,12 +117,21 @@ public class AdminHome extends AppCompatActivity {
                         builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Suspend button
-                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
-                                    }
-                                });
+                                if(input == null){
+                                    database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            database.child("Cooks").child(cookEmail).child("banned").setValue(true);
+                                        }
+                                    });
+                                } else {
+                                    database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
+                                        }
+                                    });
+                                }
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
@@ -131,12 +141,6 @@ public class AdminHome extends AppCompatActivity {
                         builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Dismiss button
-                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        database.child("Cooks").child(cookEmail).child("banned").setValue(true);
-                                    }
-                                });
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
