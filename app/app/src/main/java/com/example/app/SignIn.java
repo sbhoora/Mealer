@@ -132,7 +132,7 @@ public class SignIn extends AppCompatActivity {
                 DataSnapshot dataSnapshot = task.getResult();
                 String password = String.valueOf(dataSnapshot.getValue());
                 if(email.equals("admin")){
-                    Log.i("FIREBASE", "FAIL ADMIN");
+                    Log.i("FIREBASE", "ADMIN");
                     if(password.equals(pw)){
                         Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
