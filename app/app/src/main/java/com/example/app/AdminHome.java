@@ -112,8 +112,6 @@ public class AdminHome extends AppCompatActivity {
                         input.setHint("DD/MM/YYYY");
                         builder.setView(input);
 
-
-
                         // Add the buttons
                         builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -125,6 +123,7 @@ public class AdminHome extends AppCompatActivity {
                                     }
                                 });
                                 dialog.cancel();
+                                delete(cookEmail);
                                 update();
                             }
                         });
@@ -139,6 +138,7 @@ public class AdminHome extends AppCompatActivity {
                                     }
                                 });
                                 dialog.cancel();
+                                delete(cookEmail);
                                 update();
                             }
                         });
@@ -157,6 +157,12 @@ public class AdminHome extends AppCompatActivity {
             }
         });
 
-
     }
+
+    public void delete(String email) {
+        database = FirebaseDatabase.getInstance().getReference("Accounts").child("admin").child("Complaints");
+        database.child(email.replace(".", "")).removeValue();
+        Log.i("DELETE","PASS");
+    }
+
 }
