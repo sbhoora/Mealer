@@ -29,4 +29,11 @@ public class CreditCard {
         return exp;
     }
 
+    public static boolean isValidCVV(String cvv){
+        return cvv.length() == 3;
+    }
+    public static boolean isValidExpiration(String exp){
+        return exp.length() == 4;
+    }
+
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -51,6 +52,7 @@ public class AdminHome extends AppCompatActivity {
                 AdminHome.this.finish();
             }
         });
+        complaintListView = (ListView) findViewById(R.id.complaintListView);
     }
 
     @Override
@@ -62,6 +64,7 @@ public class AdminHome extends AppCompatActivity {
     private void update(){
         // The list of complaints, should be obtained from the database
         String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
+        Context cntx = this;
 
         database = FirebaseDatabase.getInstance().getReference("Accounts").child("admin");
         database.child("Complaints").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -69,6 +72,7 @@ public class AdminHome extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot dataSnapshot = task.getResult();
                 Complaint compArray[] = new Complaint[Math.toIntExact(dataSnapshot.getChildrenCount())];
+                String compTitleArray[] = new String[Math.toIntExact(dataSnapshot.getChildrenCount())];
                 Log.i("SIZE",Integer.toString(compArray.length));
 
                 Map<String,Object> compMap =  (Map<String,Object>) dataSnapshot.getValue();
@@ -79,66 +83,67 @@ public class AdminHome extends AppCompatActivity {
                     Map comp = (Map) entry.getValue();
                     compArray[i] = new Complaint(comp.get("subject").toString(), comp.get("complaintAbout").toString(),
                             comp.get("complaint").toString());
+                    compTitleArray[i] = comp.get("subject").toString();
                     i++;
                 }
+
                 //Log.i("ARRAY",compArray[0].subject);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, compTitleArray);
+                complaintListView.setAdapter(arrayAdapter);
+
+                // Opens info when complaint is pressed
+                complaintListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        // Information about the complaint, change this to match database
+                        String title, message, cookEmail;
+                        title = compArray[i].getSubject();
+                        cookEmail = compArray[i].getComplaintAbout();
+                        message = compArray[i].getComplaint();
+                        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
+                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
+
+                        // 2. Chain together various setter methods to set the dialog characteristics
+                        builder.setTitle("Manage Complaint");
+                        builder.setMessage(String.format("Title: %s\nCook Email: %s\nMessage: %s\n\nSuspend Until (Blank for permanent)", title, cookEmail, message ));
+
+                        final EditText input = new EditText(view.getContext());
+                        input.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+                        input.setHint("DD/MM/YYYY");
+                        builder.setView(input);
+
+
+                        // Add the buttons
+                        builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked Suspend button
+                                dialog.cancel();
+                                update();
+                            }
+                        });
+                        // Add the buttons
+                        builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked Dismiss button
+                                dialog.cancel();
+                                update();
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                dialog.cancel();
+                            }
+                        });
+
+                        // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
             }
         });
 
-        // List view
-        complaintListView = (ListView) findViewById(R.id.complaintListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.complaint_list_item, R.id.textView, testArray);
-        complaintListView.setAdapter(arrayAdapter);
 
-        // Opens info when complaint is pressed
-        complaintListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Information about the complaint, change this to match database
-                String title, message, cookEmail;
-                title = "No Title";
-                cookEmail = "cook@email.com";
-                message = "No Message";
-                // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
-                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
-
-                // 2. Chain together various setter methods to set the dialog characteristics
-                builder.setTitle("Manage Complaint");
-                builder.setMessage(String.format("Title: %s\nCook Email: %s\nMessage: %s\n\nSuspend Until (Blank for permanent)", title, cookEmail, message ));
-
-                final EditText input = new EditText(view.getContext());
-                input.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
-                input.setHint("DD/MM/YYYY");
-                builder.setView(input);
-
-
-                // Add the buttons
-                builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked Suspend button
-                        dialog.cancel();
-                        update();
-                    }
-                });
-                // Add the buttons
-                builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked Dismiss button
-                        dialog.cancel();
-                        update();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                        dialog.cancel();
-                    }
-                });
-
-                // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
     }
 }
