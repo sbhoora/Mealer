@@ -35,5 +35,6 @@ public class CreditCard {
     public static boolean isValidExpiration(String exp){
         return exp.length() == 4;
     }
+    public static boolean isValidCardNumber(String cardNumber){ return cardNumber.length() == 16;}
 
 }
