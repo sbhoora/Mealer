@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.app.AlertDialog;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -124,6 +125,7 @@ public class AdminHome extends AppCompatActivity {
                                         database.child("Cooks").child(cookEmail).child("banned").setValue(false);
                                     }
                                 });
+                                Toast.makeText(AdminHome.this,"Account is now suspended.", Toast.LENGTH_SHORT).show();
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
@@ -133,6 +135,7 @@ public class AdminHome extends AppCompatActivity {
                         builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Dismiss button
+                                Toast.makeText(AdminHome.this,"Complaint has been dismissed.", Toast.LENGTH_SHORT).show();
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
@@ -148,6 +151,7 @@ public class AdminHome extends AppCompatActivity {
                                         database.child("Cooks").child(cookEmail).child("suspended").setValue(false);
                                     }
                                 });
+                                Toast.makeText(AdminHome.this,"Account is now banned.", Toast.LENGTH_SHORT).show();
                                 dialog.cancel();
                                 delete(cookEmail);
                                 update();
