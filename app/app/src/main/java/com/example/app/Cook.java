@@ -42,4 +42,6 @@ public class Cook extends Account {
 
     public void removeSuspension() {suspended = false;};
 
+    public void ban() {banned = true;};
+
 }
