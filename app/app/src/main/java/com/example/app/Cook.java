@@ -14,7 +14,7 @@ public class Cook extends Account {
         this.description = description;
     }
 
-    public Cook(String email, String password, Boolean suspended) {
+    public Cook(String email, String password, Boolean suspended, Boolean banned) {
         super(email, password);
         this.suspended = suspended;
         this.banned = banned;
