@@ -182,6 +182,7 @@ public class SignIn extends AppCompatActivity {
                                             } else {
                                                 Cook cook = new Cook(email, pw, suspended, banned);
                                                 if (cook.isSuspended()) {
+
                                                     Toast.makeText(SignIn.this,"This account is currently suspended for 15 days.", Toast.LENGTH_SHORT).show();
                                                 } else if (cook.isBanned()){
                                                     Toast.makeText(SignIn.this,"Permanent suspension, therefore you can no longer use" +

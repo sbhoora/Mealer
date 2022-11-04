@@ -6,6 +6,7 @@ public class Cook extends Account {
     String description;
     Boolean suspended = false;
     Boolean banned = false;
+    Date suspendedUntil;
 
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
