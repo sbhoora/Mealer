@@ -5,6 +5,7 @@ public class Cook extends Account {
     Address address;
     String description;
     Boolean suspended = false;
+    Boolean banned = false;
 
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
@@ -16,6 +17,7 @@ public class Cook extends Account {
     public Cook(String email, String password, Boolean suspended) {
         super(email, password);
         this.suspended = suspended;
+        this.banned = banned;
     }
 
     // Getters
@@ -32,6 +34,8 @@ public class Cook extends Account {
     }
 
     public Boolean isSuspended() { return suspended;};
+
+    public Boolean isBanned() { return banned; };
 
     // Setters
     public void suspend() {suspended = true;};
