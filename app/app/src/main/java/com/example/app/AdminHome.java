@@ -121,6 +121,7 @@ public class AdminHome extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                                         database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
+                                        database.child("Cooks").child(cookEmail).child("banned").setValue(false);
                                     }
                                 });
                                 dialog.cancel();
@@ -144,6 +145,7 @@ public class AdminHome extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                                         database.child("Cooks").child(cookEmail).child("banned").setValue(true);
+                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(false);
                                     }
                                 });
                                 dialog.cancel();
