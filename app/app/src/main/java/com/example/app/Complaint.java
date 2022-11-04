@@ -10,4 +10,16 @@ public class Complaint {
         this.complaintAbout = aUser;
         this.complaint = comp;
     }
+
+    public String getComplaint() {
+        return complaint;
+    }
+
+    public String getComplaintAbout() {
+        return complaintAbout;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
 }

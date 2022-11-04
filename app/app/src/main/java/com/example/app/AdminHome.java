@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,7 @@ public class AdminHome extends AppCompatActivity {
                             comp.get("complaint").toString());
                     i++;
                 }
+                //Log.i("ARRAY",compArray[0].subject);
             }
         });
 
