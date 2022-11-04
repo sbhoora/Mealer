@@ -229,4 +229,5 @@ public class SignUp extends AppCompatActivity {
     private void goHome(View v) {
         startActivity(new Intent(SignUp.this,Home.class));
     }
+
 }

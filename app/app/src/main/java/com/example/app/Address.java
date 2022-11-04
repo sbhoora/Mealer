@@ -39,4 +39,8 @@ public class Address {
         String a = (getStreet() + ", "  + getCity() + ", " + getProvince() + ", " + getPostal() + ", " + getCountry());
         return a;
     }
+
+    public static boolean isValidPostal(String postal){
+        return postal.length() == 6;
+    }
 }

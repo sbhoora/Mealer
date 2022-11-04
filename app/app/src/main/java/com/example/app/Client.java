@@ -11,7 +11,7 @@ public class Client extends Account {
         this.creditCard = creditCard;
     }
 
-    public String getAccountType(){
+    public static String getAccountType(){
         return "Client";
     }
 
