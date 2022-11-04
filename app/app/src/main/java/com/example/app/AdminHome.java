@@ -20,7 +20,6 @@ import java.util.List;
 
 public class AdminHome extends AppCompatActivity {
     ListView complaintListView;
-    String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +31,25 @@ public class AdminHome extends AppCompatActivity {
         // Buttons
         MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
 
+        update();
+
+        // Signs out user
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AdminHome.this.finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Ended Activity: AdminHome");
+    }
+    private void update(){
+        // The list of complaints, should be obtained from the database
+        String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
         // List view
         complaintListView = (ListView) findViewById(R.id.complaintListView);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.complaint_list_item, R.id.textView, testArray);
@@ -63,6 +81,7 @@ public class AdminHome extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Suspend button
                         dialog.cancel();
+                        update();
                     }
                 });
                 // Add the buttons
@@ -70,6 +89,7 @@ public class AdminHome extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Suspend button
                         dialog.cancel();
+                        update();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -85,19 +105,5 @@ public class AdminHome extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-        // Signs out user
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AdminHome.this.finish();
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        System.out.println("Ended Activity: AdminHome");
     }
 }
