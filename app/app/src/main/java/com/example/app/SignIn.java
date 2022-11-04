@@ -49,6 +49,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //String a = email.getText().toString().substring(email.getText().toString().length()-4);
+                /*
                 if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
                     // correct
                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
@@ -63,6 +64,7 @@ public class SignIn extends AppCompatActivity {
                     info.putString("accountType", "Administrator");
                     signIn(info, AdminHome.class);
                 } else {
+                    */
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                         isItUser(email.getText().toString().replace(".",""),password.getText().toString());
                         Log.i("onClick", "pass");
@@ -78,7 +80,7 @@ public class SignIn extends AppCompatActivity {
                         Toast.makeText(SignIn.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
+            //}
         });
 
         // Listens for sign up button click
@@ -129,14 +131,14 @@ public class SignIn extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot dataSnapshot = task.getResult();
                 String password = String.valueOf(dataSnapshot.getValue());
-                if(email == "admin"){
-                    if(password == pw){
+                if(email.equals("admin")){
+                    Log.i("FIREBASE", "FAIL ADMIN");
+                    if(password.equals(pw)){
                         Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
                         Bundle info = new Bundle();
-                        info.putString("email", email);
                         info.putString("accountType", "Administrator");
-                        signIn(info, Home.class);
+                        signIn(info, AdminHome.class);
                     } else {
                         Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
                     }
