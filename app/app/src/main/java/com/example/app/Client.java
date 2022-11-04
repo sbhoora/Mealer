@@ -11,10 +11,6 @@ public class Client extends Account {
         this.creditCard = creditCard;
     }
 
-    public Client(String email, String password) {
-        super(email, password);
-    }
-
     public String getAccountType(){
         return "Client";
     }
