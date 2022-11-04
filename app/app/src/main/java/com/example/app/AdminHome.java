@@ -66,8 +66,8 @@ public class AdminHome extends AppCompatActivity {
         String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
         Context cntx = this;
 
-        database = FirebaseDatabase.getInstance().getReference("Accounts").child("admin");
-        database.child("Complaints").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database = FirebaseDatabase.getInstance().getReference("Accounts");
+        database.child("admin").child("Complaints").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot dataSnapshot = task.getResult();
@@ -113,10 +113,17 @@ public class AdminHome extends AppCompatActivity {
                         builder.setView(input);
 
 
+
                         // Add the buttons
                         builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Suspend button
+                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
+                                    }
+                                });
                                 dialog.cancel();
                                 update();
                             }
@@ -125,6 +132,12 @@ public class AdminHome extends AppCompatActivity {
                         builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Dismiss button
+                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        database.child("Cooks").child(cookEmail).child("banned").setValue(true);
+                                    }
+                                });
                                 dialog.cancel();
                                 update();
                             }
