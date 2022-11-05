@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CreditCardTest {
+public class DelivrableTwoUnitTests {
 
     CreditCard testCC = new CreditCard(
             "Tom Mater",
