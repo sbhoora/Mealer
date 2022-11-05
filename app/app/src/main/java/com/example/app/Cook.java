@@ -40,7 +40,7 @@ public class Cook extends Account {
 
     public Boolean isBanned() { return banned; };
 
-    public Date getSuspendedUntil() {{return suspendedUntil;};
+    public Date getSuspendedUntil() {return suspendedUntil;};
 
     // Setters
     public void suspend() {suspended = true;};
