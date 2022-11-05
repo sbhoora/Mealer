@@ -43,7 +43,10 @@ public class Cook extends Account {
     public Date getSuspendedUntil() {return suspendedUntil;};
 
     // Setters
-    public void suspend() {suspended = true;};
+    public void suspend(Date suspendedUntil) {
+        this.suspendedUntil = suspendedUntil;
+        suspended = true;
+    };
 
     public void removeSuspension() {suspended = false;};
 
