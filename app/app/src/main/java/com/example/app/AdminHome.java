@@ -124,7 +124,7 @@ public class AdminHome extends AppCompatActivity {
                                         database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
                                         database.child("Cooks").child(cookEmail).child("banned").setValue(false);
 
-                                        database.child("Cooks").child(cookEmail).child("suspendedUntil").setValue(input);
+                                        database.child("Cooks").child(cookEmail).child("suspendedUntil").setValue(input.getText().toString());
                                     }
                                 });
                                 Toast.makeText(AdminHome.this,"Account is now suspended.", Toast.LENGTH_SHORT).show();
