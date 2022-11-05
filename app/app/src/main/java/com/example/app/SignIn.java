@@ -175,7 +175,6 @@ public class SignIn extends AppCompatActivity {
                                             String password = String.valueOf(dataSnapshot.child("password").getValue());
                                             Boolean suspended = (Boolean) dataSnapshot.child("suspended").getValue();
                                             Boolean banned = (Boolean) dataSnapshot.child("banned").getValue();
-                                            String suspendedUntil = (String) dataSnapshot.child("suspendedUntil").getValue();
                                             Log.d("FIREBASE", password);
 
                                             if(!pw.equals(password)){
@@ -183,7 +182,8 @@ public class SignIn extends AppCompatActivity {
                                             } else {
                                                 Cook cook = new Cook(email, pw, suspended, banned);
                                                 if (cook.isSuspended()) {
-                                                    Toast.makeText(SignIn.this,String.format("This account is currently suspended until %s.", suspendedUntil), Toast.LENGTH_SHORT).show();
+
+                                                    Toast.makeText(SignIn.this,"This account is currently suspended for 15 days.", Toast.LENGTH_SHORT).show();
                                                 } else if (cook.isBanned()){
                                                     Toast.makeText(SignIn.this,"Permanent suspension, therefore you can no longer use" +
                                                             " this application.", Toast.LENGTH_SHORT).show();

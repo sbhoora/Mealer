@@ -1,11 +1,14 @@
 package com.example.app;
 
+import java.util.Date;
+
 public class Cook extends Account {
     
     Address address;
     String description;
     Boolean suspended = false;
     Boolean banned = false;
+    Date suspendedUntil;
 
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
@@ -37,8 +40,13 @@ public class Cook extends Account {
 
     public Boolean isBanned() { return banned; };
 
+    public Date getSuspendedUntil() {return suspendedUntil;};
+
     // Setters
-    public void suspend() {suspended = true;};
+    public void suspend(Date suspendedUntil) {
+        this.suspendedUntil = suspendedUntil;
+        suspended = true;
+    };
 
     public void removeSuspension() {suspended = false;};
 
