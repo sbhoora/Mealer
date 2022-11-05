@@ -123,6 +123,8 @@ public class AdminHome extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                                         database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
                                         database.child("Cooks").child(cookEmail).child("banned").setValue(false);
+
+                                        database.child("Cooks").child(cookEmail).child("suspendedUntil").setValue(input);
                                     }
                                 });
                                 Toast.makeText(AdminHome.this,"Account is now suspended.", Toast.LENGTH_SHORT).show();
