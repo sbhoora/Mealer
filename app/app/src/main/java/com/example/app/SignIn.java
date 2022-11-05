@@ -175,8 +175,6 @@ public class SignIn extends AppCompatActivity {
                                             String password = String.valueOf(dataSnapshot.child("password").getValue());
                                             Boolean suspended = (Boolean) dataSnapshot.child("suspended").getValue();
                                             Boolean banned = (Boolean) dataSnapshot.child("banned").getValue();
-                                            String suspendedUntil = (String) dataSnapshot.child("suspendedUntil").getValue();
-                                            suspendedUntil = new String(new char[] {suspendedUntil.charAt(0), suspendedUntil.charAt(1), '/',suspendedUntil.charAt(2), suspendedUntil.charAt(3), '/',suspendedUntil.charAt(4), suspendedUntil.charAt(5),suspendedUntil.charAt(6), suspendedUntil.charAt(7)});
                                             Log.d("FIREBASE", password);
 
                                             if(!pw.equals(password)){
@@ -184,7 +182,8 @@ public class SignIn extends AppCompatActivity {
                                             } else {
                                                 Cook cook = new Cook(email, pw, suspended, banned);
                                                 if (cook.isSuspended()) {
-
+                                                    String suspendedUntil = (String) dataSnapshot.child("suspendedUntil").getValue();
+                                                    suspendedUntil = new String(new char[] {suspendedUntil.charAt(0), suspendedUntil.charAt(1), '/',suspendedUntil.charAt(2), suspendedUntil.charAt(3), '/',suspendedUntil.charAt(4), suspendedUntil.charAt(5),suspendedUntil.charAt(6), suspendedUntil.charAt(7)});
                                                     Toast.makeText(SignIn.this,String.format("This account is currently suspended until %s.", suspendedUntil), Toast.LENGTH_SHORT).show();
                                                 } else if (cook.isBanned()){
                                                     Toast.makeText(SignIn.this,"Permanent suspension, therefore you can no longer use" +
