@@ -19,7 +19,7 @@ public class Cook extends Account {
     private Boolean banned = false;
     private Date suspendedUntil;
     private DatabaseReference cookReference = FirebaseDatabase.getInstance().
-            getReference("Cook").child(email);
+            getReference("Cook").child(getEmail());
 
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
@@ -47,14 +47,14 @@ public class Cook extends Account {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.i("Firebase", "Menu saved to cook with email: " + email);
+                        Log.i("Firebase", "Menu saved to cook with email: " + getEmail());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e("Firebase", "Failed to save Menu to cook " +
-                                "with email: " + email);
+                                "with email: " + getEmail());
                     }
                 });
     }
