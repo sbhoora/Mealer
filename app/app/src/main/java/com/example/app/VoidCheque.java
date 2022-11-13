@@ -19,8 +19,8 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 public class VoidCheque extends AppCompatActivity {
 
-    ImageView cheque;
-    Button upload, done;
+    private ImageView cheque;
+    private Button upload, done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
