@@ -23,8 +23,6 @@ import java.util.HashMap;
 public class SignIn extends AppCompatActivity {
 
     DatabaseReference reference;
-    //DatabaseReference reference2;
-    //DatabaseReference reference3;
     DatabaseReference cu;
 
     @Override
