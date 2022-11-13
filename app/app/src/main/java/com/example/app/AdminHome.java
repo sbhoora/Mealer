@@ -31,8 +31,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminHome extends AppCompatActivity {
-    ListView complaintListView;
-    DatabaseReference database;
+
+    private ListView complaintListView;
+    private DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
