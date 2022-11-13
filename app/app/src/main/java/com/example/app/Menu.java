@@ -1,13 +1,5 @@
 package com.example.app;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 /**
@@ -32,7 +24,7 @@ public class Menu {
     /**
      * Adds items to Menu.
      * Note that the items are not saved in to the database under the cook's field until
-     * {@link #save(Cook) save()} is called.
+     * {@link Cook#save(Menu) save()} is called.
      * @see Cook
      * @param item
      */

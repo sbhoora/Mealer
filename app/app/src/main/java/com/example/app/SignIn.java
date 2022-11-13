@@ -176,7 +176,7 @@ public class SignIn extends AppCompatActivity {
                                                     Bundle info = new Bundle();
                                                     info.putString("email", email);
                                                     info.putString("accountType", "Cook");
-                                                    signIn(info, Home.class);
+                                                    signIn(info, CookHome.class);
                                                 }
 
                                             }
