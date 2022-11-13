@@ -13,11 +13,11 @@ import java.util.Date;
 
 public class Cook extends Account {
     
-    Address address;
-    String description;
-    Boolean suspended = false;
-    Boolean banned = false;
-    Date suspendedUntil;
+    private Address address;
+    private String description;
+    private Boolean suspended = false;
+    private Boolean banned = false;
+    private Date suspendedUntil;
     private DatabaseReference cookReference = FirebaseDatabase.getInstance().
             getReference("Cook").child(email);
 
