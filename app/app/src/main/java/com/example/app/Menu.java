@@ -1,6 +1,12 @@
 package com.example.app;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -12,7 +18,6 @@ public class Menu {
 
     private String title;
     private ArrayList<MenuItem> items;
-    private DatabaseReference db;
 
     /**
      * Constructs a Menu object.
@@ -36,17 +41,6 @@ public class Menu {
     }
 
     /**
-     * Uses {@link DatabaseReference} to save the Menu to the respective cook.
-     * Any changes to the menu are only saved to the database once this method has been called.
-     * @param cook
-     */
-    public void save(Cook cook) {
-        String key = cook.getEmail();
-
-        // Left to be implemented still
-    }
-
-    /**
      *
      * @return title
      */
@@ -67,7 +61,6 @@ public class Menu {
         return "Menu{" +
                 "title='" + title + '\'' +
                 ", items=" + items +
-                ", db=" + db +
                 '}';
     }
 }
