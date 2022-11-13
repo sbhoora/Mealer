@@ -48,23 +48,6 @@ public class SignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String a = email.getText().toString().substring(email.getText().toString().length()-4);
-                /*
-                if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
-                    // correct
-                    Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-
-                    //////
-                    // Passes account type to Home activity on activity start
-                    // Eliminates the need for storing a "CurrentUser" value on the database
-                    // Simply passes value between activities
-                    //////
-                    // adds the value to be passed to the intent
-                    Bundle info = new Bundle();
-                    info.putString("accountType", "Administrator");
-                    signIn(info, AdminHome.class);
-                } else {
-                    */
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                         isItUser(email.getText().toString().replace(".",""),password.getText().toString());
                         Log.i("onClick", "pass");
