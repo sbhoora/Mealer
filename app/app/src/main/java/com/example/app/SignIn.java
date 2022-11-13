@@ -22,8 +22,8 @@ import java.util.HashMap;
 
 public class SignIn extends AppCompatActivity {
 
-    DatabaseReference reference;
-    DatabaseReference cu;
+    private DatabaseReference reference;
+    private DatabaseReference cu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
