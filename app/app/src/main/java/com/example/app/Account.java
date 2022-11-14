@@ -2,10 +2,10 @@ package com.example.app;
 
 public class Account {
 
-    String firstName;
-    String lastName;
-    String email;
-    String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
     public Account(String first, String last, String mail, String pass) {
          this.firstName = first;

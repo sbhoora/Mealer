@@ -22,10 +22,8 @@ import java.util.HashMap;
 
 public class SignIn extends AppCompatActivity {
 
-    DatabaseReference reference;
-    //DatabaseReference reference2;
-    //DatabaseReference reference3;
-    DatabaseReference cu;
+    private DatabaseReference reference;
+    private DatabaseReference cu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +46,6 @@ public class SignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String a = email.getText().toString().substring(email.getText().toString().length()-4);
-                /*
-                if (email.getText().toString().equals(("admin")) && password.getText().toString().equals("admin")) {
-                    // correct
-                    Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-
-                    //////
-                    // Passes account type to Home activity on activity start
-                    // Eliminates the need for storing a "CurrentUser" value on the database
-                    // Simply passes value between activities
-                    //////
-                    // adds the value to be passed to the intent
-                    Bundle info = new Bundle();
-                    info.putString("accountType", "Administrator");
-                    signIn(info, AdminHome.class);
-                } else {
-                    */
                     if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                         isItUser(email.getText().toString().replace(".",""),password.getText().toString());
                         Log.i("onClick", "pass");
@@ -195,7 +176,7 @@ public class SignIn extends AppCompatActivity {
                                                     Bundle info = new Bundle();
                                                     info.putString("email", email);
                                                     info.putString("accountType", "Cook");
-                                                    signIn(info, Home.class);
+                                                    signIn(info, CookHome.class);
                                                 }
 
                                             }
@@ -213,78 +194,4 @@ public class SignIn extends AppCompatActivity {
             };
         });
     };
-    /*
-    private void isItUser(String email, String pw){
-        reference1 = FirebaseDatabase.getInstance().getReference("Accounts"); //ref for clients
-        reference2 = FirebaseDatabase.getInstance().getReference("Accounts"); //ref for cooks
-        reference3 = FirebaseDatabase.getInstance().getReference("Accounts"); //ref for admin
-        cu = FirebaseDatabase.getInstance().getReference("Accounts");
-
-        System.out.println("Complete Listener");
-        reference1.child("Clients").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.getResult().exists()){
-                    //Toast.makeText(MainActivity.this,"SUCCESS", Toast.LENGTH_SHORT).show();
-                    DataSnapshot dataSnapshot = task.getResult();
-                    String password = String.valueOf(dataSnapshot.child("password").getValue());
-                    Log.d("FIREBASE", password);
-
-                    if(!pw.equals(password)){
-                        Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-
-                        // Passing client info to Home activity on activity start
-                        Bundle info = new Bundle();
-                        info.putString("email", email);
-                        info.putString("accountType", "Client");
-                        signIn(info, Home.class);
-                    }
-
-                } else {
-                    Log.i("FIREBASE", "FAIL0");
-                    reference2.child("Cooks").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if(task.getResult().exists()){
-                                DataSnapshot dataSnapshot = task.getResult();
-                                String password = String.valueOf(dataSnapshot.child("password").getValue());
-                                Boolean suspended = (Boolean) dataSnapshot.child("suspended").getValue();
-                                Boolean banned = (Boolean) dataSnapshot.child("banned").getValue();
-                                Log.d("FIREBASE", password);
-
-                                if(!pw.equals(password)){
-                                    Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Cook cook = new Cook(email, pw, suspended, banned);
-                                    if (cook.isSuspended()) {
-                                        Toast.makeText(SignIn.this,"This account is currently suspended for 15 days.", Toast.LENGTH_SHORT).show();
-                                    } else if (cook.isBanned()){
-                                        Toast.makeText(SignIn.this,"This account has been permanently banned, therefore you can no longer use" +
-                                                " this application.", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
-
-                                        // Passing cook info to Home activity on activity start
-                                        Bundle info = new Bundle();
-                                        info.putString("email", email);
-                                        info.putString("accountType", "Cook");
-                                        signIn(info, Home.class);
-                                    }
-
-                                }
-
-                            } else {
-                                Log.i("FIREBASE", "FAIL1");
-                                Toast.makeText(SignIn.this,"This user doesn't exist.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-     */
 }

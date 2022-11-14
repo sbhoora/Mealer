@@ -18,6 +18,13 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
+            android:name=".CookHome"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AdminHome"
             android:exported="false">
             <meta-data
@@ -51,6 +58,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.example.action.SIGN_IN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

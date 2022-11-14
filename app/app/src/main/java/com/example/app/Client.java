@@ -2,8 +2,8 @@ package com.example.app;
 
 public class Client extends Account {
 
-    Address address;
-    CreditCard creditCard;
+    private Address address;
+    private CreditCard creditCard;
 
     public Client(String first, String last, String mail, String pass, Address address, CreditCard creditCard) {
         super(first, last, mail, pass);

@@ -1,7 +1,5 @@
 package com.example.app;
 
-import com.google.firebase.database.DatabaseReference;
-
 import java.util.ArrayList;
 
 /**
@@ -12,7 +10,6 @@ public class Menu {
 
     private String title;
     private ArrayList<MenuItem> items;
-    private DatabaseReference db;
 
     /**
      * Constructs a Menu object.
@@ -27,23 +24,12 @@ public class Menu {
     /**
      * Adds items to Menu.
      * Note that the items are not saved in to the database under the cook's field until
-     * {@link #save(Cook) save()} is called.
+     * {@link Cook#save(Menu) save()} is called.
      * @see Cook
      * @param item
      */
     public void addItem(MenuItem item) {
         items.add(item);
-    }
-
-    /**
-     * Uses {@link DatabaseReference} to save the Menu to the respective cook.
-     * Any changes to the menu are only saved to the database once this method has been called.
-     * @param cook
-     */
-    public void save(Cook cook) {
-        String key = cook.getEmail();
-
-        // Left to be implemented still
     }
 
     /**
@@ -67,7 +53,6 @@ public class Menu {
         return "Menu{" +
                 "title='" + title + '\'' +
                 ", items=" + items +
-                ", db=" + db +
                 '}';
     }
 }
