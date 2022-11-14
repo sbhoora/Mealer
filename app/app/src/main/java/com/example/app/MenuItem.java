@@ -9,6 +9,7 @@ public class MenuItem {
     private String name;
     private String description;
     private String type;
+    private Boolean offeredMeal = false;
 
     public MenuItem(String name, String description, String type) {
         this.name = name;
@@ -27,6 +28,19 @@ public class MenuItem {
     public String getType() {
         return type;
     }
+
+    public void makeAsOfferedMeal() {
+        offeredMeal = true;
+    }
+
+    public void removeFromOfferedMeal() {
+        offeredMeal = false;
+    }
+
+    public boolean isOfferedMeal() {
+        return offeredMeal;
+    }
+
 
     @Override
     public String toString() {
