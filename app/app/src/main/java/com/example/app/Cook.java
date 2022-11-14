@@ -27,7 +27,7 @@ public class Cook extends Account {
 
     // Firebase
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference cookReference;
+    private DatabaseReference cookReference = database.getReference("Accounts").child("Cooks");
 
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
@@ -51,11 +51,6 @@ public class Cook extends Account {
      * @param menu
      */
     public void save(Menu menu) {
-        try {
-            cookReference = database.getReference("Cook");
-        } catch (Exception exception) {
-            throw exception;
-        }
 
         cookReference.child(getEmail()).child("Menu").setValue(menu)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

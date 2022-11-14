@@ -12,6 +12,11 @@ public class Menu {
     private ArrayList<MenuItem> items;
 
     /**
+     * Default Menu constructor.
+     */
+    public Menu() {}
+
+    /**
      * Constructs a Menu object.
      * @param title
      * @param items

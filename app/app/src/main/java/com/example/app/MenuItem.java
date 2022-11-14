@@ -11,6 +11,11 @@ public class MenuItem {
     private String type;
     private Boolean offeredMeal = false;
 
+    /**
+     * Default MenuItem constructor.
+     */
+    public MenuItem() {}
+
     public MenuItem(String name, String description, String type) {
         this.name = name;
         this.description = description;
