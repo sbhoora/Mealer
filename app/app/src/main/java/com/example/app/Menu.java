@@ -10,7 +10,8 @@ import java.util.HashMap;
 public class Menu {
 
     private String title;
-    private HashMap<String, MenuItem> items;
+    private HashMap<String, MenuItem> offeredMeals;
+    private HashMap<String, MenuItem> notOfferedMeals;
 
     /**
      * Default Menu constructor.
@@ -18,24 +19,118 @@ public class Menu {
     public Menu() {}
 
     /**
-     * Constructs a Menu object.
+     * Menu constructor just for title.
+     * @param title
+     * @see #Menu(String, HashMap)  Menu
+     */
+    public Menu(String title) {
+        this.title = title;
+    }
+
+    /**
+     * <p>By default, the HashMap of items that is passed in is added to the offered meal list.</p>
+     * If a menu must be created with certain meals in the not offered meal list, this constructor
+     * will have to be called first. Then, {@link #removeFromOfferedMeals(MenuItem)} will have to be
+     * called for the meals that wish to be moved.
+     * <p></p>
+     * <p>Alternatively, you could use the {@link #Menu(String)} and call
+     * {@link #addAsNotOfferedMeal(ArrayList)}  and {@link #addAsNotOfferedMeal(ArrayList)} to add
+     * the meals that need to be added in their respective meal lists.</p>
      * @param title
      * @param items
      */
     public Menu(String title, HashMap<String, MenuItem> items) {
         this.title = title;
-        this.items = items;
+        this.offeredMeals = items;
     }
 
     /**
-     * Adds items to Menu.
-     * Note that the items are not saved in to the database under the cook's field until
-     * {@link Cook#save(Menu) save()} is called.
+     * <p>Adds a meal to the Menu directly to the offered meal list.</p>
+     * <p>Thus, there is no method to add to the Menu without specifying (offered/not offered).</p>
+     * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
      * @see Cook
      * @param item
      */
-    public void addItem(MenuItem item) {
-        items.put(item.getName(), item);
+    public void addAsOfferedMeal(MenuItem item) {
+        if (!offeredMeals.containsKey(item.getName())) {
+            offeredMeals.put(item.getName(), item);
+        }
+    }
+
+    /**
+     * <p>Adds an ArrayList of {@link MenuItem} to the Menu directly to the offered meal list.</p>
+     * <p>Thus, there is no method to add to the Menu without specifying (offered/not offered).</p>
+     * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
+     * @see Cook
+     * @see MenuItem
+     * @param meals
+     */
+    public void addAsOfferedMeal(ArrayList<MenuItem> meals) {
+        for (MenuItem meal : meals) {
+            if (!offeredMeals.containsKey(meal.getName())) {
+                offeredMeals.put(meal.getName(), meal);
+            }
+        }
+    }
+
+    /**
+     * <p>Adds a meal to the Menu directly to the not offered meal list.</p>
+     * <p>Thus, there is no method to add to the Menu without specifying (offered/not offered).</p>
+     * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
+     * @see Cook
+     * @param item
+     */
+    public void addAsNotOfferedMeal(MenuItem item) {
+        if (!notOfferedMeals.containsKey(item.getName())) {
+            notOfferedMeals.put(item.getName(), item);
+        }
+    }
+
+    /**
+     * <p>Adds an ArrayList of {@link MenuItem} to the Menu directly to the not offered meal list.</p>
+     * <p>Thus, there is no method to add to the Menu without specifying (offered/not offered).</p>
+     * <p><b>Note</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
+     * @see Cook
+     * @see MenuItem
+     * @param meals
+     */
+    public void addAsNotOfferedMeal(ArrayList<MenuItem> meals) {
+        for (MenuItem meal : meals) {
+            if (!notOfferedMeals.containsKey(meal.getName())) {
+                notOfferedMeals.put(meal.getName(), meal);
+            }
+        }
+    }
+
+
+        /**
+         * Moves a MenuItem from the offered meal list to the not offered meal list.
+         * <p>Thus, there is no need for a add to (offered/not offered) meal list method.</p>
+         * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+         * {@link Cook#save(Menu) save()} is called.</p>
+         */
+    public void removeFromOfferedMeals(MenuItem meal) {
+        if (offeredMeals.containsKey(meal.getName())) {
+            offeredMeals.remove(meal.getName());
+            notOfferedMeals.put(meal.getName(), meal);
+        }
+    }
+
+    /**
+     * Moves a MenuItem from the offered meal list to the not offered meal list.
+     * <p>Thus, there is no need for a add to (offered/not offered) meal list method.</p>
+     * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
+     */
+    public void removeFromNotOfferedMeals(MenuItem meal) {
+        if (notOfferedMeals.containsKey(meal.getName())) {
+            notOfferedMeals.remove(meal.getName());
+            offeredMeals.put(meal.getName(), meal);
+        }
     }
 
     /**
@@ -47,41 +142,35 @@ public class Menu {
     }
 
     /**
-     *
-     * @return items
+     * 
+     * @param title
      */
-    public HashMap<String, MenuItem> getItems() {
-        return items;
-    }
-
- /**
-     * Adds a MenuItem to the offered meals list.
-     */
-    public void makeAsOfferedMeal(MenuItem meal) {
-        items.get(meal.getName()).makeAsOfferedMeal();
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
-     * Removes a MenuItem to the offered meals list.
+     *
+     * @return offeredMeals
      */
-    public void removeFromOfferedMeal(MenuItem meal) {
-        items.get(meal.getName()).removeFromOfferedMeal();
+    public HashMap<String, MenuItem> getOfferedMeals() {
+        return offeredMeals;
     }
 
-     /**
-     * Removes a MenuItem from menu if not being offered
+    /**
+     *
+     * @return notOfferedMeals
      */
-    public void removeFromOfferedMeal(MenuItem meal) {
-        if (!meal.isOfferedMeal()) {
-            items.remove(meal.getName());
-        }
+    public HashMap<String, MenuItem> getNotOfferedMeals() {
+        return notOfferedMeals;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
                 "title='" + title + '\'' +
-                ", items=" + items +
+                ", offeredMeals=" + offeredMeals +
+                ", notOfferedMeals=" + notOfferedMeals +
                 '}';
     }
 }

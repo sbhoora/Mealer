@@ -1,4 +1,5 @@
 package com.example.app;
+import java.util.ArrayList;
 
 /**
  * MenuItem is a abstraction of any item you could find on a menu.
@@ -15,8 +16,6 @@ public class MenuItem {
     private ArrayList<String> allergens;
     private double price;
     private String description;
-
-    private Boolean offeredMeal = false;
 
     /**
      * Default MenuItem constructor.
@@ -48,7 +47,7 @@ public class MenuItem {
         return type;
     }
 
-        /**
+    /**
      * Returns the cuisine type of meal. Type can be things like Italian, Chinese, Greek etc.
      * @return String
      */
@@ -86,25 +85,25 @@ public class MenuItem {
     }
 
     public void addAllergens(String allergen) {
-        if (!allergens.contain(allergen)) {
+        if (!allergens.contains(allergen)) {
             allergens.add(allergen);
         }
     }
 
     public void removeAllergens(String allergen) {
-        if (allergens.contain(allergen)) {
+        if (allergens.contains(allergen)) {
             allergens.remove(allergen);
         }
     }
 
     public void addIngredients(String ingredient) {
-        if (!ingredients.contain(ingredient)) {
+        if (!ingredients.contains(ingredient)) {
             ingredients.add(ingredient);
         }
     }
 
     public void removeIngredients(String ingredient) {
-        if (ingredients.contain(ingredient)) {
+        if (ingredients.contains(ingredient)) {
             ingredients.remove(ingredient);
         }
     }
@@ -117,32 +116,18 @@ public class MenuItem {
         this.description = newDescription;
     }
 
-
-    /**
-     * Adds a MenuItem to the offered meals list.
-     */
-    public void makeAsOfferedMeal() {
-        offeredMeal = true;
-    }
-
-    /**
-     * Removes a MenuItem to the offered meals list.
-     */
-    public void removeFromOfferedMeal() {
-        offeredMeal = false;
-    }
-
-    public boolean isOfferedMeal() {
-        return offeredMeal;
-    }
-
-
     @Override
     public String toString() {
         return "MenuItem{" +
                 "name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", types=" + types +
+                ", cuisineTypes=" + cuisineTypes +
                 ", type='" + type + '\'' +
+                ", cuisineType='" + cuisineType + '\'' +
+                ", ingredients=" + ingredients +
+                ", allergens=" + allergens +
+                ", price=" + price +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
