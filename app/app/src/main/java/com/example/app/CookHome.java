@@ -47,6 +47,8 @@ public class CookHome extends AppCompatActivity {
 
         Button addMealButton = (Button) findViewById(R.id.addMealButton);
 
+
+
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,68 +64,57 @@ public class CookHome extends AppCompatActivity {
     private void update(){
         Context cntx = this;
 
-        database = FirebaseDatabase.getInstance().getReference("Accounts");
-        database.child("Cooks").child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        // ARRAY OF MEALS
+        MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
+        MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
+        // ARRAY OF MEAL TITLESa
+        String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
+        String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
+        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, offeredTitle);
+        mealListView.setAdapter(arrayAdapter);
+
+        mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
+                // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
+                builder.setTitle("Manage Meal");
 
-                DataSnapshot dataSnapshot = task.getResult();
-                String mealTitleArray[] = new String[Math.toIntExact(dataSnapshot.getChildrenCount())];
+                final CheckBox input = new CheckBox(view.getContext());
+                input.setText("Offered");
+                builder.setView(input);
 
-                // ARRAY OF MEALS
-                MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
-                MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
-                // ARRAY OF MEAL TITLES
-                String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
-                String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
-                // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
-
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, mealTitleArray);
-                mealListView.setAdapter(arrayAdapter);
-
-                mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
-                        // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
-                        builder.setTitle("Manage Meal");
+                    public void onClick(DialogInterface dialog, int id) {
+                        boolean newOffered = input.isChecked();
+                        // APPLY THE CHANGES TO THE DATABASE
 
-                        final CheckBox input = new CheckBox(view.getContext());
-                        input.setText("Offered");
-                        builder.setView(input);
-
-                        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                boolean newOffered = input.isChecked();
-                                // APPLY THE CHANGES TO THE DATABASE
-
-                                dialog.cancel();
-                                update();
-                            }
-                        });
-                        builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                // DELETE MEAL FROM DATABASE
-
-                                dialog.cancel();
-                                update();
-                            }
-                        });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        dialog.cancel();
+                        update();
                     }
                 });
+                builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // DELETE MEAL FROM DATABASE
+
+                        dialog.cancel();
+                        update();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
-
 }
