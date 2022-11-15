@@ -1,5 +1,4 @@
 package com.example.app;
-import java.util.ArrayList;
 
 /**
  * MenuItem is a abstraction of any item you could find on a menu.
@@ -8,10 +7,8 @@ import java.util.ArrayList;
 public class MenuItem {
 
     private String name;
-    private ArrayList<String> types;
-    private ArrayList<String> cuisineTypes;
-    private String type;
-    private String cuisineType;
+    private Enum<Type> type;
+    private Enum<CuisineType> cuisineType;
     private ArrayList<String> ingredients;
     private ArrayList<String> allergens;
     private double price;
@@ -20,9 +17,8 @@ public class MenuItem {
     /**
      * Default MenuItem constructor.
      */
-    public MenuItem() {}
 
-    public MenuItem(String name, String type, String cuisineType, ArrayList<String> ingredients, 
+    public MenuItem(String name, Enum<Type> type, Enum<CuisineType> cuisineType, ArrayList<String> ingredients, 
     ArrayList<String> allergens, Double price, String description) {
         this.name = name;
         this.type = type;
@@ -44,15 +40,15 @@ public class MenuItem {
      * @return String
      */
     public String getType() {
-        return type;
+        return type.name();
     }
 
-    /**
+        /**
      * Returns the cuisine type of meal. Type can be things like Italian, Chinese, Greek etc.
      * @return String
      */
     public String getCuisineType() {
-        return cuisineType;
+        return cuisineType.name();
     }
 
     public ArrayList<String> getIngredients() {
@@ -116,12 +112,32 @@ public class MenuItem {
         this.description = newDescription;
     }
 
+
+    /**
+     * Adds a MenuItem to the offered meals list.
+     */
+    public void makeAsOfferedMeal() {
+        offeredMeal = true;
+    }
+
+    /**
+     * Removes a MenuItem to the offered meals list.
+     */
+    public void removeFromOfferedMeal() {
+        offeredMeal = false;
+    }
+
+    public boolean isOfferedMeal() {
+        return offeredMeal;
+    }
+
+
     @Override
     public String toString() {
         return "MenuItem{" +
                 "name='" + name + '\'' +
-                ", types=" + types +
-                ", cuisineTypes=" + cuisineTypes +
+                ", types=" + type.name() +
+                ", cuisineTypes=" + cuisineType.name() +
                 ", type='" + type + '\'' +
                 ", cuisineType='" + cuisineType + '\'' +
                 ", ingredients=" + ingredients +
