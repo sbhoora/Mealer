@@ -68,6 +68,14 @@ public class Menu {
         items.get(meal.getName()).removeFromOfferedMeal();
     }
 
+     /**
+     * Removes a MenuItem from menu if not being offered
+     */
+    public void removeFromOfferedMeal(MenuItem meal) {
+        if (!meal.isOfferedMeal()) {
+            items.remove(meal.getName());
+        }
+    }
 
     @Override
     public String toString() {
