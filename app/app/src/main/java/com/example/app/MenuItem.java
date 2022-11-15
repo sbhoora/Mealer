@@ -78,23 +78,11 @@ public class MenuItem {
     }
 
     public void setType(String type) {
-        if (types.contains(type)) {
-            this.type = type;
-        }
-        else {
-            types.add(type);
-            this.type = type;
-        }
+        this.type = type;
     }
 
     public void setCuisineType(String type) {
-        if (cuisineTypes.contains(type)) {
-            this.cuisineType = type;
-        }
-        else {
-            cuisineTypes.add(type);
-            this.cuisineType = type;
-        }
+        this.cuisineType = type;
     }
 
     public void addAllergens(String allergen) {
