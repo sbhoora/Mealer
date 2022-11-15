@@ -158,7 +158,7 @@ public class SignUp extends AppCompatActivity {
                     CreditCard card = new CreditCard(cardName, ccNumber, cvv, exp);
                     Client client = new Client(fName, lName, eMail, pWord, add, card);
                     String temp = client.getEmail().replace(".", "");
-                    clientDB.child(temp).setValue(client);
+                    clientDB.child(temp).child("AccountInfo").setValue(client);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
 
                     // After signing up, automatically signs in user
@@ -173,7 +173,7 @@ public class SignUp extends AppCompatActivity {
 
                     Cook cook = new Cook(fName, lName, eMail, pWord, add, desc);
                     String temp = cook.getEmail().replace(".", "");
-                    cookDB.child(temp).setValue(cook);
+                    cookDB.child(temp).child("AccountInfo").setValue(cook);
                     Toast.makeText(SignUp.this,"Created Account", Toast.LENGTH_SHORT).show();
 
                     // After signing up, automatically signs in user

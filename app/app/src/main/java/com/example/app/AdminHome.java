@@ -79,9 +79,8 @@ public class AdminHome extends AppCompatActivity {
 
                 Map<String,Object> compMap =  (Map<String,Object>) dataSnapshot.getValue();
                 if(compMap!=null) {
-
                     int i = 0;
-
+                    //creating a list of complaints that exist on the DB
                     for (Map.Entry<String, Object> entry : compMap.entrySet()) {
                         Map comp = (Map) entry.getValue();
                         compArray[i] = new Complaint(comp.get("subject").toString(), comp.get("complaintAbout").toString(),

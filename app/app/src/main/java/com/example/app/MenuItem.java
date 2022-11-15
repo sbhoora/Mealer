@@ -1,5 +1,7 @@
 package com.example.app;
 
+import java.util.ArrayList;
+
 /**
  * MenuItem is a abstraction of any item you could find on a menu.
  * It is to be used only inside the {@link Menu} class.
@@ -7,8 +9,8 @@ package com.example.app;
 public class MenuItem {
 
     private String name;
-    private Enum<Type> type;
-    private Enum<CuisineType> cuisineType;
+    private Types type;
+    private CuisineTypes cuisineType;
     private ArrayList<String> ingredients;
     private ArrayList<String> allergens;
     private double price;
@@ -18,7 +20,7 @@ public class MenuItem {
      * Default MenuItem constructor.
      */
 
-    public MenuItem(String name, Enum<Type> type, Enum<CuisineType> cuisineType, ArrayList<String> ingredients, 
+    public MenuItem(String name, Types type, CuisineTypes cuisineType, ArrayList<String> ingredients,
     ArrayList<String> allergens, Double price, String description) {
         this.name = name;
         this.type = type;
@@ -73,12 +75,10 @@ public class MenuItem {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = Types.valueOf(type);
     }
 
-    public void setCuisineType(String type) {
-        this.cuisineType = type;
-    }
+    public void setCuisineType(String type) { this.cuisineType = CuisineTypes.valueOf(type); }
 
     public void addAllergens(String allergen) {
         if (!allergens.contains(allergen)) {
@@ -111,26 +111,6 @@ public class MenuItem {
     public void setDescription(String newDescription) {
         this.description = newDescription;
     }
-
-
-    /**
-     * Adds a MenuItem to the offered meals list.
-     */
-    public void makeAsOfferedMeal() {
-        offeredMeal = true;
-    }
-
-    /**
-     * Removes a MenuItem to the offered meals list.
-     */
-    public void removeFromOfferedMeal() {
-        offeredMeal = false;
-    }
-
-    public boolean isOfferedMeal() {
-        return offeredMeal;
-    }
-
 
     @Override
     public String toString() {

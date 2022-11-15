@@ -9,23 +9,10 @@ import java.util.HashMap;
  */
 public class Menu {
 
-    private String title;
     private HashMap<String, MenuItem> offeredMeals;
     private HashMap<String, MenuItem> notOfferedMeals;
 
-    /**
-     * Default Menu constructor.
-     */
-    public Menu() {}
-
-    /**
-     * Menu constructor just for title.
-     * @param title
-     * @see #Menu(String, HashMap)  Menu
-     */
-    public Menu(String title) {
-        this.title = title;
-    }
+    public Menu(){}
 
     /**
      * <p>By default, the HashMap of items that is passed in is added to the offered meal list.</p>
@@ -33,15 +20,10 @@ public class Menu {
      * will have to be called first. Then, {@link #removeFromOfferedMeals(MenuItem)} will have to be
      * called for the meals that wish to be moved.
      * <p></p>
-     * <p>Alternatively, you could use the {@link #Menu(String)} and call
-     * {@link #addAsNotOfferedMeal(ArrayList)}  and {@link #addAsNotOfferedMeal(ArrayList)} to add
-     * the meals that need to be added in their respective meal lists.</p>
-     * @param title
      * @param items
      */
-    public Menu(String title, HashMap<String, MenuItem> items) {
-        this.title = title;
-        this.offeredMeals = items;
+    public Menu(HashMap<String, MenuItem> items) {
+        this.notOfferedMeals = items;
     }
 
     /**
@@ -135,22 +117,6 @@ public class Menu {
 
     /**
      *
-     * @return title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * 
-     * @param title
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     *
      * @return offeredMeals
      */
     public HashMap<String, MenuItem> getOfferedMeals() {
@@ -168,8 +134,7 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" +
-                "title='" + title + '\'' +
-                ", offeredMeals=" + offeredMeals +
+                "offeredMeals=" + offeredMeals +
                 ", notOfferedMeals=" + notOfferedMeals +
                 '}';
     }

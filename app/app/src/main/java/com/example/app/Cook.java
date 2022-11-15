@@ -13,7 +13,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cook extends Account {
 
@@ -51,7 +54,6 @@ public class Cook extends Account {
      * @param menu
      */
     public void save(Menu menu) {
-
         cookReference.child(getEmail()).child("Menu").setValue(menu)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -73,18 +75,39 @@ public class Cook extends Account {
     public void ban() {banned = true;};
 
     public Menu getMenu() {
-        cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        cookReference.child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.i("Firebase", "Successfully retrieved menu for cook: " + getEmail());
-                    setMenu(task.getResult().getValue(Menu.class));
+                DataSnapshot dataSnapshot = task.getResult();
+                MenuItem menuItems[] = new MenuItem[Math.toIntExact(dataSnapshot.getChildrenCount())];
+                HashMap<String, MenuItem> m = new HashMap<String, MenuItem>();
+
+                //Log.i("SIZE", Integer.toString(menuItems.length));
+
+                Map<String, Object> menuMap = (Map<String, Object>) dataSnapshot.getValue();
+                if (menuMap != null) {
+                    int i = 0;
+                    //creating a list of complaints that exist on the DB
+                    for (Map.Entry<String, Object> entry : menuMap.entrySet()) {
+                        Map item = (Map) entry.getValue();
+                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
+                        ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
+
+                        menuItems[i] = new MenuItem(item.get("name").toString(), Types.valueOf(item.get("type").toString()),
+                                CuisineTypes.valueOf(item.get("cuisineType").toString()),ingredients,allergens,
+                                Double.parseDouble(item.get("price").toString()),item.get("description").toString());
+
+                        m.put(item.get("name").toString(),menuItems[i]);
+                        i++;
+                        //String name, Types type, CuisineTypes cuisineType, ArrayList<String> ingredients,
+                        //    ArrayList<String> allergens, Double price, String description
+                    }
+                    menu = new Menu(m);
                 } else {
-                    Log.e("Firebase", "Could not retrieve menu from cook: " + getEmail());
+                    menu = new Menu();
                 }
             }
         });
-
         return menu;
     }
 

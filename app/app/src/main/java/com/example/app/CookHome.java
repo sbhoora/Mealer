@@ -38,6 +38,7 @@ public class CookHome extends AppCompatActivity {
 
     private ListView mealListView;
     private DatabaseReference database;
+    private Cook cook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +63,19 @@ public class CookHome extends AppCompatActivity {
         Context cntx = this;
 
         database = FirebaseDatabase.getInstance().getReference("Accounts");
-        // NOT THE RIGHT DATABASE
-        database.child("admin").child("Complaints").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database.child("Cooks").child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
+
                 DataSnapshot dataSnapshot = task.getResult();
                 String mealTitleArray[] = new String[Math.toIntExact(dataSnapshot.getChildrenCount())];
 
-                // NEED SOME KIND OF ARRAY OF MEALS
-
-                // MAKE THE ARRAY OF MEAL TITLES
+                // ARRAY OF MEALS
+                MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
+                MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
+                // ARRAY OF MEAL TITLES
+                String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
+                String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
                 // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, mealTitleArray);
