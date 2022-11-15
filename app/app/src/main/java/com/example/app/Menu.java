@@ -54,6 +54,21 @@ public class Menu {
         return items;
     }
 
+ /**
+     * Adds a MenuItem to the offered meals list.
+     */
+    public void makeAsOfferedMeal(MenuItem meal) {
+        items.get(meal.getName()).makeAsOfferedMeal();
+    }
+
+    /**
+     * Removes a MenuItem to the offered meals list.
+     */
+    public void removeFromOfferedMeal(MenuItem meal) {
+        items.get(meal.getName()).removeFromOfferedMeal();
+    }
+
+
     @Override
     public String toString() {
         return "Menu{" +
