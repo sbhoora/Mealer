@@ -30,14 +30,24 @@ public class MenuItem {
         return description;
     }
 
+    /**
+     * Returns the type of meal. Type can be things like drinks, entrée, or appetizer etc.
+     * @return String
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Adds a MenuItem to the offered meals list.
+     */
     public void makeAsOfferedMeal() {
         offeredMeal = true;
     }
 
+    /**
+     * Removes a MenuItem to the offered meals list.
+     */
     public void removeFromOfferedMeal() {
         offeredMeal = false;
     }

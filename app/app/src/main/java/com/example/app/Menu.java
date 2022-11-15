@@ -1,6 +1,7 @@
 package com.example.app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class is an abstraction of a physical menu.
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class Menu {
 
     private String title;
-    private ArrayList<MenuItem> items;
+    private HashMap<String, MenuItem> items;
 
     /**
      * Default Menu constructor.
@@ -21,7 +22,7 @@ public class Menu {
      * @param title
      * @param items
      */
-    public Menu(String title, ArrayList<MenuItem> items) {
+    public Menu(String title, HashMap<String, MenuItem> items) {
         this.title = title;
         this.items = items;
     }
@@ -34,7 +35,7 @@ public class Menu {
      * @param item
      */
     public void addItem(MenuItem item) {
-        items.add(item);
+        items.put(item.getName(), item);
     }
 
     /**
@@ -49,7 +50,7 @@ public class Menu {
      *
      * @return items
      */
-    public ArrayList<MenuItem> getItems() {
+    public HashMap<String, MenuItem> getItems() {
         return items;
     }
 
