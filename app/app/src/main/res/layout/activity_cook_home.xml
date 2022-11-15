@@ -11,41 +11,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="50dp"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            android:paddingTop="50dp"
-            android:text="This is a test to add a menu to the database."
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="35dp"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="500dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/addMenu"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="0dp"
-                android:backgroundTint="#e4024d"
-                android:text="Add Menu"
-                android:textAllCaps="false"
-                android:textSize="15dp" />
+                android:gravity="center"
+                android:text="Manage Meals" />
+
+            <ListView
+                android:id="@+id/mealListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/addMealButton"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center|right"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#E91E63"
+            android:text="+"
+            android:textSize="36sp"
+            app:cornerRadius="20dp"
+            tools:text="+" />
 
     </LinearLayout>
 

@@ -66,7 +66,6 @@ public class AdminHome extends AppCompatActivity {
 
     private void update(){
         // The list of complaints, should be obtained from the database
-        String testArray[] = {"Complaint 1", "Complaint 2", "Complaint 3"};
         Context cntx = this;
 
         database = FirebaseDatabase.getInstance().getReference("Accounts");
