@@ -46,6 +46,8 @@ public class CookHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_home);
 
+        // Buttons
+        MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
         Button addMealButton = (Button) findViewById(R.id.addMealButton);
 
         // Value retrieved from SignIn for the cook that just signed in
@@ -61,14 +63,15 @@ public class CookHome extends AppCompatActivity {
             ArrayList<String> allergens = new ArrayList<>();
             allergens.add("Pollen");
 
-            MenuItem item = new MenuItem("gross", Types.DRINK, CuisineTypes.AMERICAN,
-                    ingredients, allergens, 24.0, "overpriced salt water");
+            MenuItem item = new MenuItem("gross" + i, Types.DRINK, CuisineTypes.AMERICAN,
+                    ingredients, allergens, 25.0, "overpriced salt water");
 
             testMeals.put(item.getName(), item);
         }
         Menu menu = new Menu(testMeals);
-        cook.save(menu);
-        cook.getMenu();
+        //cook.save(menu);
+
+        //cook.getMenu();
 
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,18 +84,27 @@ public class CookHome extends AppCompatActivity {
         mealListView = (ListView) findViewById(R.id.mealListView);
 
         update();
+
+        // Signs out user
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CookHome.this.finish();
+            }
+        });
     }
     private void update(){
         Context cntx = this;
 
         // ARRAY OF MEALS
-        MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
-        MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
-        // ARRAY OF MEAL TITLESa
-        String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
-        String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
-        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
+//        MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
+//        MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
+//        // ARRAY OF MEAL TITLESa
+//        String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
+//        String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
+//        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
 
+        String[] offeredTitle = {"1", "2", "3", "4" , "5"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, offeredTitle);
         mealListView.setAdapter(arrayAdapter);
 

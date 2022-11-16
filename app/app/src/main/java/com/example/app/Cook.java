@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -79,40 +80,61 @@ public class Cook extends Account {
     public void ban() {banned = true;};
 
     public Menu getMenu() {
+        // for some reason, Android requires to create 1-element arrays
+        // for this to use a variable that's defined outside the listener inside the listener.
+        // If not, it shows red underlined.
+        final Menu[] menu = new Menu[1];
         cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot dataSnapshot = task.getResult();
-                MenuItem menuItems[] = new MenuItem[Math.toIntExact(dataSnapshot.getChildrenCount())];
-                HashMap<String, MenuItem> m = new HashMap<String, MenuItem>();
-
-                //Log.i("SIZE", Integer.toString(menuItems.length));
-
-                Map<String, Object> menuMap = (Map<String, Object>) dataSnapshot.getValue();
-                if (menuMap != null) {
-                    int i = 0;
-                    //creating a list of complaints that exist on the DB
-                    for (Map.Entry<String, Object> entry : menuMap.entrySet()) {
-                        Map item = (Map) entry.getValue();
-                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
-                        ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
-
-                        menuItems[i] = new MenuItem(item.get("name").toString(), Types.valueOf(item.get("type").toString()),
-                                CuisineTypes.valueOf(item.get("cuisineType").toString()),ingredients,allergens,
-                                Double.parseDouble(item.get("price").toString()),item.get("description").toString());
-
-                        m.put(item.get("name").toString(),menuItems[i]);
-                        i++;
-                        //String name, Types type, CuisineTypes cuisineType, ArrayList<String> ingredients,
-                        //    ArrayList<String> allergens, Double price, String description
-                    }
-                    menu = new Menu(m);
-                } else {
-                    menu = new Menu();
+                // Too simple to work but pray it will
+                // The other implementation looked a little funky with the MenuItem array?
+                // Didn't quite understand that. So I wanted to try this.
+                // Obviously it looks deceptively simple, but who knows? might work.
+                // Here's where I'm getting the idea from:
+                // https://firebase.google.com/docs/reference/android/com/google/firebase/database/DataSnapshot#getValue(java.lang.Class%3CT%3E)
+                // However the listener is skipped over for some reason, so wasn't able to test.
+                if (task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    menu[0] = snapshot.getValue(Menu.class);
                 }
             }
         });
-        return menu;
+        return menu[0];
+//        cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                System.out.println("I am in onComplete");
+//                DataSnapshot dataSnapshot = task.getResult();
+//                HashMap<String, MenuItem> m = new HashMap<String, MenuItem>();
+//
+//                //Log.i("SIZE", Integer.toString(menuItems.length));
+//
+//                Menu retrievedMenu = dataSnapshot.getValue(Menu.class);
+//                if (retrievedMenu != null) {
+////                    int i = 0;
+//
+////                    for (Map.Entry<String, Object> entry : menuMap.entrySet()) {
+////                        Map item = (Map) entry.getValue();
+////                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
+////                        ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
+////
+////                        menuItems[i] = new MenuItem(item.get("name").toString(), Types.valueOf(item.get("type").toString()),
+////                                CuisineTypes.valueOf(item.get("cuisineType").toString()),ingredients,allergens,
+////                                Double.parseDouble(item.get("price").toString()),item.get("description").toString());
+////
+////                        m.put(item.get("name").toString(),menuItems[i]);
+////                        i++;
+////                        //String name, Types type, CuisineTypes cuisineType, ArrayList<String> ingredients,
+////                        //    ArrayList<String> allergens, Double price, String description
+////                    }
+//                    menu = retrievedMenu;
+//                } else {
+//                    menu = new Menu();
+//                }
+//            }
+//        });
+//        return menu;
     }
 
     private void setMenu(Menu menu) {
