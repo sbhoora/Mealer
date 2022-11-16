@@ -89,12 +89,12 @@ public class Menu {
     }
 
 
-        /**
-         * Moves a MenuItem from the offered meal list to the not offered meal list.
-         * <p>Thus, there is no need for a add to (offered/not offered) meal list method.</p>
-         * <p><b>Note:</b> the items are not saved to the database under the cook's field until
-         * {@link Cook#save(Menu) save()} is called.</p>
-         */
+    /**
+     * Moves a MenuItem from the offered meal list to the not offered meal list.
+     * <p>Thus, there is no need for a add to (offered/not offered) meal list method.</p>
+     * <p><b>Note:</b> the items are not saved to the database under the cook's field until
+     * {@link Cook#save(Menu) save()} is called.</p>
+     */
     public void removeFromOfferedMeals(MenuItem meal) {
         if (offeredMeals.containsKey(meal.getName())) {
             offeredMeals.remove(meal.getName());

@@ -174,8 +174,7 @@ public class SignIn extends AppCompatActivity {
 
                                                     // Passing cook info to Home activity on activity start
                                                     Bundle info = new Bundle();
-                                                    info.putString("email", email);
-                                                    info.putString("accountType", "Cook");
+                                                    info.putString("email", cook.getEmail());
                                                     signIn(info, CookHome.class);
                                                 }
 

@@ -32,6 +32,10 @@ public class Cook extends Account {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference cookReference = database.getReference("Accounts").child("Cooks");
 
+    public Cook(String email) {
+        super(email);
+    }
+
     public Cook(String first, String last, String mail, String pass, Address address, String description) 
     {
         super(first, last, mail, pass);
@@ -75,7 +79,7 @@ public class Cook extends Account {
     public void ban() {banned = true;};
 
     public Menu getMenu() {
-        cookReference.child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 DataSnapshot dataSnapshot = task.getResult();

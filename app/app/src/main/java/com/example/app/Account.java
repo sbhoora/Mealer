@@ -7,6 +7,16 @@ public class Account {
     private String email;
     private String password;
 
+    /**
+     * Constructor that only uses email of user.
+     * This is so the user password isn't passed around everywhere.
+     * Besides, only the email is used as a key in the database.
+     * @param email
+     */
+    public Account(String email) {
+        this.email = email;
+    }
+
     public Account(String first, String last, String mail, String pass) {
          this.firstName = first;
          this.lastName = last;

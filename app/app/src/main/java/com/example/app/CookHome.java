@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,27 @@ public class CookHome extends AppCompatActivity {
 
         Button addMealButton = (Button) findViewById(R.id.addMealButton);
 
+        // Value retrieved from SignIn for the cook that just signed in
+        String email = getIntent().getStringExtra("email");
+        cook = new Cook(email);
 
+        HashMap<String, MenuItem> testMeals = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
+            ArrayList<String> ingredients = new ArrayList<>();
+            ingredients.add("Salt");
+            ingredients.add("Water");
+
+            ArrayList<String> allergens = new ArrayList<>();
+            allergens.add("Pollen");
+
+            MenuItem item = new MenuItem("gross", Types.DRINK, CuisineTypes.AMERICAN,
+                    ingredients, allergens, 24.0, "overpriced salt water");
+
+            testMeals.put(item.getName(), item);
+        }
+        Menu menu = new Menu(testMeals);
+        cook.save(menu);
+        cook.getMenu();
 
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
