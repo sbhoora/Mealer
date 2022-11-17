@@ -85,29 +85,6 @@ public class Cook extends Account {
         // for this to use a variable that's defined outside the listener inside the listener.
         // If not, it shows red underlined.
         final Menu[] menu = new Menu[1];
-        /*
-        cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                // Too simple to work but pray it will
-                // The other implementation looked a little funky with the MenuItem array?
-                // Didn't quite understand that. So I wanted to try this.
-                // Obviously it looks deceptively simple, but who knows? might work.
-                // Here's where I'm getting the idea from:
-                // https://firebase.google.com/docs/reference/android/com/google/firebase/database/DataSnapshot#getValue(java.lang.Class%3CT%3E)
-                // However the listener is skipped over for some reason, so wasn't able to test.
-                if (task.isSuccessful()) {
-                    Log.i("COOK", "PASS 1");
-                    DataSnapshot snapshot = task.getResult();
-                    //menu[0] = snapshot.getValue(Menu.class);
-                    Log.i("COOK", String.valueOf(snapshot.child("notOfferedMeals").child("gross0").child("name").getValue()));
-                }
-            }
-        });
-        Log.i("COOK", "PASS 2");
-        return menu[0];
-         */
-
         cookReference.child(getEmail()).child("Menu").child("notOfferedMeals").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -137,9 +114,6 @@ public class Cook extends Account {
                             allergens.add(child.getValue().toString());
                         }
 
-                        //ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
-                        //ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
-
                         menuItems[i] = new MenuItem(item.get("name").toString(), Types.valueOf(item.get("type").toString()),
                                 CuisineTypes.valueOf(item.get("cuisineType").toString()),ingredients,allergens,
                                 Double.parseDouble(item.get("price").toString()),item.get("description").toString());
@@ -148,6 +122,7 @@ public class Cook extends Account {
                         Log.i("MENU",String.valueOf(snapshot.child("notOfferedMeals").child("gross0").child("name").getValue()));
                         i++;
                     }
+                    Log.i("Firebase", "Menu retrieved successfully");
                     menu[0] = new Menu(m);
                 } else {
                     menu[0] = new Menu();

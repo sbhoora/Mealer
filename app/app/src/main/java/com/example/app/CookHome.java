@@ -97,14 +97,14 @@ public class CookHome extends AppCompatActivity {
         Context cntx = this;
 
         // ARRAY OF MEALS
-//        MenuItem offered[] = cook.getMenu().getOfferedMeals().values().toArray(new MenuItem[0]);
-//        MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
-//        // ARRAY OF MEAL TITLESa
-//        String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
-//        String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
+        Menu elMenu = cook.getMenu();
+        MenuItem offered[] = elMenu.getOfferedMeals().values().toArray(new MenuItem[0]);
+        MenuItem notOffered[] = cook.getMenu().getNotOfferedMeals().values().toArray(new MenuItem[0]);
+        // ARRAY OF MEAL TITLESa
+        String offeredTitle[] = cook.getMenu().getOfferedMeals().keySet().toArray(new String[0]);
+        String notOfferedTitle[] = cook.getMenu().getNotOfferedMeals().keySet().toArray(new String[0]);
 //        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
 
-        String[] offeredTitle = {"1", "2", "3", "4" , "5"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, offeredTitle);
         mealListView.setAdapter(arrayAdapter);
 
