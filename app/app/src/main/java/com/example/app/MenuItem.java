@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class MenuItem {
 
     private String name;
-    private Types type;
-    private CuisineTypes cuisineType;
+    private Type type;
+    private CuisineType cuisineType;
     private ArrayList<String> ingredients;
     private ArrayList<String> allergens;
     private double price;
@@ -19,9 +19,10 @@ public class MenuItem {
     /**
      * Default MenuItem constructor.
      */
+    public MenuItem() {}
 
-    public MenuItem(String name, Types type, CuisineTypes cuisineType, ArrayList<String> ingredients,
-    ArrayList<String> allergens, Double price, String description) {
+    public MenuItem(String name, Type type, CuisineType cuisineType, ArrayList<String> ingredients,
+                    ArrayList<String> allergens, Double price, String description) {
         this.name = name;
         this.type = type;
         this.cuisineType = cuisineType;
@@ -30,6 +31,31 @@ public class MenuItem {
         this.price = price;
         this.description = description;
         
+    }
+
+    // Menu Item interaction
+    public void addAllergen(String allergen) {
+        if (!allergens.contains(allergen)) {
+            allergens.add(allergen);
+        }
+    }
+
+    public void removeAllergen(String allergen) {
+        if (allergens.contains(allergen)) {
+            allergens.remove(allergen);
+        }
+    }
+
+    public void addIngredient(String ingredient) {
+        if (!ingredients.contains(ingredient)) {
+            ingredients.add(ingredient);
+        }
+    }
+
+    public void removeIngredient(String ingredient) {
+        if (ingredients.contains(ingredient)) {
+            ingredients.remove(ingredient);
+        }
     }
 
     //Getters
@@ -74,34 +100,18 @@ public class MenuItem {
         this.name = newName;
     }
 
-    public void setType(String type) {
-        this.type = Types.valueOf(type);
+    public void setType(Type type) {
+        this.type = type;
     }
 
-    public void setCuisineType(String type) { this.cuisineType = CuisineTypes.valueOf(type); }
+    public void setCuisineType(CuisineType cuisineType) { this.cuisineType = cuisineType; }
 
-    public void addAllergens(String allergen) {
-        if (!allergens.contains(allergen)) {
-            allergens.add(allergen);
-        }
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    public void removeAllergens(String allergen) {
-        if (allergens.contains(allergen)) {
-            allergens.remove(allergen);
-        }
-    }
-
-    public void addIngredients(String ingredient) {
-        if (!ingredients.contains(ingredient)) {
-            ingredients.add(ingredient);
-        }
-    }
-
-    public void removeIngredients(String ingredient) {
-        if (ingredients.contains(ingredient)) {
-            ingredients.remove(ingredient);
-        }
+    public void setAllergens(ArrayList<String> allergens) {
+        this.allergens = allergens;
     }
 
     public void setPrice(Double newPrice) {

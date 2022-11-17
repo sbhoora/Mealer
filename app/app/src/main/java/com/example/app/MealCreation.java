@@ -42,7 +42,7 @@ public class MealCreation extends AppCompatActivity {
                 // DATABASE STUFF
                 String email = getIntent().getStringExtra("email");
                 cook = new Cook(email);
-                item = new MenuItem(name, Types.valueOf(type), CuisineTypes.valueOf(cuisineType),
+                item = new MenuItem(name, Type.valueOf(type), CuisineType.valueOf(cuisineType),
                         new ArrayList<>(Arrays.asList(ingredients)),
                         new ArrayList<>(Arrays.asList(allergens)), price, description);
                 Menu menu = cook.getMenu();

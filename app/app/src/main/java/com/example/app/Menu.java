@@ -131,6 +131,22 @@ public class Menu {
         return notOfferedMeals;
     }
 
+    /**
+     * Mostly for firebase.
+     * @param offeredMeals
+     */
+    public void setOfferedMeals(HashMap<String, MenuItem> offeredMeals) {
+        this.offeredMeals = offeredMeals;
+    }
+
+    /**
+     * Mostly for firebase.
+     * @param notOfferedMeals
+     */
+    public void setNotOfferedMeals(HashMap<String, MenuItem> notOfferedMeals) {
+        this.notOfferedMeals = notOfferedMeals;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
