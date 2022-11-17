@@ -71,7 +71,7 @@ public class CookHome extends AppCompatActivity {
         Menu menu = new Menu(testMeals);
         //cook.save(menu);
 
-        //cook.getMenu();
+        cook.getMenu();
 
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
