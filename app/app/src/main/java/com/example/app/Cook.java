@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class Cook extends Account {
         return menu[0];
          */
 
-        cookReference.child(getEmail()).child("Menu").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        cookReference.child(getEmail()).child("Menu").child("notOfferedMeals").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Log.i("onComplete", "PASS");
@@ -123,8 +124,21 @@ public class Cook extends Account {
 
                     for (Map.Entry<String, Object> entry : menuMap.entrySet()) {
                         Map item = (Map) entry.getValue();
-                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
-                        ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
+                        Log.i("MAP",item.get("name").toString());
+
+                        ArrayList<String> ingredients = new ArrayList<String>();
+                        ArrayList<String> allergens = new ArrayList<String>();
+
+                        for (DataSnapshot child : snapshot.child("ingredients").getChildren()) {
+                            ingredients.add(child.getValue().toString());
+                        }
+
+                        for (DataSnapshot child : snapshot.child("allergens").getChildren()) {
+                            allergens.add(child.getValue().toString());
+                        }
+
+                        //ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(item.get("ingredients").toString().split(",")));
+                        //ArrayList<String> allergens = new ArrayList<>(Arrays.asList(item.get("allergens").toString().split(",")));
 
                         menuItems[i] = new MenuItem(item.get("name").toString(), Types.valueOf(item.get("type").toString()),
                                 CuisineTypes.valueOf(item.get("cuisineType").toString()),ingredients,allergens,
