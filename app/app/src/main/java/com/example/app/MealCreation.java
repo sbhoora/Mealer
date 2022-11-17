@@ -45,7 +45,9 @@ public class MealCreation extends AppCompatActivity {
                 item = new MenuItem(name, Types.valueOf(type), CuisineTypes.valueOf(cuisineType),
                         new ArrayList<>(Arrays.asList(ingredients)),
                         new ArrayList<>(Arrays.asList(allergens)), price, description);
-                cook.addMeal(item);
+                Menu menu = cook.getMenu();
+                menu.addAsNotOfferedMeal(item);
+                cook.save(menu);
                 MealCreation.this.finish();
             }
         });

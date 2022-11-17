@@ -158,10 +158,6 @@ public class Cook extends Account {
         return menu[0];
     }
 
-    public void addMeal(MenuItem item) {
-        cookReference.child(getEmail()).child("Menu").child("notOfferedMeals").child(item.getName()).setValue(item);
-    }
-
     private void setMenu(Menu menu) {
         this.menu = menu;
     }
