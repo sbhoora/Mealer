@@ -94,6 +94,7 @@ public class CookHome extends AppCompatActivity {
         // TLDR: //
             // Anytime you want to access the menu from the database, use the onCallBack() method.
             // Yeah it looks just like a firebase reference. c( 0_ 0) i have done bad.
+
         Cook cook = new Cook(email);
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override
@@ -101,22 +102,27 @@ public class CookHome extends AppCompatActivity {
 
                 Menu myMenu = menu;
                 // ARRAY OF MEALS
+                if(menu != null) {
+                    if (menu.getOfferedMeals() != null) {
+                        // TODO: Double check that menu has offeredMeals, else it returns null and crashes
+                        // Currently commented out because the current Menu object in the db for qw does not
+                        // have an offeredMeal, so it just returns null and crashes.
+                        MenuItem offered[] = menu.getOfferedMeals().values().toArray(new MenuItem[0]);
+                        // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
+                        String offeredTitle[] = menu.getOfferedMeals().keySet().toArray(new String[0]);
+                    }
+                    if (menu.getNotOfferedMeals() != null) {
+                        MenuItem notOffered[] = menu.getNotOfferedMeals().values().toArray(new MenuItem[0]);
+                        // ARRAY OF MEAL TITLESa
+                        // TODO: Double check that menu has offeredMeals, else it returns null and crashes
+                        // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
+                        String notOfferedTitle[] = menu.getNotOfferedMeals().keySet().toArray(new String[0]);
+                        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
 
-                // TODO: Double check that menu has offeredMeals, else it returns null and crashes
-                // Currently commented out because the current Menu object in the db for qw does not
-                // have an offeredMeal, so it just returns null and crashes.
-//                MenuItem offered[] = menu.getOfferedMeals().values().toArray(new MenuItem[0]);
-                // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
-                MenuItem notOffered[] = menu.getNotOfferedMeals().values().toArray(new MenuItem[0]);
-                // ARRAY OF MEAL TITLESa
-                // TODO: Double check that menu has offeredMeals, else it returns null and crashes
-//                String offeredTitle[] = menu.getOfferedMeals().keySet().toArray(new String[0]);
-                // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
-                String notOfferedTitle[] = menu.getNotOfferedMeals().keySet().toArray(new String[0]);
-                // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
-
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, notOfferedTitle);
-                mealListView.setAdapter(arrayAdapter);
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, notOfferedTitle);
+                        mealListView.setAdapter(arrayAdapter);
+                    }
+                }
 
                 mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
