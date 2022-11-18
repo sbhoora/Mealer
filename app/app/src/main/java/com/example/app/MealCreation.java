@@ -16,13 +16,15 @@ import java.util.Locale;
 public class MealCreation extends AppCompatActivity {
     private Cook cook;
     private MenuItem item;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_creation);
-
         Button createMealButton = (Button) findViewById(R.id.createMealButton);
+        //EMAIL IS NULL I DONT KNOW WHY :'(
+        email = getIntent().getStringExtra("email");
 
         createMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +62,20 @@ public class MealCreation extends AppCompatActivity {
                     String description = ((EditText) findViewById(R.id.descriptionText)).getText().toString();
 
                     // DATABASE STUFF
-                    String email = getIntent().getStringExtra("email");
-                    cook = new Cook(email);
-                    item = new MenuItem(name, Type.valueOf(type.toUpperCase()), CuisineType.valueOf(cuisineType),
-                            new ArrayList<>(Arrays.asList(ingredients)),
-                            new ArrayList<>(Arrays.asList(allergens)), price, description);
+                    Cook cook = new Cook(email);
+                    cook.getMenu(new Cook.FirebaseMenuCallback() {
+                        @Override
+                        public void onCallBack(Menu menu) {
+                            String email = getIntent().getStringExtra("email");
+                            item = new MenuItem(name, Type.valueOf(type.toUpperCase()), CuisineType.valueOf(cuisineType.toUpperCase()),
+                                    new ArrayList<>(Arrays.asList(ingredients)),
+                                    new ArrayList<>(Arrays.asList(allergens)), price, description);
+                            menu.addAsNotOfferedMeal(item);
+                            cook.save(menu);
+                            MealCreation.this.finish();
+                        }
+                    });
 
-                    Menu menu = cook.getMenu();
-                    menu.addAsNotOfferedMeal(item);
-                    cook.save(menu);
-                    MealCreation.this.finish();
                 }
             }
         });

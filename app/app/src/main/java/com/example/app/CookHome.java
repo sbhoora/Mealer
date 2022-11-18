@@ -105,36 +105,36 @@ public class CookHome extends AppCompatActivity {
                 ArrayList<String> tempMealTitles = new ArrayList<String>();
                 ArrayList<MenuItem> tempItems = new ArrayList<MenuItem>();
                 Menu myMenu = menu;
-
                 if(menu != null) {
                     if (menu.getOfferedMeals() != null) {
-                        //ARRAY OF OFFERED MEALS
                         tempItems.addAll(new ArrayList<>(Arrays.asList(menu.getOfferedMeals().values().toArray(new MenuItem[0]))));
                         tempMealTitles.addAll(new ArrayList<>(Arrays.asList(menu.getOfferedMeals().keySet().toArray(new String[0]))));
                     }
                     if (menu.getNotOfferedMeals() != null) {
-                        // ARRAY OF NOT OFFERED MEALS
                         tempItems.addAll(new ArrayList<>(Arrays.asList(menu.getNotOfferedMeals().values().toArray(new MenuItem[0]))));
                         tempMealTitles.addAll(new ArrayList<>(Arrays.asList(menu.getNotOfferedMeals().keySet().toArray(new String[0]))));
                     }
                 }
-                //String[] mealTitles = new String[tempMealTitles.size()];
                 String[] mealTitles = tempMealTitles.toArray(new String[tempMealTitles.size()]);
-
-                MenuItem[] items = new MenuItem[tempItems.size()];
-                items = tempItems.toArray(items);
+                MenuItem[] items = tempItems.toArray(new MenuItem[tempItems.size()]);
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, mealTitles);
                 mealListView.setAdapter(arrayAdapter);
 
-                MenuItem[] finalItems = items;
                 mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
                         // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
-                        builder.setTitle("Manage Meal");
-                        MenuItem item = finalItems[i];
+                        MenuItem item = items[i];
+                        String name, type, cuisineType, description;
+                        name = item.getName();
+                        type = item.getType();
+                        cuisineType = item.getCuisineType();
+                        description = item.getDescription();
+
+                        builder.setTitle(name);
+                        builder.setMessage(String.format("Type: %s\nCuisine Type: %s\nDescription: %s\n", type, cuisineType, description));
 
                         final CheckBox input = new CheckBox(view.getContext());
                         if(menu.isInNotOffered(item)){
@@ -185,7 +185,6 @@ public class CookHome extends AppCompatActivity {
                                 update();
                             }
                         });
-
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }
