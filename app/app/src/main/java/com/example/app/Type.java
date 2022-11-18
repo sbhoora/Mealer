@@ -1,5 +1,5 @@
 package com.example.app;
 
 public enum Type {
-    DESSERT, APPITIZER, ENTREE, DRINK, SOUP;
+    DESSERT, APPETIZER, ENTREE, DRINK, SOUP;
   }

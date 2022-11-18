@@ -1,5 +1,5 @@
 package com.example.app;
 
 public enum CuisineType {
-    AMERICAN, ASIAN, AFRICAN, EUROPEAN;
+    NORTH_AMERICAN, ASIAN, AFRICAN, EUROPEAN, SOUTH_AMERICAN;
   }

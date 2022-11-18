@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="visible_user_types">
+        <item>Client</item>
+        <item>Cook</item>
+    </string-array>
+    <string-array name="meal_types">
+        <item>Dessert</item>
+        <item>Appetizer</item>
+        <item>Entree</item>
+        <item>Drink</item>
+        <item>Soup</item>
+    </string-array>
+    <string-array name="cuisine_types">
+        <item>North American</item>
+        <item>Asian</item>
+        <item>African</item>
+        <item>European</item>
+        <item>South American</item>
+    </string-array>
+</resources>

@@ -32,23 +32,19 @@
             android:hint="Name"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/typeText"
+        <Spinner
+            android:id="@+id/typeSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="Type"
-            android:inputType="textPersonName" />
+            android:entries="@array/meal_types" />
 
-        <EditText
-            android:id="@+id/cuisineTypeText"
+        <Spinner
+            android:id="@+id/cuisineTypeSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="Cuisine Type"
-            android:inputType="textPersonName" />
+            android:entries="@array/cuisine_types" />
 
         <EditText
             android:id="@+id/ingredientsText"

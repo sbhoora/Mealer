@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,13 +32,12 @@ public class MealCreation extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("MEALCREATION","HERE");
                 String name = ((EditText) findViewById(R.id.nameText)).getText().toString();
-                String type = ((EditText) findViewById(R.id.typeText)).getText().toString();
-                String cuisineType = ((EditText) findViewById(R.id.cuisineTypeText)).getText().toString();
+                int type = ((Spinner) findViewById(R.id.typeSpinner)).getSelectedItemPosition();
+                int cuisineType = ((Spinner) findViewById(R.id.cuisineTypeSpinner)).getSelectedItemPosition();
                 String[] ingredients = ((EditText) findViewById(R.id.ingredientsText)).getText().toString().split(",");
 
                 // DATA VALIDATION STUFF
-                EditText[] texts = { (EditText) findViewById(R.id.nameText), (EditText) findViewById(R.id.typeText),
-                        (EditText) findViewById(R.id.cuisineTypeText), (EditText) findViewById(R.id.ingredientsText),
+                EditText[] texts = { (EditText) findViewById(R.id.nameText), (EditText) findViewById(R.id.ingredientsText),
                         (EditText) findViewById(R.id.alergensText), (EditText) findViewById(R.id.priceText),
                         (EditText) findViewById(R.id.descriptionText)};
 
@@ -67,7 +67,7 @@ public class MealCreation extends AppCompatActivity {
                         @Override
                         public void onCallBack(Menu menu) {
                             String email = getIntent().getStringExtra("email");
-                            item = new MenuItem(name, Type.valueOf(type.toUpperCase()), CuisineType.valueOf(cuisineType.toUpperCase()),
+                            item = new MenuItem(name, Type.values()[type], CuisineType.values()[cuisineType],
                                     new ArrayList<>(Arrays.asList(ingredients)),
                                     new ArrayList<>(Arrays.asList(allergens)), price, description);
                             menu.addAsNotOfferedMeal(item);
