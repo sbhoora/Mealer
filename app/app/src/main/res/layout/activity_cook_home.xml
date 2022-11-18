@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:text="Click on the name to open the meal."
+        android:text="Press on the meal name for more information."
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16dp"
@@ -71,37 +71,44 @@
         android:layout_marginEnd="49dp"
         android:layout_marginBottom="49dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/holdToOpen">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/mealListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </ListView>
         </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/buttonLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="right">
         <Button
             android:id="@+id/addMealButton"
             android:layout_width="75dp"
             android:layout_height="86dp"
             android:layout_gravity="center|right"
-            android:layout_marginTop="30dp"
+            android:layout_margin="30dp"
             android:backgroundTint="#E91E63"
             android:text="+"
             android:textSize="36sp"
             app:cornerRadius="100dp"
             tools:text="+" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
