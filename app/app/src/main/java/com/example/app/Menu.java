@@ -1,5 +1,8 @@
 package com.example.app;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -96,9 +99,16 @@ public class Menu {
      * {@link Cook#save(Menu) save()} is called.</p>
      */
     public void removeFromOfferedMeals(MenuItem meal) {
-        if (offeredMeals.containsKey(meal.getName())) {
-            offeredMeals.remove(meal.getName());
-            notOfferedMeals.put(meal.getName(), meal);
+        if(offeredMeals!=null){
+            if (offeredMeals.containsKey(meal.getName()) && notOfferedMeals!=null) {
+                offeredMeals.remove(meal.getName());
+                notOfferedMeals.put(meal.getName(), meal);
+            }else{
+                offeredMeals.remove(meal.getName());
+                HashMap<String, MenuItem> a = new HashMap<String, MenuItem>();
+                a.put(meal.getName(), meal);
+                notOfferedMeals = a;
+            }
         }
     }
 
@@ -109,10 +119,45 @@ public class Menu {
      * {@link Cook#save(Menu) save()} is called.</p>
      */
     public void removeFromNotOfferedMeals(MenuItem meal) {
-        if (notOfferedMeals.containsKey(meal.getName())) {
-            notOfferedMeals.remove(meal.getName());
-            offeredMeals.put(meal.getName(), meal);
+        if(notOfferedMeals!=null){
+            if (notOfferedMeals.containsKey(meal.getName()) && offeredMeals!=null) {
+                notOfferedMeals.remove(meal.getName());
+                offeredMeals.put(meal.getName(), meal);
+            }else{
+                notOfferedMeals.remove(meal.getName());
+                HashMap<String, MenuItem> a = new HashMap<String, MenuItem>();
+                a.put(meal.getName(), meal);
+                offeredMeals = a;
+            }
         }
+    }
+
+    public boolean deleteMeal(MenuItem meal){
+        if(notOfferedMeals!=null){
+            if(notOfferedMeals.containsKey(meal.getName())){
+                notOfferedMeals.remove(meal.getName());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isInNotOffered(MenuItem meal){
+        if(notOfferedMeals!=null){
+            if(notOfferedMeals.containsKey(meal.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isInOffered(MenuItem meal){
+        if(offeredMeals!=null){
+            if(offeredMeals.containsKey(meal.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

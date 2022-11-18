@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,11 +15,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.app.AlertDialog;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -99,48 +102,63 @@ public class CookHome extends AppCompatActivity {
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override
             public void onCallBack(Menu menu) {
-
+                ArrayList<String> tempMealTitles = new ArrayList<String>();
+                ArrayList<MenuItem> tempItems = new ArrayList<MenuItem>();
                 Menu myMenu = menu;
-                // ARRAY OF MEALS
+
                 if(menu != null) {
                     if (menu.getOfferedMeals() != null) {
-                        // TODO: Double check that menu has offeredMeals, else it returns null and crashes
-                        // Currently commented out because the current Menu object in the db for qw does not
-                        // have an offeredMeal, so it just returns null and crashes.
-                        MenuItem offered[] = menu.getOfferedMeals().values().toArray(new MenuItem[0]);
-                        // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
-                        String offeredTitle[] = menu.getOfferedMeals().keySet().toArray(new String[0]);
+                        //ARRAY OF OFFERED MEALS
+                        tempItems.addAll(new ArrayList<>(Arrays.asList(menu.getOfferedMeals().values().toArray(new MenuItem[0]))));
+                        tempMealTitles.addAll(new ArrayList<>(Arrays.asList(menu.getOfferedMeals().keySet().toArray(new String[0]))));
                     }
                     if (menu.getNotOfferedMeals() != null) {
-                        MenuItem notOffered[] = menu.getNotOfferedMeals().values().toArray(new MenuItem[0]);
-                        // ARRAY OF MEAL TITLESa
-                        // TODO: Double check that menu has offeredMeals, else it returns null and crashes
-                        // TODO: Double check that menu has notOfferedMeals, else it returns null and crashes
-                        String notOfferedTitle[] = menu.getNotOfferedMeals().keySet().toArray(new String[0]);
-                        // (IF YOU WANT TO SHOW THEIR OFFERED STATUS SIMPLY APPEND (OFFERED) TO THE END OF THE TITLE STRING)
-
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, notOfferedTitle);
-                        mealListView.setAdapter(arrayAdapter);
+                        // ARRAY OF NOT OFFERED MEALS
+                        tempItems.addAll(new ArrayList<>(Arrays.asList(menu.getNotOfferedMeals().values().toArray(new MenuItem[0]))));
+                        tempMealTitles.addAll(new ArrayList<>(Arrays.asList(menu.getNotOfferedMeals().keySet().toArray(new String[0]))));
                     }
                 }
+                //String[] mealTitles = new String[tempMealTitles.size()];
+                String[] mealTitles = tempMealTitles.toArray(new String[tempMealTitles.size()]);
 
+                MenuItem[] items = new MenuItem[tempItems.size()];
+                items = tempItems.toArray(items);
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.complaint_list_item, R.id.textView, mealTitles);
+                mealListView.setAdapter(arrayAdapter);
+
+                MenuItem[] finalItems = items;
                 mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
                         // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
                         builder.setTitle("Manage Meal");
+                        MenuItem item = finalItems[i];
 
                         final CheckBox input = new CheckBox(view.getContext());
-                        input.setText("Offered");
+                        if(menu.isInNotOffered(item)){
+                            input.setText("Offered");
+                        }else{
+                            input.setText("Not Offered");
+                        }
                         builder.setView(input);
 
                         builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                Log.i("APPLY","HERE");
                                 boolean newOffered = input.isChecked();
                                 // APPLY THE CHANGES TO THE DATABASE
-
+                                if(input.isChecked()&&input.getText().equals("Offered")){
+                                    menu.removeFromNotOfferedMeals(item);
+                                    cook.save(menu);
+                                    Toast.makeText(CookHome.this,"This meal has been moved to Offered Meals.", Toast.LENGTH_SHORT).show();
+                                }else if(input.isChecked()&&input.getText().equals("Not Offered")){
+                                    menu.removeFromOfferedMeals(item);
+                                    cook.save(menu);
+                                    Toast.makeText(CookHome.this,"This meal has been moved to Not Offered Meals.", Toast.LENGTH_SHORT).show();
+                                }
                                 dialog.cancel();
                                 update();
                             }
@@ -148,14 +166,21 @@ public class CookHome extends AppCompatActivity {
                         builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                Log.i("DISMISS","HERE");
                                 dialog.cancel();
                             }
                         });
                         builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                Log.i("DELETE","HERE");
                                 // DELETE MEAL FROM DATABASE
-
+                                if(!menu.deleteMeal(item)){
+                                    Toast.makeText(CookHome.this,"This meal cannot be deleted.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(CookHome.this,"This meal has been deleted.", Toast.LENGTH_SHORT).show();
+                                }
+                                cook.save(menu);
                                 dialog.cancel();
                                 update();
                             }

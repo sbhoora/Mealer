@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MealCreation extends AppCompatActivity {
     private Cook cook;
@@ -61,9 +62,10 @@ public class MealCreation extends AppCompatActivity {
                     // DATABASE STUFF
                     String email = getIntent().getStringExtra("email");
                     cook = new Cook(email);
-                    item = new MenuItem(name, Type.valueOf(type), CuisineType.valueOf(cuisineType),
+                    item = new MenuItem(name, Type.valueOf(type.toUpperCase()), CuisineType.valueOf(cuisineType),
                             new ArrayList<>(Arrays.asList(ingredients)),
                             new ArrayList<>(Arrays.asList(allergens)), price, description);
+
                     Menu menu = cook.getMenu();
                     menu.addAsNotOfferedMeal(item);
                     cook.save(menu);
