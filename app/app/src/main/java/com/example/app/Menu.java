@@ -3,6 +3,7 @@ package com.example.app;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,12 +11,15 @@ import java.util.HashMap;
  * This class is an abstraction of a physical menu.
  * It holds menu items to be used by a {@link Cook}.
  */
-public class Menu {
+public class Menu implements Serializable {
 
     private HashMap<String, MenuItem> offeredMeals;
     private HashMap<String, MenuItem> notOfferedMeals;
 
-    public Menu(){}
+    public Menu(){
+        this.offeredMeals = new HashMap<>();
+        this.notOfferedMeals = new HashMap<>();
+    }
 
     /**
      * <p>By default, the HashMap of items that is passed in is added to the offered meal list.</p>

@@ -33,6 +33,7 @@ public class Cook extends Account {
     private Menu menu;
 
     // Firebase
+
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference cookReference = database.getReference("Accounts").child("Cooks");
 

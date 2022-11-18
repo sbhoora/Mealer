@@ -44,11 +44,20 @@ public class CookHome extends AppCompatActivity {
         // Value retrieved from SignIn for the cook that just signed in
         email = getIntent().getStringExtra("email");
 
+        cook = new Cook(email);
 
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CookHome.this, MealCreation.class));
+                // Intent to start activity
+                Intent cookToMealCreation = new Intent(Intent.ACTION_SENDTO);
+                cookToMealCreation.setClass(CookHome.this, MealCreation.class);
+                // Bundle of elements to be passed to MealCreation
+                Bundle info = new Bundle();
+                info.putString("email", email);
+                cookToMealCreation.putExtras(info);
+                // Start Meal Creation
+                startActivity(cookToMealCreation);
                 update();
             }
         });
@@ -98,7 +107,6 @@ public class CookHome extends AppCompatActivity {
             // Anytime you want to access the menu from the database, use the onCallBack() method.
             // Yeah it looks just like a firebase reference. c( 0_ 0) i have done bad.
 
-        Cook cook = new Cook(email);
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override
             public void onCallBack(Menu menu) {
