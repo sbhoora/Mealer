@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:src="@drawable/mealer_logo_v2"
+                android:src="@drawable/mealer_logo_v3"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
