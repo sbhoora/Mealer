@@ -23,9 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="#e4024d"
+            android:backgroundTint="@color/systemRed"
             android:padding="0dp"
             android:text="Sign Out"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="15dp" />
     </LinearLayout>
@@ -106,6 +107,7 @@
             android:layout_margin="30dp"
             android:backgroundTint="#E91E63"
             android:text="+"
+            android:textColor="@color/white"
             android:textSize="36sp"
             app:cornerRadius="100dp"
             tools:text="+" />

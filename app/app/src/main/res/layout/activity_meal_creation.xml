@@ -21,6 +21,7 @@
             android:text="Add Meal"
             android:textColor="@color/black"
             android:textSize="35dp"
+            android:textAllCaps="false"
             android:textStyle="bold" />
 
         <EditText
@@ -30,6 +31,8 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Name"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hintColor"
             android:inputType="textPersonName" />
 
         <Spinner
@@ -53,16 +56,20 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Ingredient 1, Ingredient 2 ..."
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hintColor"/>
 
         <EditText
-            android:id="@+id/alergensText"
+            android:id="@+id/allergensText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Alergen 1, Alergen 2 ..."
-            android:inputType="textPersonName" />
+            android:hint="Allergen 1, Allergen 2 ..."
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hintColor"/>
 
         <EditText
             android:id="@+id/priceText"
@@ -71,7 +78,9 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Price"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hintColor"/>
 
         <EditText
             android:id="@+id/descriptionText"
@@ -80,22 +89,29 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hintColor"/>
 
         <Button
             android:id="@+id/createMealButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="100dp"
             android:backgroundTint="#e4024d"
-            android:text="Add Meal" />
+            android:text="Add Meal"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="#e4024d"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

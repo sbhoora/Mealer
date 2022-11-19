@@ -60,8 +60,10 @@ public class SignIn extends AppCompatActivity {
                         password.setError("Please fill in this field.");
                         Toast.makeText(SignIn.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                     }
+                    email.setText("");
+                    password.setText("");
                 }
-            //}
+
         });
 
         // Listens for sign up button click
@@ -101,6 +103,7 @@ public class SignIn extends AppCompatActivity {
         signIn.setClass(SignIn.this, destination);
         signIn.putExtras(info);
         startActivity(signIn);
+
     }
 
     private void isItUser(String email, String pw){

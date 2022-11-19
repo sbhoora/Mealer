@@ -42,7 +42,7 @@ public class MealCreation extends AppCompatActivity {
 
                 // DATA VALIDATION STUFF
                 EditText[] texts = { (EditText) findViewById(R.id.nameText), (EditText) findViewById(R.id.ingredientsText),
-                        (EditText) findViewById(R.id.alergensText), (EditText) findViewById(R.id.priceText),
+                        (EditText) findViewById(R.id.allergensText), (EditText) findViewById(R.id.priceText),
                         (EditText) findViewById(R.id.descriptionText)};
 
                 boolean empty = false;
@@ -58,7 +58,7 @@ public class MealCreation extends AppCompatActivity {
                     for (int i = 0; i < ingredients.length; i++) {
                         ingredients[i] = ingredients[i].trim();
                     }
-                    String[] allergens = ((EditText) findViewById(R.id.alergensText)).getText().toString().split(",");
+                    String[] allergens = ((EditText) findViewById(R.id.allergensText)).getText().toString().split(",");
                     for (int i = 0; i < allergens.length; i++) {
                         allergens[i] = allergens[i].trim();
                     }
