@@ -106,12 +106,13 @@ public class AdminHome extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
 
                         // 2. Chain together various setter methods to set the dialog characteristics
-                        builder.setTitle("Manage Complaint");
-                        builder.setMessage(String.format("Title: %s\nCook Email: %s\nMessage: %s\n\nSuspend Until (Blank for permanent)", title, cookEmail, message ));
+                        builder.setTitle(title);
+                        builder.setMessage(String.format("Cook Email: %s\nMessage: %s\n\nSuspend Until (Blank for permanent)", cookEmail, message ));
 
                         final EditText input = new EditText(view.getContext());
                         input.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
                         input.setHint("DD/MM/YYYY");
+                        input.setHintTextColor(808080);
                         builder.setView(input);
 
                         // Add the buttons

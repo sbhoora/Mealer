@@ -140,7 +140,7 @@ public class CookHome extends AppCompatActivity {
                                 update();
                             }
                         });
-                        builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Log.i("DISMISS","HERE");
