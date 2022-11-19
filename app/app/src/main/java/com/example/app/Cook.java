@@ -84,8 +84,6 @@ public class Cook extends Account {
     public void ban() {banned = true;};
 
     public Menu getMenu() {
-
-        // Part of russian man solution
         // Created a "custom callback" to deal with
         // asynchronous nature of firebase retrieve methods
         getMenu(new FirebaseMenuCallback() {

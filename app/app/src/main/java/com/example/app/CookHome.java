@@ -76,37 +76,6 @@ public class CookHome extends AppCompatActivity {
     }
     private void update(){
         Context cntx = this;
-
-        // Soooo, it seems a cook object will never be able to have a menu object that gets its
-        // value from the database
-        // The reason for that? //
-            // The Firebase methods/listeners (etc.) , which are APIs, are asynchronous, as are
-            // most web related functions. This means data is not returned synchronously,
-            // at the time the method is called. What this means for us is the method call may be
-            // over with the compiler going to the next thing before the value is returned.
-            // While the value is eventually returned, it is only after the method call is over.
-            // This means the menu field of the cook cannot be assigned a value inside that listener
-            // since that value has not yet been returned. While it may exist inside the listener,
-            // Once it leaves it, the value actually not yet been returned, and hence not actually
-            // assigning that value to the instance variable.
-        // The solution? //
-            // In our case, the solution to still be able to use the menu value from the database
-            // outside of the listener is what Russian man proposed, which allows us to pass the value
-            // through an onCallback() and access it inside there from wherever, leaving only the
-            // one firebase listener wherever it is placed (in this case, the Cook class).
-            // Here is link https://www.youtube.com/watch?v=OvDZVV5CbQg Solution starts at [3:20]
-            // However, this means the menu value can only ever be accessed inside the onCallBack() too.
-            // This brings us back to the same issue of it only being accessible inside the listener,
-            // except that it is now the onCallBack(). So, there is no simple solution.
-        // Conclusion //
-        // What we have below is the best we can have. It does not eliminate the restrictions
-        // that the listener imposes on the code since the onCallBack() ends up doing the same.
-        // However, this allows for the getMenu() to be associated with a cook object, providing
-        // clearer separation of actions and what objects they are related to.
-        // TLDR: //
-            // Anytime you want to access the menu from the database, use the onCallBack() method.
-            // Yeah it looks just like a firebase reference. c( 0_ 0) i have done bad.
-
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override
             public void onCallBack(Menu menu) {
