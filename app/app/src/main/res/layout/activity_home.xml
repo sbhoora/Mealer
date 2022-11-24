@@ -12,39 +12,77 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signOutButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:backgroundTint="#e4024d"
+            android:padding="0dp"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/signOutButton"
-                android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="0dp"
-                android:backgroundTint="#e4024d"
-                android:text="Sign Out"
-                android:textAllCaps="false"
-                android:textSize="15dp" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingLeft="75dp"
+                android:paddingRight="75dp"
+                android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/welcomeMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            android:paddingTop="50dp"
-            android:text="Welcome! You are signed in as role."
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="35dp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/availableMealsTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Available Meals"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/mealSearchText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Search by name, type, cuisine"
+                    android:inputType="textPersonName" />
+
+                <ListView
+                    android:id="@+id/mealList"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="20dp">
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/availableMealsTitleText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Purchased Meals"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <ListView
+                    android:id="@+id/mealList"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="20dp">
+
+                </ListView>
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

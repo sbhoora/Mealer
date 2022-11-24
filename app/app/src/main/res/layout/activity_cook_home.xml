@@ -8,85 +8,97 @@
     android:orientation="vertical"
     tools:context=".CookHome">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/signOutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="#e4024d"
-            android:padding="0dp"
-            android:text="Sign Out"
-            android:textAllCaps="false"
-            android:textSize="15dp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/complaintTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="3dp"
-        android:text="Manage Meals"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="49dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/complaintTitle">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signOutButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#e4024d"
+                    android:padding="0dp"
+                    android:text="Sign Out"
+                    android:textAllCaps="false"
+                    android:textSize="15dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profileButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#e4024d"
+                    android:padding="0dp"
+                    android:text="Profile"
+                    android:textAllCaps="false"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/manageMealsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="Manage Meals"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/mealListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="350dp">
 
             </ListView>
+
+            <Button
+                android:id="@+id/addMealButton"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#E91E63"
+                android:text="+"
+                android:textSize="36sp"
+                app:cornerRadius="100dp"
+                tools:text="+" />
+
+            <TextView
+                android:id="@+id/managePurchaseRequestTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
+                android:text="Manage Purchase Requests"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/purchaseRequestListView"
+                android:layout_width="match_parent"
+                android:layout_height="350dp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/addMealButton"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center|right"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#E91E63"
-            android:text="+"
-            android:textSize="36sp"
-            app:cornerRadius="100dp"
-            tools:text="+" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

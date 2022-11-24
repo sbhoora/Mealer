@@ -23,9 +23,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Text Views
-        TextView welcome = (TextView) findViewById(R.id.welcomeMessage);
-
         // Console message
         System.out.println("New Activity: Home");
 
@@ -35,11 +32,6 @@ public class Home extends AppCompatActivity {
         // Getting account info passed from Sign In activity
         // Uses info to present proper account type on welcome
         Intent fromSignIn = getIntent();
-        String type = fromSignIn.getStringExtra("accountType");
-        if (type != null) {
-            // whatever account type is passed will be added to the text view
-            welcome.setText("Welcome! You are signed in as " + type + ".");
-        }
 
         // To get signed in user email
         String email = fromSignIn.getStringExtra("email");
