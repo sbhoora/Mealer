@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dbf2ff"
+    android:background="@color/systemBlue"
     android:orientation="vertical"
     tools:context=".AdminHome">
 
@@ -20,14 +20,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="0dp"
-            android:backgroundTint="#e4024d"
+            android:backgroundTint="@color/systemRed"
             android:text="Sign Out"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="15dp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/manageMealsTitle"
+        android:id="@+id/manageMeals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -52,5 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="50dp" />
+
 
 </LinearLayout>

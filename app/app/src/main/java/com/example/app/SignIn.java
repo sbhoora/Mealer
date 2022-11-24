@@ -60,8 +60,10 @@ public class SignIn extends AppCompatActivity {
                         password.setError("Please fill in this field.");
                         Toast.makeText(SignIn.this,"Please enter your password.", Toast.LENGTH_SHORT).show();
                     }
+                    email.setText("");
+                    password.setText("");
                 }
-            //}
+
         });
 
         // Listens for sign up button click
@@ -101,6 +103,7 @@ public class SignIn extends AppCompatActivity {
         signIn.setClass(SignIn.this, destination);
         signIn.putExtras(info);
         startActivity(signIn);
+
     }
 
     private void isItUser(String email, String pw){
@@ -121,7 +124,7 @@ public class SignIn extends AppCompatActivity {
                         info.putString("accountType", "Administrator");
                         signIn(info, AdminHome.class);
                     } else {
-                        Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this,"Wrong password", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     reference.child("Clients").child(email).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -134,7 +137,7 @@ public class SignIn extends AppCompatActivity {
                                 Log.d("FIREBASE", password);
 
                                 if(!pw.equals(password)){
-                                    Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignIn.this,"Wrong password", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
@@ -159,7 +162,7 @@ public class SignIn extends AppCompatActivity {
                                             Log.d("FIREBASE", password);
 
                                             if(!pw.equals(password)){
-                                                Toast.makeText(SignIn.this,"Wrong password.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SignIn.this,"Wrong password", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Cook cook = new Cook(email, pw, suspended, banned);
                                                 if (cook.isSuspended()) {
@@ -168,7 +171,7 @@ public class SignIn extends AppCompatActivity {
                                                     Toast.makeText(SignIn.this,String.format("This account is currently suspended until %s.", suspendedUntil), Toast.LENGTH_SHORT).show();
                                                 } else if (cook.isBanned()){
                                                     Toast.makeText(SignIn.this,"Permanent suspension, therefore you can no longer use" +
-                                                            " this application.", Toast.LENGTH_SHORT).show();
+                                                            " this application", Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     Toast.makeText(SignIn.this,"Login Successful", Toast.LENGTH_SHORT).show();
 
@@ -183,7 +186,7 @@ public class SignIn extends AppCompatActivity {
 
                                         } else {
                                             Log.i("FIREBASE", "FAIL1");
-                                            Toast.makeText(SignIn.this,"This user doesn't exist.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignIn.this,"This user doesn't exist", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

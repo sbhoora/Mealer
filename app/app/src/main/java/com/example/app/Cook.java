@@ -33,6 +33,7 @@ public class Cook extends Account {
     private Menu menu;
 
     // Firebase
+
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference cookReference = database.getReference("Accounts").child("Cooks");
 
@@ -83,8 +84,6 @@ public class Cook extends Account {
     public void ban() {banned = true;};
 
     public Menu getMenu() {
-
-        // Part of russian man solution
         // Created a "custom callback" to deal with
         // asynchronous nature of firebase retrieve methods
         getMenu(new FirebaseMenuCallback() {
