@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dbf2ff"
-    tools:context=".Home">
+    tools:context=".ClientHome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:inputType="textPersonName" />
 
                 <ListView
-                    android:id="@+id/mealList"
+                    android:id="@+id/availableMealListView"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginTop="20dp">
@@ -74,7 +74,7 @@
                     android:textStyle="bold" />
 
                 <ListView
-                    android:id="@+id/mealList"
+                    android:id="@+id/purchasedMealListView"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginTop="20dp">

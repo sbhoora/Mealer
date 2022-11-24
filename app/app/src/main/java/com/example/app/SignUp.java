@@ -18,8 +18,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-
 import com.google.android.material.button.MaterialButton;
 
 public class SignUp extends AppCompatActivity {
@@ -165,7 +163,7 @@ public class SignUp extends AppCompatActivity {
                     Bundle info = new Bundle();
                     info.putString("email", eMail);
                     info.putString("accountType", "Client");
-                    signIn(info, Home.class);
+                    signIn(info, ClientHome.class);
 
                 } else if (userType.getSelectedItemPosition() == 1 && !areEmpty(cookFields) && isMatching()){
                     Log.i("COOK","onClick Cook");
@@ -180,7 +178,7 @@ public class SignUp extends AppCompatActivity {
                     Bundle info = new Bundle();
                     info.putString("email", eMail);
                     info.putString("accountType", "Cook");
-                    signIn(info, Home.class);
+                    signIn(info, ClientHome.class);
                 } else {
                     Toast.makeText(SignUp.this,"Some fields are empty.", Toast.LENGTH_SHORT).show();
                 };
@@ -227,7 +225,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void goHome(View v) {
-        startActivity(new Intent(SignUp.this,Home.class));
+        startActivity(new Intent(SignUp.this, ClientHome.class));
     }
 
 }

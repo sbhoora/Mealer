@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +16,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class SignIn extends AppCompatActivity {
 
@@ -145,7 +142,7 @@ public class SignIn extends AppCompatActivity {
                                     Bundle info = new Bundle();
                                     info.putString("email", email);
                                     info.putString("accountType", "Client");
-                                    signIn(info, Home.class);
+                                    signIn(info, ClientHome.class);
                                 }
 
                             } else {
