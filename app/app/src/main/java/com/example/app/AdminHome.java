@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -119,22 +120,28 @@ public class AdminHome extends AppCompatActivity {
                         builder.setPositiveButton("Suspend", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Suspend button
-                                database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(true);
-                                        database.child("Cooks").child(cookEmail).child("banned").setValue(false);
-                                        database.child("Cooks").child(cookEmail).child("suspendedUntil").setValue(input.getText().toString());
-                                    }
-                                });
-                                Toast.makeText(AdminHome.this,"Account is now suspended.", Toast.LENGTH_SHORT).show();
-                                dialog.cancel();
-                                delete(cookEmail);
-                                update();
+                                boolean empty = TextUtils.isEmpty(input.getText().toString());
+                                if(empty){
+                                    System.out.println(empty);
+                                    input.setError("Please fill in this field");
+                                } else {
+                                    database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            database.child("Cooks").child(cookEmail).child("AccountInfo").child("suspended").setValue(true);
+                                            database.child("Cooks").child(cookEmail).child("AccountInfo").child("banned").setValue(false);
+                                            database.child("Cooks").child(cookEmail).child("AccountInfo").child("suspendedUntil").setValue(input.getText().toString());
+                                        }
+                                    });
+                                    Toast.makeText(AdminHome.this, "Account is now suspended.", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                    delete(cookEmail);
+                                    update();
+                                }
                             }
                         });
                         // Add the buttons
-                        builder.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                        builder.setNeutralButton("Dismiss Complaint", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked Dismiss button
                                 Toast.makeText(AdminHome.this,"Complaint has been dismissed.", Toast.LENGTH_SHORT).show();
@@ -149,8 +156,8 @@ public class AdminHome extends AppCompatActivity {
                                 database.child("Cooks").child(cookEmail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        database.child("Cooks").child(cookEmail).child("banned").setValue(true);
-                                        database.child("Cooks").child(cookEmail).child("suspended").setValue(false);
+                                        database.child("Cooks").child(cookEmail).child("AccountInfo").child("banned").setValue(true);
+                                        database.child("Cooks").child(cookEmail).child("AccountInfo").child("suspended").setValue(false);
                                     }
                                 });
                                 Toast.makeText(AdminHome.this,"Account is now banned.", Toast.LENGTH_SHORT).show();

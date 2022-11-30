@@ -72,6 +72,9 @@ public class MealCreation extends AppCompatActivity {
                             item = new MenuItem(name, Type.values()[type], CuisineType.values()[cuisineType],
                                     new ArrayList<>(Arrays.asList(ingredients)),
                                     new ArrayList<>(Arrays.asList(allergens)), price, description);
+                            if (menu == null) {
+                                menu = new Menu();
+                            }
                             menu.addAsNotOfferedMeal(item);
                             cook.save(menu);
                             Toast.makeText(MealCreation.this,"New Meal Added", Toast.LENGTH_SHORT).show();
