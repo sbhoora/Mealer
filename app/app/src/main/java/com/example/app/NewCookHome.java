@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -23,6 +24,10 @@ public class NewCookHome extends AppCompatActivity {
         // Navigation Bar
         BottomNavigationView navigationBar = findViewById(R.id.cookNavigationBar);
 
+        // Retrieve cook email from sign in
+        Intent bundleFromCallingActivity = getIntent();
+        String email = bundleFromCallingActivity.getStringExtra("email");
+
         navigationBar.setOnItemSelectedListener( item -> {
             switch (item.getItemId()) {
                 case R.id.menuIcon:
@@ -32,7 +37,7 @@ public class NewCookHome extends AppCompatActivity {
                     replaceFragment(new CookHomeFragment());
                     break;
                 case R.id.cookProfileIcon:
-                    replaceFragment(new CookProfileFragment());
+                    replaceFragment(CookProfileFragment.newInstance(email));
                     break;
             }
             return true;

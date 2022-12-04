@@ -37,6 +37,11 @@ public class Cook extends Account {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference cookReference = database.getReference("Accounts").child("Cooks");
 
+    public Cook() {
+        super();
+        // Default Constructor must be defined to retrieve as object from database
+    }
+
     public Cook(String email) {
         super(email);
     }
@@ -95,35 +100,6 @@ public class Cook extends Account {
         return menu;
     }
 
-    private void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public String getAccountType(){
-        return "Cook";
-    }
-
-    public Address getAddress(){
-        return address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getSuspendedUntil() {return suspendedUntil;};
-
-    // Setters
-    public void suspend(Date suspendedUntil) {
-        this.suspendedUntil = suspendedUntil;
-        suspended = true;
-    }
-
-    public Boolean isSuspended() { return suspended;};
-
-    public Boolean isBanned() { return banned; };
-
-
     // What follows is Russian man solution to asynchronous callback //
     // Allah bless this man //
 
@@ -141,6 +117,62 @@ public class Cook extends Account {
                 Log.e("Firebase", "Menu Retrieve Failed for cook:" + getEmail());
             }
         });
+    }
+
+    public String getAccountType(){
+        return "Cook";
+    }
+
+    public Address getAddress(){
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getSuspendedUntil() {return suspendedUntil;};
+
+    public Boolean getBanned() {
+        return banned;
+    }
+
+    public Boolean getSuspended() {
+        return suspended;
+    }
+
+    // Setters
+    public void suspend(Date suspendedUntil) {
+        this.suspendedUntil = suspendedUntil;
+        suspended = true;
+    }
+
+    public Boolean isSuspended() { return suspended;};
+
+    public Boolean isBanned() { return banned; };
+
+    private void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setBanned(Boolean banned) {
+        this.banned = banned;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSuspended(Boolean suspended) {
+        this.suspended = suspended;
+    }
+
+    public void setSuspendedUntil(Date suspendedUntil) {
+        this.suspendedUntil = suspendedUntil;
     }
 
     public interface FirebaseMenuCallback {

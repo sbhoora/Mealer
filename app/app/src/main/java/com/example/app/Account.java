@@ -31,6 +31,10 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    public Account() {
+        // Default Constructor must be defined to retrieve as object from database
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -47,4 +51,19 @@ public class Account implements Serializable {
         return password;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

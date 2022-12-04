@@ -9,6 +9,10 @@ public class Address implements Serializable {
     private String province;
     private String city;
 
+    public Address() {
+        // Default Constructor for database retrieval
+    }
+
     public Address(String street, String postal, String country, String province, String city){
         this.street = street;
         this.postal = postal;
@@ -35,6 +39,26 @@ public class Address implements Serializable {
 
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String toString(){
