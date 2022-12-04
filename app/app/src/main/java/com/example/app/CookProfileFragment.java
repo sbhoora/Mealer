@@ -91,7 +91,7 @@ public class CookProfileFragment extends Fragment {
                     // Setting cook address
                     cookProfileAddress.setText(snapshot.child("address").getValue(Address.class).toString());
                     // Setting cook description
-                    cookProfileDescription.setText(accountInfo.get("description"));
+                    cookProfileDescription.append(accountInfo.get("description"));
                 } else {
                     Log.e("Firebase", "Cook Retrieval Failed for cook:" + email);
                 }
