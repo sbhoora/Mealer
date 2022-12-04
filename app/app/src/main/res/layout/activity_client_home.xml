@@ -25,6 +25,7 @@
             android:textSize="15dp" />
 
         <ScrollView
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -83,7 +84,6 @@
 
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 
 

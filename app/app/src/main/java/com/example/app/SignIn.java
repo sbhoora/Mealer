@@ -142,7 +142,7 @@ public class SignIn extends AppCompatActivity {
                                     Bundle info = new Bundle();
                                     info.putString("email", email);
                                     info.putString("accountType", "Client");
-                                    signIn(info, ClientHome.class);
+                                    signIn(info, NewClientHome.class);
                                 }
 
                             } else {
