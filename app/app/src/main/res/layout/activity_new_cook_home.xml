@@ -4,6 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewCookHome">
+    tools:context=".NewCookHome"
+    android:background="@color/systemBlue">
+
+    <ScrollView
+        android:id="@+id/cookHomeContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <FrameLayout
+            android:id="@+id/cookContentFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cookNavigationBar">
+
+        </FrameLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/cookNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/cook_navigation_bar"
+        android:outlineSpotShadowColor="@color/systemBlue"
+        android:outlineAmbientShadowColor="@color/black"
+        android:background="@color/systemBlue"
+        app:itemIconSize="40dp">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

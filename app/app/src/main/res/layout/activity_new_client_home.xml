@@ -13,21 +13,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
         <FrameLayout
-            android:id="@+id/content"
+            android:id="@+id/clientContentFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/navigationBar">
+            app:layout_constraintBottom_toTopOf="@id/clientNavigationBar">
         </FrameLayout>
     </ScrollView>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigationBar"
+        android:id="@+id/clientNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation_bar"
+        app:menu="@menu/client_navigation_bar"
         android:outlineSpotShadowColor="@color/systemBlue"
         android:outlineAmbientShadowColor="@color/black"
         android:background="@color/systemBlue"
