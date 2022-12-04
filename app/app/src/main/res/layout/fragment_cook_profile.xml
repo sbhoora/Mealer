@@ -17,7 +17,7 @@
             android:orientation="horizontal"
             android:gravity="end"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/cookProfileHeading">
+            app:layout_constraintBottom_toTopOf="@id/cookProfileName">
             <ImageButton
                 android:id="@+id/cookLogoutButton"
                 android:layout_width="40dp"
@@ -27,18 +27,80 @@
                 android:backgroundTint="@color/systemRed"/>
         </LinearLayout>
         <TextView
-            android:id="@+id/cookProfileHeading"
+            android:id="@+id/cookProfileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/cookLogoutButtonLayout"
-            android:text="Profile"
-            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/cookProfileAddress"
+            android:text="Name"
             android:padding="30dp"
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
-
-
+        <TextView
+            android:id="@+id/cookProfileEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookProfileName"
+            app:layout_constraintBottom_toTopOf="@id/cookProfileAddress"
+            android:text="Email"
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="italic"/>
+        <TextView
+            android:id="@+id/cookProfileAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookProfileEmail"
+            app:layout_constraintBottom_toTopOf="@id/cookProfileDescription"
+            android:text="Address"
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/cookProfileDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookProfileAddress"
+            app:layout_constraintBottom_toTopOf="@id/cookProfileRatingStars"
+            android:text="Description"
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:id="@+id/cookProfileRatingStars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cookProfileDescription">
+            <ImageView
+                android:id="@+id/cookProfileStar1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/cookProfileStar2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/cookProfileStar3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/cookProfileStar4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/cookProfileStar5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
