@@ -3,18 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CookProfileFragment"
     android:background="@color/systemBlue">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textAlignment="center"
-        android:layout_marginTop="50dp"
-        android:padding="40dp"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/cookLogoutButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cookProfileHeading">
+            <ImageButton
+                android:id="@+id/cookLogoutButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_baseline_logout_24"
+                android:backgroundTint="@color/systemRed"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/cookProfileHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookLogoutButtonLayout"
+            android:text="Profile"
+            android:textAlignment="center"
+            android:padding="30dp"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
