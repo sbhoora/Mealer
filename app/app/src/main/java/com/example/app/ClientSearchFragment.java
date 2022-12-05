@@ -2,9 +2,11 @@ package com.example.app;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +36,8 @@ public class ClientSearchFragment extends Fragment {
 
     // Search
     ListView listView;
-    String[] meals;
+    MenuItem[] meals;
+    String[] mealsNames;
     ArrayAdapter<String> arrayAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,29 +90,65 @@ public class ClientSearchFragment extends Fragment {
         SearchView searchView = (SearchView) view.findViewById(R.id.clientSearchSearchView);
         // ListView from XML
         listView = view.findViewById(R.id.clientSearchListView);
-        // ArrayAdapter from array
-        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, meals);
-        listView.setAdapter(arrayAdapter);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        database.getReference("Meals").addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("Firebase", "Meals Retrieval Successful");
+
+                // Getting all offered meals from database
+                ArrayList<MenuItem> mealsFromDatabase = new ArrayList<MenuItem>();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    mealsFromDatabase.add(ds.getValue(MenuItem.class));
+                }
+
+                // Saving offered meals in meals array
+                meals = new MenuItem[mealsFromDatabase.size()];
+                // All entries from mealsFromDatabase are saved to the meals array
+                mealsFromDatabase.toArray(meals);
+
+                // Saving meal names in array
+                mealsNames = new String[mealsFromDatabase.size()];
+                int i = 0;
+                for (MenuItem meal : mealsFromDatabase) {
+                    mealsNames[i] = meal.getName();
+                    i++;
+                }
+
+                // Making arrayAdapter from meals array
+                arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, mealsNames);
+
+                // Setting listView to take values from arrayAdapter
+                listView.setAdapter(arrayAdapter);
+
+                // Search Related Methods
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        // Performs the filtering of meals on user input in the search bar
+                        arrayAdapter.getFilter().filter(newText);
+                        return false;
+                    }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                });
+
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-
-                arrayAdapter.getFilter().filter(newText);
-
-                return false;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Meals Retrieval Failed");
             }
         });
 
