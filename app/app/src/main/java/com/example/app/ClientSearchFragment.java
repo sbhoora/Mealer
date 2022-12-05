@@ -2,11 +2,14 @@ package com.example.app;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ClientSearchFragment extends Fragment {
+
+    View view;
+
+    // Search
+    ListView listView;
+    String[] templateMeals = {"apple", "popcorn", "banana", "cake", "Olives", "orange", "ramen", "milk", "peach"};
+    ArrayAdapter<String> arrayAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +69,31 @@ public class ClientSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_search, container, false);
+        view = inflater.inflate(R.layout.fragment_client_search, container, false);
+
+        // SearchView from XML
+        SearchView searchView = (SearchView) view.findViewById(R.id.clientSearchSearchView);
+        // ListView from XML
+        listView = view.findViewById(R.id.clientSearchListView);
+        // ArrayAdapter from array
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, templateMeals);
+        listView.setAdapter(arrayAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                arrayAdapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+
+        return view;
     }
 }

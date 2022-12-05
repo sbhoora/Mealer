@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mealSearchText"
+            app:layout_constraintBottom_toTopOf="@id/clientSearchSearchView"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="50dp"
@@ -26,17 +26,34 @@
             android:textSize="35dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/mealSearchText"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/clientSearchSearchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/availableMealsTitleText"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:iconifiedByDefault="false"
             android:padding="10dp"
             android:ems="15"
-            android:hint="Search by name, type, cuisine"
+            app:queryHint="Search by name, type, cuisine"
             android:inputType="textPersonName" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clientSearchSearchView"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ListView
+                android:id="@+id/clientSearchListView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="50dp"
+                android:overScrollMode="never"/>
+        </LinearLayout>
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

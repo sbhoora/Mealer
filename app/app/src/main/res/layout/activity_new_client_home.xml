@@ -8,20 +8,25 @@
     android:background="@color/systemBlue">
 
     <ScrollView
+        android:id="@+id/clientContentScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <FrameLayout
-            android:id="@+id/clientContentFrame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:isScrollContainer="false">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/clientNavigationBar">
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/clientContentFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+        </LinearLayout>
     </ScrollView>
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/clientNavigationBar"
         android:layout_width="match_parent"
@@ -32,9 +37,8 @@
         android:outlineAmbientShadowColor="@color/black"
         android:background="@color/systemBlue"
         app:itemIconSize="40dp">
-
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 
 
