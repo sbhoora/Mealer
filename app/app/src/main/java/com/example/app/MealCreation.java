@@ -69,7 +69,7 @@ public class MealCreation extends AppCompatActivity {
                     cook.getMenu(new Cook.FirebaseMenuCallback() {
                         @Override
                         public void onCallBack(Menu menu) {
-                            item = new MenuItem(name, Type.values()[type], CuisineType.values()[cuisineType],
+                            item = new MenuItem(name, cook.getEmail(), Type.values()[type], CuisineType.values()[cuisineType],
                                     new ArrayList<>(Arrays.asList(ingredients)),
                                     new ArrayList<>(Arrays.asList(allergens)), price, description);
                             if (menu == null) {

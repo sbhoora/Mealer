@@ -73,6 +73,7 @@ public class Cook extends Account {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.i("Firebase", "Menu saved to cook with email: " + getEmail());
+                        MenuItem.updateOfferedMealsOnDatabase(Cook.this,menu);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

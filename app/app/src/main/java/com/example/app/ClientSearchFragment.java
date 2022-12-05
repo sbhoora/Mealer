@@ -8,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,9 +24,12 @@ public class ClientSearchFragment extends Fragment {
 
     View view;
 
+    // Firebase database reference
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     // Search
     ListView listView;
-    String[] templateMeals = {"apple", "popcorn", "banana", "cake", "Olives", "orange", "ramen", "milk", "peach"};
+    String[] meals;
     ArrayAdapter<String> arrayAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,7 +83,7 @@ public class ClientSearchFragment extends Fragment {
         // ListView from XML
         listView = view.findViewById(R.id.clientSearchListView);
         // ArrayAdapter from array
-        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, templateMeals);
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, meals);
         listView.setAdapter(arrayAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -91,6 +98,13 @@ public class ClientSearchFragment extends Fragment {
                 arrayAdapter.getFilter().filter(newText);
 
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
             }
         });
 

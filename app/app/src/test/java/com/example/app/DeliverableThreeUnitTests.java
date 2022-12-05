@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DeliverableThreeUnitTests {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
-    MenuItem meal1 = new MenuItem("Pasta", Type.ENTREE , CuisineType.EUROPEAN, list, list2, 12.3, "WOW");
+    MenuItem meal1 = new MenuItem("Pasta", "qw", Type.ENTREE , CuisineType.EUROPEAN, list, list2, 12.3, "WOW");
 
 
     @Test

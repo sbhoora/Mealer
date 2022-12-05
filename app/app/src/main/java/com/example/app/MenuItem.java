@@ -1,6 +1,22 @@
 package com.example.app;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * MenuItem is a abstraction of any item you could find on a menu.
@@ -9,6 +25,7 @@ import java.util.ArrayList;
 public class MenuItem {
 
     private String name;
+    private String cookEmail;
     private Type type;
     private CuisineType cuisineType;
     private ArrayList<String> ingredients;
@@ -21,9 +38,10 @@ public class MenuItem {
      */
     public MenuItem() {}
 
-    public MenuItem(String name, Type type, CuisineType cuisineType, ArrayList<String> ingredients,
+    public MenuItem(String name, String cookEmail, Type type, CuisineType cuisineType, ArrayList<String> ingredients,
                     ArrayList<String> allergens, Double price, String description) {
         this.name = name;
+        this.cookEmail = cookEmail;
         this.type = type;
         this.cuisineType = cuisineType;
         this.ingredients = ingredients;
@@ -31,6 +49,47 @@ public class MenuItem {
         this.price = price;
         this.description = description;
         
+    }
+
+    public static void updateOfferedMealsOnDatabase(Cook cook, Menu menu) {
+        // Firebase database reference
+        DatabaseReference mealsBranch = FirebaseDatabase.getInstance().getReference("Meals");
+        mealsBranch.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    // All offered items that have been added by all cooks
+                    ArrayList<MenuItem> allOfferedMeals = new ArrayList<MenuItem>();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        allOfferedMeals.add(ds.getValue(MenuItem.class));
+                    }
+
+                    // updating the list of offered meals
+                    if (allOfferedMeals != null) {
+                        // Removing all meals of a cook from the Meals branch if they are in it
+                        ArrayList<MenuItem> tempMealsToRemove = new ArrayList<MenuItem>();
+                        for (MenuItem meal : allOfferedMeals) {
+                            if (meal.getCookEmail().equals(cook.getEmail())) {
+                                tempMealsToRemove.add(meal);
+                            }
+                        }
+                        allOfferedMeals.removeAll(tempMealsToRemove);
+                        // Adding all of the cook's new meals
+                        allOfferedMeals.addAll(menu.getOfferedMeals().values());
+                        // This remove-add is done because it is not known which meals are new and which
+                        // are old. So, to be sure. Remove all the ones with the cook's email first.
+                        // This guarantees any old item is removed. Then, add only the meals the cook
+                        // either added as new, or that were kept.
+
+                    }
+                    mealsBranch.setValue(allOfferedMeals);
+                    Log.i("Firebase", "Offered meals update successful.");
+                } else {
+                    Log.e("Firebase", "Offered meals update failed.");
+                }
+            }
+        });
     }
 
     // Menu Item interaction
@@ -61,6 +120,10 @@ public class MenuItem {
     //Getters
     public String getName() {
         return name;
+    }
+
+    public String getCookEmail() {
+        return cookEmail;
     }
 
     /**

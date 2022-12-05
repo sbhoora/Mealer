@@ -38,8 +38,4 @@
         android:background="@color/systemBlue"
         app:itemIconSize="40dp">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
