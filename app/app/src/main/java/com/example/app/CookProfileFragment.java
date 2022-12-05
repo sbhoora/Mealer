@@ -1,5 +1,6 @@
 package com.example.app;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,19 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CookProfileFragment extends Fragment {
@@ -70,34 +68,6 @@ public class CookProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cook_profile, container, false);
 
-        // TextViews from XML file
-        TextView cookProfileName = (TextView) view.findViewById(R.id.cookProfileName);
-        TextView cookProfileEmail = (TextView) view.findViewById(R.id.cookProfileEmail);
-        TextView cookProfileAddress = (TextView) view.findViewById(R.id.cookProfileAddress);
-        TextView cookProfileDescription = (TextView) view.findViewById(R.id.cookProfileDescription);
-
-        // Updating cook information on xml from database
-        database.getReference("Accounts").child("Cooks").child(email).child("AccountInfo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DataSnapshot snapshot = task.getResult();
-                    Log.i("Firebase", "Cook Retrieval Successful for cook: " + email);
-                    Map<String, String> accountInfo = (Map<String, String>) snapshot.getValue();
-                    // Setting cook name
-                    cookProfileName.setText(accountInfo.get("firstName") + " " + accountInfo.get("lastName"));
-                    //Setting cook email
-                    cookProfileEmail.setText(accountInfo.get("email"));
-                    // Setting cook address
-                    cookProfileAddress.setText(snapshot.child("address").getValue(Address.class).toString());
-                    // Setting cook description
-                    cookProfileDescription.append(accountInfo.get("description"));
-                } else {
-                    Log.e("Firebase", "Cook Retrieval Failed for cook:" + email);
-                }
-            }
-        });
-
         // Logout Button
         ImageButton logoutButton = view.findViewById(R.id.cookLogoutButton);
 
@@ -109,11 +79,81 @@ public class CookProfileFragment extends Fragment {
             }
         });
 
+        // Cook information TextViews from XML file
+        TextView cookProfileName = (TextView) view.findViewById(R.id.cookProfileName);
+        TextView cookProfileEmail = (TextView) view.findViewById(R.id.cookProfileEmail);
+        TextView cookProfileAddress = (TextView) view.findViewById(R.id.cookProfileAddress);
+        TextView cookProfileDescription = (TextView) view.findViewById(R.id.cookProfileDescription);
+        TextView cookProfileRating = (TextView) view.findViewById(R.id.cookProfileRating);
+        TextView ratingNumberMessage = (TextView) view.findViewById(R.id.cookProfileNumberOfRatings);
 
+        // Updating cook information on xml from database
+        database.getReference("Accounts").child("Cooks").child(email).child("AccountInfo").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    Log.i("Firebase", "Cook Retrieval Successful for cook: " + email);
+                    Map<String, Object> accountInfo = (Map<String, Object>) snapshot.getValue();
+                    // Setting cook name
+                    cookProfileName.setText(accountInfo.get("firstName") + " " + accountInfo.get("lastName"));
+                    //Setting cook email
+                    cookProfileEmail.setText( (String) accountInfo.get("email"));
+                    // Setting cook address
+                    cookProfileAddress.setText(snapshot.child("address").getValue(Address.class).toString());
+                    // Setting cook description
+                    cookProfileDescription.append( (String) accountInfo.get("description"));
+                    // Setting stars' appearance
+                    Double rating = Double.parseDouble(String.valueOf(accountInfo.get("rating")));
+                    updateRatingStars(rating);
+                    if (rating != 0) {
+                        cookProfileRating.setText(rating + " / 5");
+                    }
+                    // Setting number of ratings
+                    ratingNumberMessage.append(String.valueOf(accountInfo.get("numberOfRatings")) + " ratings.");
 
+                } else {
+                    Log.e("Firebase", "Cook Retrieval Failed for cook:" + email);
+                }
+            }
+        });
 
 
 
         return view;
+    }
+
+    private void updateRatingStars(double rating) {
+        // Stars from XML from left to right
+        ImageView star1 = (ImageView) view.findViewById(R.id.cookProfileStar1);
+        ImageView star2 = (ImageView) view.findViewById(R.id.cookProfileStar2);
+        ImageView star3 = (ImageView) view.findViewById(R.id.cookProfileStar3);
+        ImageView star4 = (ImageView) view.findViewById(R.id.cookProfileStar4);
+        ImageView star5 = (ImageView) view.findViewById(R.id.cookProfileStar5);
+
+        // Deciding which to turn on/off
+        if (rating > 4 && rating < 5) {
+            star5.setImageResource(R.drawable.ic_baseline_star_half_24);
+        } else if (rating < 5) {
+            star5.setColorFilter(Color.LTGRAY);
+        }
+        if (rating > 3 && rating < 4) {
+            star4.setImageResource(R.drawable.ic_baseline_star_half_24);
+        } else if (rating < 4) {
+            star4.setColorFilter(Color.LTGRAY);
+        }
+        if (rating > 2 && rating < 3) {
+            star3.setImageResource(R.drawable.ic_baseline_star_half_24);
+        } else if (rating < 3) {
+            star3.setColorFilter(Color.LTGRAY);
+        }
+        if (rating > 1 && rating < 2) {
+            star2.setImageResource(R.drawable.ic_baseline_star_half_24);
+        } else if (rating < 2) {
+            star2.setColorFilter(Color.LTGRAY);
+        }
+        if (rating == 0) {
+            star1.setColorFilter(Color.LTGRAY);
+        }
     }
 }

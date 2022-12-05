@@ -3,18 +3,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CookMenuFragment"
     android:background="@color/systemBlue">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Menu"
-        android:textAlignment="center"
-        android:layout_marginTop="60dp"
-        android:padding="30dp"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/cookMenuHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cookMenuContent"
+            android:text="Manage Meals"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:padding="30dp"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+        <LinearLayout
+            android:id="@+id/cookMenuContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookMenuHeading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+            <ListView
+                android:id="@+id/mealListView"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <Button
+                android:id="@+id/addMealButton"
+                android:layout_width="64dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#E91E63"
+                android:text="+"
+                android:textSize="36sp"
+                app:cornerRadius="100dp"
+                tools:text="+" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

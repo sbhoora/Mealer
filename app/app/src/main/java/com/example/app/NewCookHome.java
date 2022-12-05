@@ -31,7 +31,7 @@ public class NewCookHome extends AppCompatActivity {
         navigationBar.setOnItemSelectedListener( item -> {
             switch (item.getItemId()) {
                 case R.id.menuIcon:
-                    replaceFragment(new CookMenuFragment());
+                    replaceFragment(CookMenuFragment.newInstance(email));
                     break;
                 case R.id.cookHomeIcon:
                     replaceFragment(new CookHomeFragment());

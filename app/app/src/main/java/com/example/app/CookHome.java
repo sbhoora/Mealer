@@ -168,7 +168,5 @@ public class CookHome extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 }

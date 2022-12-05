@@ -100,7 +100,23 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_star_24"/>
+            <TextView
+                android:id="@+id/cookProfileRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="- / 5"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/cookProfileNumberOfRatings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cookProfileRatingStars"
+            android:text="out of "
+            android:textAlignment="center"
+            android:textStyle="italic"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
