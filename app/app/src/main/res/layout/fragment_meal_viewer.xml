@@ -34,7 +34,7 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/mealViewerName"
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:padding="30dp"
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="30dp"
-                android:gravity="center">
+                android:gravity="start">
                 <TextView
                     android:id="@+id/mealViewerPrice"
                     android:layout_width="wrap_content"
@@ -113,6 +113,15 @@
             android:text="Description: "
             android:paddingHorizontal="30dp"
             android:textSize="20dp" />
+        <TextView
+            android:id="@+id/mealViewerRateMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerDescription"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerRatingStars"
+            android:text=""
+            android:textAlignment="center"
+            android:textStyle="italic"/>
         <LinearLayout
             android:id="@+id/mealViewerRatingStars"
             android:layout_width="match_parent"
@@ -121,31 +130,31 @@
             android:gravity="center"
             android:layout_margin="30dp"
             app:layout_constraintTop_toBottomOf="@id/mealViewerDescription">
-            <ImageView
+            <ImageButton
                 android:id="@+id/mealViewerStar1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_star_24"/>
-            <ImageView
+                android:background="@drawable/ic_baseline_star_24"/>
+            <ImageButton
                 android:id="@+id/mealViewerStar2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_star_24"/>
-            <ImageView
+                android:background="@drawable/ic_baseline_star_24"/>
+            <ImageButton
                 android:id="@+id/mealViewerStar3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_star_24"/>
-            <ImageView
+                android:background="@drawable/ic_baseline_star_24"/>
+            <ImageButton
                 android:id="@+id/mealViewerStar4"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_star_24"/>
-            <ImageView
+                android:background="@drawable/ic_baseline_star_24"/>
+            <ImageButton
                 android:id="@+id/mealViewerStar5"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_star_24"/>
+                android:background="@drawable/ic_baseline_star_24"/>
             <TextView
                 android:id="@+id/mealViewerRating"
                 android:layout_width="wrap_content"

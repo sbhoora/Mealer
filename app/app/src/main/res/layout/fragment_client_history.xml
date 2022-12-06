@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/clientHistoryHeading">
             <ImageButton
-                android:id="@+id/cookLogoutButton"
+                android:id="@+id/clientLogoutButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -37,6 +37,32 @@
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/clientHistorySearchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clientHistoryHeading"
+            app:layout_constraintBottom_toTopOf="@id/clientHistorySearchLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:iconifiedByDefault="false"
+            android:padding="10dp"
+            android:ems="15"
+            app:queryHint="Search by name, type, cuisine"
+            android:inputType="textPersonName" />
+        <LinearLayout
+            android:id="@+id/clientHistorySearchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clientHistorySearchView"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ListView
+                android:id="@+id/clientHistoryListView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="50dp"
+                android:overScrollMode="never"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

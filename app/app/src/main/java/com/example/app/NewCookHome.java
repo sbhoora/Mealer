@@ -24,6 +24,8 @@ public class NewCookHome extends AppCompatActivity {
         // Navigation Bar
         BottomNavigationView navigationBar = findViewById(R.id.cookNavigationBar);
 
+
+
         // Retrieve cook email from sign in
         Intent bundleFromCallingActivity = getIntent();
         String email = bundleFromCallingActivity.getStringExtra("email");
