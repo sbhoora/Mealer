@@ -102,6 +102,12 @@ public class CookMenuFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("Fragment", getClass().getName() + " Destroyed");
+    }
+
     private void update(){
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override

@@ -118,9 +118,13 @@ public class CookProfileFragment extends Fragment {
             }
         });
 
-
-
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("Fragment", getClass().getName() + " Destroyed");
     }
 
     private void updateRatingStars(double rating) {

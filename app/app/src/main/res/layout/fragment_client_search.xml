@@ -10,6 +10,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/clientSearchMealViewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/availableMealsTitleText"
             android:layout_width="0dp"

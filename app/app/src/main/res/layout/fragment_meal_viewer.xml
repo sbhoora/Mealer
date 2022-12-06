@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MealViewerFragment"
+    android:background="@color/systemBlue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/mealViewerCloseButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerHeadingLayout">
+            <ImageButton
+                android:id="@+id/mealViewerCloseButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_baseline_close_24" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/mealViewerHeadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerCloseButtonLayout"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerCookName"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/mealViewerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:padding="30dp"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/mealViewerPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:text="$"
+                android:textSize="35dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mealViewerCookName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerHeadingLayout"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerType"
+            android:text="Offered by "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="italic"/>
+        <TextView
+            android:id="@+id/mealViewerType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerCookName"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerCuisine"
+            android:text="Type: "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/mealViewerCuisine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerType"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerIngredients"
+            android:text="Cuisine: "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/mealViewerIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerCuisine"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerAllergens"
+            android:text="Ingredients: "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/mealViewerAllergens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerIngredients"
+            app:layout_constraintBottom_toTopOf="@id/mealViewerDescription"
+            android:text="Allergens: "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/mealViewerDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerAllergens"
+            android:text="Description: "
+            android:paddingHorizontal="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
