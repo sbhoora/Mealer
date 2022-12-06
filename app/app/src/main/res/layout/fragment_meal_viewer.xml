@@ -41,14 +41,21 @@
                 android:textSize="35dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/mealViewerPrice"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/MealViewerPriceLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:text="$"
-                android:textSize="35dp"
-                android:textStyle="bold"/>
+                android:padding="30dp"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/mealViewerPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$"
+                    android:textSize="35dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <TextView
@@ -60,6 +67,7 @@
             android:text="Offered by "
             android:paddingHorizontal="30dp"
             android:textSize="20dp"
+            android:layout_marginVertical="10dp"
             android:textStyle="italic"/>
         <TextView
             android:id="@+id/mealViewerType"
@@ -69,8 +77,7 @@
             app:layout_constraintBottom_toTopOf="@id/mealViewerCuisine"
             android:text="Type: "
             android:paddingHorizontal="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20dp" />
         <TextView
             android:id="@+id/mealViewerCuisine"
             android:layout_width="match_parent"
@@ -79,8 +86,7 @@
             app:layout_constraintBottom_toTopOf="@id/mealViewerIngredients"
             android:text="Cuisine: "
             android:paddingHorizontal="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20dp" />
         <TextView
             android:id="@+id/mealViewerIngredients"
             android:layout_width="match_parent"
@@ -89,8 +95,7 @@
             app:layout_constraintBottom_toTopOf="@id/mealViewerAllergens"
             android:text="Ingredients: "
             android:paddingHorizontal="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20dp" />
         <TextView
             android:id="@+id/mealViewerAllergens"
             android:layout_width="match_parent"
@@ -99,8 +104,7 @@
             app:layout_constraintBottom_toTopOf="@id/mealViewerDescription"
             android:text="Allergens: "
             android:paddingHorizontal="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20dp" />
         <TextView
             android:id="@+id/mealViewerDescription"
             android:layout_width="match_parent"
@@ -108,8 +112,57 @@
             app:layout_constraintTop_toBottomOf="@id/mealViewerAllergens"
             android:text="Description: "
             android:paddingHorizontal="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20dp" />
+        <LinearLayout
+            android:id="@+id/mealViewerRatingStars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="30dp"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerDescription">
+            <ImageView
+                android:id="@+id/mealViewerStar1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/mealViewerStar2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/mealViewerStar3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/mealViewerStar4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <ImageView
+                android:id="@+id/mealViewerStar5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_star_24"/>
+            <TextView
+                android:id="@+id/mealViewerRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="- / 5"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/mealViewerNumberOfRatings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/mealViewerRatingStars"
+            android:text="out of "
+            android:textAlignment="center"
+            android:textStyle="italic"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

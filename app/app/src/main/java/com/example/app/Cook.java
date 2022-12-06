@@ -73,6 +73,16 @@ public class Cook extends Account {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.i("Firebase", "Menu saved to cook with email: " + getEmail());
+                        if (isSuspended() || isBanned()) {
+                            // Create a menu with an empty offeredMealList
+                            Menu emptyOfferedMenu = new Menu();
+                            emptyOfferedMenu.addAsOfferedMeal(new ArrayList<MenuItem>());
+                            // When the meals try to be updated on the main Meals branch, an empty
+                            // offeredList is sent. This way, per the updateOfferedMealsOnDatabase()
+                            // definition, all meals with the cook's email are removed and no new ones
+                            // are added.
+                            MenuItem.updateOfferedMealsOnDatabase(Cook.this, emptyOfferedMenu);
+                        }
                         MenuItem.updateOfferedMealsOnDatabase(Cook.this,menu);
                     }
                 })

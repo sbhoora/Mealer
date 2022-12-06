@@ -3,7 +3,6 @@ package com.example.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -26,9 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class AdminHome extends AppCompatActivity {
@@ -101,8 +97,8 @@ public class AdminHome extends AppCompatActivity {
                         // Information about the complaint, change this to match database
                         String title, message, cookEmail;
                         title = compArray[i].getSubject();
-                        cookEmail = compArray[i].getComplaintAbout().replace(".", "");
-                        message = compArray[i].getComplaint();
+                        cookEmail = compArray[i].getCookEmail().replace(".", "");
+                        message = compArray[i].getDescription();
                         // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
 

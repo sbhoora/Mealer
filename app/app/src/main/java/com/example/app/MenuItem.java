@@ -68,6 +68,9 @@ public class MenuItem {
                     // updating the list of offered meals
                     if (allOfferedMeals != null) {
                         // Removing all meals of a cook from the Meals branch if they are in it
+                        // Two ArrayLists are used to perform this because you cannot remove an item
+                            // from the ArrayList you're currently iterating through.
+                            // Throws a ConcurrentModificationException()
                         ArrayList<MenuItem> tempMealsToRemove = new ArrayList<MenuItem>();
                         for (MenuItem meal : allOfferedMeals) {
                             if (meal.getCookEmail().equals(cook.getEmail())) {
@@ -81,7 +84,6 @@ public class MenuItem {
                         // are old. So, to be sure. Remove all the ones with the cook's email first.
                         // This guarantees any old item is removed. Then, add only the meals the cook
                         // either added as new, or that were kept.
-
                     }
                     mealsBranch.setValue(allOfferedMeals);
                     Log.i("Firebase", "Offered meals update successful.");
