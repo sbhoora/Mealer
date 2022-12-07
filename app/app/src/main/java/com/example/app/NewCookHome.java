@@ -18,17 +18,15 @@ public class NewCookHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cook_home);
 
-        // Show as default Home fragment on app open
-        replaceFragment(new CookHomeFragment());
-
         // Navigation Bar
         BottomNavigationView navigationBar = findViewById(R.id.cookNavigationBar);
-
-
 
         // Retrieve cook email from sign in
         Intent bundleFromCallingActivity = getIntent();
         String email = bundleFromCallingActivity.getStringExtra("email");
+
+        // Show as default Home fragment on app open
+        replaceFragment(CookHomeFragment.newInstance(email));
 
         navigationBar.setOnItemSelectedListener( item -> {
             switch (item.getItemId()) {

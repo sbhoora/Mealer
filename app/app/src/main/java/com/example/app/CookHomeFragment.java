@@ -92,7 +92,7 @@ public class CookHomeFragment extends Fragment {
         listView = view.findViewById(R.id.clientSearchListView);
 
         //email IS NULL CHANGE THAT
-        database.getReference("Accounts").child("Cooks").child("qw").child("Requests").addValueEventListener(new ValueEventListener() {
+        database.getReference("Accounts").child("Cooks").child(email).child("Requests").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("Firebase", "Requests Retrieval Successful");
