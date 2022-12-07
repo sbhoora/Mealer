@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,6 +19,10 @@ public class NewClientHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client_home);
+
+        // Retrieve client email from sign in
+        Intent bundleFromCallingActivity = getIntent();
+        String email = bundleFromCallingActivity.getStringExtra("email");
 
         // Show as default Home fragment on app open
         replaceFragment(new ClientHomeFragment());
@@ -43,7 +48,7 @@ public class NewClientHome extends AppCompatActivity {
                             String createdBy = result.getString("createdBy");
                             // Creating MealViewerFragment
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.add(R.id.clientContentFrame, MealViewerFragment.newInstance(position,createdBy), requestKey);
+                            fragmentTransaction.add(R.id.clientContentFrame, MealViewerFragment.newInstance(position,createdBy,email), requestKey);
                             fragmentTransaction.addToBackStack("closeMealViewerFragment");
                             fragmentTransaction.commit();
                         }
@@ -66,7 +71,7 @@ public class NewClientHome extends AppCompatActivity {
                             String createdBy = result.getString("createdBy");
                             // Creating MealViewerFragment
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.add(R.id.clientContentFrame, MealViewerFragment.newInstance(position,createdBy), requestKey);
+                            fragmentTransaction.add(R.id.clientContentFrame, MealViewerFragment.newInstance(position,createdBy,email), requestKey);
                             fragmentTransaction.addToBackStack("closeMealViewerFragment");
                             fragmentTransaction.commit();
                         }

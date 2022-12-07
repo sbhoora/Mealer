@@ -52,10 +52,13 @@ public class MealViewerFragment extends Fragment {
     // the fragment initialization parameter
     private static final String CREATED_BY = "creating_by";
     private static final String MEAL_INDEX = "meal_index";
+    private static final String EMAIL = "email";
     // the string instance variable storing the fragment that called MealViewer
     private String createdBy;
     // the int instance variable storing the index of the meal in the array from the arrayAdpater
     private int mealIndex;
+    // the string instance variable storing the email
+    private String email;
 
     public MealViewerFragment() {
         // Required empty public constructor
@@ -69,11 +72,12 @@ public class MealViewerFragment extends Fragment {
      * @return A new instance of fragment MealFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MealViewerFragment newInstance(int mealIndex, String createdBy) {
+    public static MealViewerFragment newInstance(int mealIndex, String createdBy, String email) {
         MealViewerFragment fragment = new MealViewerFragment();
         Bundle args = new Bundle();
         args.putString(CREATED_BY, createdBy);
         args.putInt(MEAL_INDEX, mealIndex);
+        args.putString(EMAIL, email);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,6 +88,7 @@ public class MealViewerFragment extends Fragment {
         if (getArguments() != null) {
             createdBy = getArguments().getString(CREATED_BY);
             mealIndex = getArguments().getInt(MEAL_INDEX);
+            email = getArguments().getString(EMAIL);
         }
         Log.i("Fragment", getClass().getCanonicalName() + " Created");
     }
@@ -95,7 +100,7 @@ public class MealViewerFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_meal_viewer, container, false);
         ImageButton closeButton = (ImageButton) view.findViewById(R.id.mealViewerCloseButton);
 
-
+        System.out.println("The client email is: " + email);
 
         // Close meal button from XML file
         closeButton.setOnClickListener(new View.OnClickListener() {
