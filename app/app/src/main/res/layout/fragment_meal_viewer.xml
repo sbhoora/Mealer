@@ -18,10 +18,11 @@
             android:gravity="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/mealViewerHeadingLayout">
+
             <ImageButton
                 android:id="@+id/mealViewerCloseButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/ic_baseline_close_24" />
         </LinearLayout>
@@ -177,11 +178,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="433dp">
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/mealViewerNumberOfRatings"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="448dp">
 
             <Button
-                android:id="@+id/submit_request"
+                android:id="@+id/submitRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"
@@ -189,17 +193,9 @@
                 android:backgroundTint="#e4024d"
                 android:text="Submit meal request"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="50dp"
-                android:backgroundTint="#e4024d"
-                android:text="Back"
-                android:textAllCaps="false"
-                android:textSize="15dp" />
         </LinearLayout>
 
 

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -92,10 +93,18 @@ public class MealViewerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_meal_viewer, container, false);
+        ImageButton closeButton = (ImageButton) view.findViewById(R.id.mealViewerCloseButton);
+        Button submitButton = (Button) view.findViewById(R.id.submitRequest);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+
+        });
 
         // Close meal button from XML file
-        ImageButton closeButton = (ImageButton) view.findViewById(R.id.mealViewerCloseButton);
-
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
