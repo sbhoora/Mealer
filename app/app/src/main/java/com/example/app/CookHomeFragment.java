@@ -123,8 +123,8 @@ public class CookHomeFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String clientEmail = title.get(position).split(":")[0];
-                        String mealName = title.get(position).split(":")[1];
+                        String clientEmail = title.get(position).split(":")[0].replace(" ","");
+                        String mealName = title.get(position).split(":")[1].replace(" ","");
                         DatabaseReference history = database.getReference("Accounts").child("Clients").child(clientEmail).child("History").child("qw").child(mealName);
                         DatabaseReference request = database.getReference("Accounts").child("Cooks").child("qw").child("Requests").child(clientEmail).child(mealName);
 
@@ -155,7 +155,7 @@ public class CookHomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase", "Meals Retrieval Failed");
+                Log.e("Firebase", "Requests Retrieval Failed");
             }
         });
 
