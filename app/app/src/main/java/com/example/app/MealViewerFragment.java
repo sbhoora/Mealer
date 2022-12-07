@@ -94,15 +94,8 @@ public class MealViewerFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_meal_viewer, container, false);
         ImageButton closeButton = (ImageButton) view.findViewById(R.id.mealViewerCloseButton);
-        Button submitButton = (Button) view.findViewById(R.id.submitRequest);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-
-        });
 
         // Close meal button from XML file
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +194,19 @@ public class MealViewerFragment extends Fragment {
                     // Setting meal description
                     description.setText(Html.fromHtml("<b>Description:</b> ", Html.FROM_HTML_MODE_LEGACY));
                     description.append( (String) meal.get("description"));
+
+                    if (createdBy.equals("ClientSearchFragment")){
+                        Button submitButton = (Button) view.findViewById(R.id.submitRequest);
+                        submitButton.setVisibility(view.VISIBLE);
+
+                        submitButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                cookFromDatabase.child("Requests").child("ClientEmail").child(meal.get("name").toString());
+                            }
+
+                        });
+                    }
 
                     if (createdBy.equals("ClientHistoryFragment")) {
                         // Click on star rating
