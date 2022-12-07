@@ -115,7 +115,7 @@ public class MealViewerFragment extends Fragment {
                 Bundle result = new Bundle();
                 result.putBoolean("finished", true);
                 // Setting result in parent fragment manager
-                getParentFragmentManager().setFragmentResult("closeMealViewerFragment", result);
+                getParentFragmentManager().setFragmentResult("closeFragment", result);
             }
         });
 
@@ -231,13 +231,17 @@ public class MealViewerFragment extends Fragment {
                         Button submitButton = (Button) view.findViewById(R.id.submitRequest);
                         submitButton.setVisibility(view.VISIBLE);
                         submitButton.setEnabled(true);
-                        submitButton.setText("Submit Complaint");
+                        submitButton.setText("Write a Complaint");
 
                         submitButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
-
+                                // Bundle info to send to activity to end MealViewerFragment
+                                Bundle result = new Bundle();
+                                result.putBoolean("writeComplaint", true);
+                                result.putString("cookEmail", (String) meal.get("cookEmail"));
+                                // Setting result in parent fragment manager
+                                getParentFragmentManager().setFragmentResult("goToClientComplaintFragment", result);
                             }
                         });
 

@@ -76,13 +76,29 @@ public class NewClientHome extends AppCompatActivity {
                             fragmentTransaction.commit();
                         }
                     });
+                    fragmentManager.setFragmentResultListener("goToClientComplaintFragment", this, new FragmentResultListener() {
+                        @Override
+                        public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                            // Getting bundle info from ClientHistoryFragment specifying if user wants to write a complaint
+                            Boolean clientWantsToWriteComplaint = result.getBoolean("writeComplaint");
+                            // Getting bundle info from ClientHistoryFragment specifying the cook email
+                            String cookEmail = result.getString("cookEmail");
+                            // Creating ClientComplaintFragment
+                            if (clientWantsToWriteComplaint) {
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.add(R.id.clientContentFrame, ClientComplaintFragment.newInstance(cookEmail), requestKey);
+                                fragmentTransaction.addToBackStack("closeMealViewerFragment");
+                                fragmentTransaction.commit();
+                            }
+                        }
+                    });
                     break;
             }
-            // FragmentResultListener to close a MealViewerFragment
-            fragmentManager.setFragmentResultListener("closeMealViewerFragment", this, new FragmentResultListener() {
+            // FragmentResultListener to close a Fragment
+            fragmentManager.setFragmentResultListener("closeFragment", this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                    // Getting bundle info from Search specifying position of meal in ListView
+                    // Getting bundle info from calling fragment specifying if user clicked on X
                     Boolean finished = result.getBoolean("finished");
                     if (finished) {
                         // Removing MealViewerFragment from stack and going back to ClientSearchFragment

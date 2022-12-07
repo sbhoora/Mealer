@@ -8,6 +8,24 @@
     tools:context=".ClientComplaintFragment">
 
     <LinearLayout
+        android:id="@+id/clientComplaintCloseButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/clientComplaintContentLayout">
+
+        <ImageButton
+            android:id="@+id/clientComplaintCloseButton"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_baseline_close_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/clientComplaintContentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="50dp"
@@ -39,6 +57,7 @@
             android:layout_height="wrap_content"
             android:text="Cook's Email"
             android:textColor="@color/black"
+            android:textStyle="italic"
             android:textSize="16sp" />
 
         <EditText

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,7 @@ public class ClientComplaintFragment extends Fragment {
         // Buttons from XML
         MaterialButton submitButton = (MaterialButton) view.findViewById(R.id.clientComplaintSubmitComplaintButton);
         MaterialButton cancelButton = (MaterialButton) view.findViewById(R.id.clientComplaintCancelComplaintButton);
+        ImageButton closeButton = (ImageButton) view.findViewById(R.id.clientComplaintCloseButton);
 
         // Setting cook email
         cookEmail.setText(email);
@@ -88,13 +90,25 @@ public class ClientComplaintFragment extends Fragment {
         String subjectAsString = subject.getText().toString();
         String descriptionAsString = description.getText().toString();
 
-        // Checking that the user has provided all information and nothing is blank
-        if (!subjectAsString.isEmpty() && !descriptionAsString.isEmpty()) {
-            // Listening for client to click on submit button
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
-                @Override
-                public void onClick(View v) {
+        // Close meal on pressing X
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Bundle info to send to activity to end MealViewerFragment
+                Bundle result = new Bundle();
+                result.putBoolean("finished", true);
+                // Setting result in parent fragment manager
+                getParentFragmentManager().setFragmentResult("closeFragment", result);
+            }
+        });
+
+        // Listening for client to click on submit button
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
+            @Override
+            public void onClick(View v) {
+                // Checking that the user has provided all information and nothing is blank
+                if (!subjectAsString.isEmpty() && !descriptionAsString.isEmpty()) {
                     database.getReference("Accounts").child("admin").child("Complaints").setValue(complaint)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -108,19 +122,24 @@ public class ClientComplaintFragment extends Fragment {
                                     Log.e("Firebase", "Failed to save complaint against cook:" + cookEmailFromActivity);
                                 }
                             });
+                } else {
+                    // Put red flags
+                    subject.setError("Please fill in this field.");
+                    description.setError("Please fill in this field.");
+                    // Sending out toast message notifying client to fill in fields
+                    Toast.makeText(getContext(),"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 }
-            });
-        } else {
-            // Put red flags
-            subject.setError("Please fill in this field.");
-            description.setError("Please fill in this field.");
-            // Sending out toast message notifying client to fill in fields
-            Toast.makeText(getContext(),"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Bundle info to send to activity to end MealViewerFragment
+                Bundle result = new Bundle();
+                result.putBoolean("finished", true);
+                // Setting result in parent fragment manager
+                getParentFragmentManager().setFragmentResult("closeMealViewerFragment", result);
             }
         });
 
