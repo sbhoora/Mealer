@@ -139,7 +139,7 @@ public class ClientComplaintFragment extends Fragment {
                 Bundle result = new Bundle();
                 result.putBoolean("finished", true);
                 // Setting result in parent fragment manager
-                getParentFragmentManager().setFragmentResult("closeMealViewerFragment", result);
+                getParentFragmentManager().setFragmentResult("closeFragment", result);
             }
         });
 
