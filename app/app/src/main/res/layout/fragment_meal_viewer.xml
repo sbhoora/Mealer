@@ -191,9 +191,9 @@
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="50dp"
                 android:backgroundTint="#e4024d"
-                android:text="Submit meal request"
                 android:textAllCaps="false"
                 android:visibility="gone"
+                android:enabled="false"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 

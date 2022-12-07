@@ -1,6 +1,8 @@
 package com.example.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
@@ -15,11 +17,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Html;
+import android.text.InputType;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -149,6 +154,8 @@ public class MealViewerFragment extends Fragment {
                     price.append( (String) Long.toString( (Long) meal.get("price")));
                     // Setting meal cook name
                     DatabaseReference cookFromDatabase = database.getReference("Accounts").child("Cooks").child((String) meal.get("cookEmail"));
+                    DatabaseReference clientFromDatabase = database.getReference("Accounts").child("Clients").child(email);
+
                     cookFromDatabase.child("AccountInfo").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
@@ -203,11 +210,14 @@ public class MealViewerFragment extends Fragment {
                     if (createdBy.equals("ClientSearchFragment")){
                         Button submitButton = (Button) view.findViewById(R.id.submitRequest);
                         submitButton.setVisibility(view.VISIBLE);
+                        submitButton.setText("Submit Meal Request");
+                        submitButton.setEnabled(true);
 
                         submitButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                cookFromDatabase.child("Requests").child("ClientEmail").child(meal.get("name").toString());
+                                cookFromDatabase.child("Requests").child(email).child(meal.get("name").toString()).setValue("");
+                                clientFromDatabase.child("History").child(meal.get("cookEmail").toString()).child(meal.get("name").toString()).setValue("Pending");
                             }
 
                         });
@@ -217,6 +227,21 @@ public class MealViewerFragment extends Fragment {
                         // Click on star rating
                         // Message for client to rate the cook
                         rateMessage.setText("Click on a star to leave a rating.");
+
+                        Button submitButton = (Button) view.findViewById(R.id.submitRequest);
+                        submitButton.setVisibility(view.VISIBLE);
+                        submitButton.setEnabled(true);
+                        submitButton.setText("Submit Complaint");
+
+                        submitButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+
+                            }
+                        });
+
+
                         // Listeners for clicking on stars and updating rating value on database
                         star1.setOnClickListener(new View.OnClickListener() {
                             @Override
