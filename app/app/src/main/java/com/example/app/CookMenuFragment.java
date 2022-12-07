@@ -74,7 +74,6 @@ public class CookMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cook_menu, container, false);
-
         Button addMealButton = (Button) view.findViewById(R.id.addMealButton);
 
         cook = new Cook(email);
@@ -112,6 +111,7 @@ public class CookMenuFragment extends Fragment {
         cook.getMenu(new Cook.FirebaseMenuCallback() {
             @Override
             public void onCallBack(Menu menu) {
+                Log.i("REQUEST","PASS");
                 ArrayList<String> tempMealTitles = new ArrayList<String>();
                 ArrayList<MenuItem> tempItems = new ArrayList<MenuItem>();
                 Menu myMenu = menu;

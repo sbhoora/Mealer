@@ -36,7 +36,7 @@ public class NewCookHome extends AppCompatActivity {
                     replaceFragment(CookMenuFragment.newInstance(email));
                     break;
                 case R.id.cookHomeIcon:
-                    replaceFragment(new CookHomeFragment());
+                    replaceFragment(CookHomeFragment.newInstance(email));
                     break;
                 case R.id.cookProfileIcon:
                     replaceFragment(CookProfileFragment.newInstance(email));

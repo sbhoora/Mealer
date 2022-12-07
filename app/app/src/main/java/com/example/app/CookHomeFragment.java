@@ -43,10 +43,11 @@ public class CookHomeFragment extends Fragment {
     //purchase requests
 
     View view;
-    ListView requestListView;
+    ListView listView;
     ArrayAdapter<String> arrayAdapter;
 
-    private DatabaseReference database;
+    //private DatabaseReference database;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private Cook cook;
 
     // the fragment initialization parameter
@@ -86,74 +87,52 @@ public class CookHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cook_home, container, false);
-        update();
 
-        return view;
-    }
+        // ListView from XML
+        listView = view.findViewById(R.id.clientSearchListView);
 
-    private void update(){
-        CookHomeFragment cntx = this;
-        database = FirebaseDatabase.getInstance().getReference("Cooks");
-
-        database.child(cook.getEmail()).child("Requests").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        //email IS NULL CHANGE THAT
+        database.getReference("Accounts").child("Cooks").child("qw").child("Requests").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot dataSnapshot = task.getResult();
-                String requestEmail[] = new String[Math.toIntExact(dataSnapshot.getChildrenCount())];
-                String requestMeal[] = new String[Math.toIntExact(dataSnapshot.getChildrenCount())];
-                Log.i("SIZE",Integer.toString(requestEmail.length));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("Firebase", "Requests Retrieval Successful");
 
-                Map<String,Object> reqMap =  (Map<String,Object>) dataSnapshot.getValue();
-                if(reqMap!=null) {
-                    int i = 0;
-                    //creating a list of complaints that exist on the DB
-                    for (Map.Entry<String, Object> entry : reqMap.entrySet()) {
-                        Map req = (Map) entry.getValue();
-                        requestEmail[i] = entry.getKey();
-                        requestMeal[i] = req.get("Meal").toString();
-                        i++;
-                    }
+                ArrayList<String> reqEmail = new ArrayList<String>();
+                ArrayList<String []> meal = new ArrayList<String []>();
+
+                // Getting all requests from database
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    reqEmail.add(ds.getKey());
+                    meal.add(ds.getValue().toString().replace("[","").replace("]","").split(","));
+                    //Log.i("REQUESTS", ds.getKey());
+                    //Log.i("REQUESTS", ds.getValue().toString());
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(cntx, R.layout.request_list_item, R.id.textView, requestEmail);
-                requestListView.setAdapter(arrayAdapter);
-                //CREATE LISTVIEW FOR REQUESTS
+                Log.i("REQUESTS", reqEmail.get(0));
 
-                requestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                // Making arrayAdapter from email array
+                arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, reqEmail);
+
+                // Setting listView to take values from arrayAdapter
+                listView.setAdapter(arrayAdapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        String title, message, cookEmail;
-                        title = requestEmail[i] + ": " +requestMeal[i];
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
-
-                        builder.setTitle(title);
-
-                        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //Add request to "accepted section"
-                                //Change status of meal to "accepted" for cook purchase history
-                                //Dismiss request from "pending requests" section
-                            }
-                        });
-
-                        builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //Delete Request
-                                //Change status of meal to "rejected" for cook purchase history
-                                //Dismiss request from "pending requests" section
-                            }
-                        });
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     }
                 });
 
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Meals Retrieval Failed");
+            }
         });
 
+        return view;
     }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
