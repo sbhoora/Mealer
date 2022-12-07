@@ -97,21 +97,25 @@ public class CookHomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("Firebase", "Requests Retrieval Successful");
 
+                int i = 0;
+
                 ArrayList<String> reqEmail = new ArrayList<String>();
                 ArrayList<String []> meal = new ArrayList<String []>();
+                ArrayList<String> title = new ArrayList<String>();
 
                 // Getting all requests from database
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     reqEmail.add(ds.getKey());
                     meal.add(ds.getValue().toString().replace("[","").replace("]","").split(","));
-                    //Log.i("REQUESTS", ds.getKey());
-                    //Log.i("REQUESTS", ds.getValue().toString());
+                    for(String m : meal.get(i)){
+                        m = m.replace("}","").replace("{","").replace("=","");
+                        title.add(ds.getKey() + ": " + m);
+                    }
+                    i++;
                 }
 
-                Log.i("REQUESTS", reqEmail.get(0));
-
                 // Making arrayAdapter from email array
-                arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, reqEmail);
+                arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, title);
 
                 // Setting listView to take values from arrayAdapter
                 listView.setAdapter(arrayAdapter);
@@ -119,6 +123,30 @@ public class CookHomeFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String clientEmail = title.get(position).split(":")[0];
+                        String mealName = title.get(position).split(":")[1];
+                        DatabaseReference history = database.getReference("Accounts").child("Clients").child(clientEmail).child("History").child("qw").child(mealName);
+                        DatabaseReference request = database.getReference("Accounts").child("Cooks").child("qw").child("Requests").child(clientEmail).child(mealName);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
+                        builder.setTitle(title.get(position));
+
+                        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                history.setValue("Accepted");
+                                request.removeValue();
+                                dialog.cancel();
+                            }
+                        });
+                        builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                history.setValue("Rejected");
+                                request.removeValue();
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
 
                     }
                 });
@@ -133,6 +161,7 @@ public class CookHomeFragment extends Fragment {
 
         return view;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
