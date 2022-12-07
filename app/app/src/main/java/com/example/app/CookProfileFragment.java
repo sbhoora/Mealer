@@ -135,29 +135,22 @@ public class CookProfileFragment extends Fragment {
         ImageView star4 = (ImageView) view.findViewById(R.id.cookProfileStar4);
         ImageView star5 = (ImageView) view.findViewById(R.id.cookProfileStar5);
 
+        ImageView[] stars = new ImageView[5];
+        stars[0] = star1;
+        stars[1] = star2;
+        stars[2] = star3;
+        stars[3] = star4;
+        stars[4] = star5;
+
         // Deciding which to turn on/off
-        if (rating > 4 && rating < 5) {
-            star5.setImageResource(R.drawable.ic_baseline_star_half_24);
-        } else if (rating < 5) {
-            star5.setColorFilter(Color.LTGRAY);
+        for (int i = 4; i >= rating; i--) {
+            stars[i].setImageResource(R.drawable.ic_baseline_star_24);
+            stars[i].setColorFilter(Color.LTGRAY);
         }
-        if (rating > 3 && rating < 4) {
-            star4.setImageResource(R.drawable.ic_baseline_star_half_24);
-        } else if (rating < 4) {
-            star4.setColorFilter(Color.LTGRAY);
-        }
-        if (rating > 2 && rating < 3) {
-            star3.setImageResource(R.drawable.ic_baseline_star_half_24);
-        } else if (rating < 3) {
-            star3.setColorFilter(Color.LTGRAY);
-        }
-        if (rating > 1 && rating < 2) {
-            star2.setImageResource(R.drawable.ic_baseline_star_half_24);
-        } else if (rating < 2) {
-            star2.setColorFilter(Color.LTGRAY);
-        }
-        if (rating == 0) {
-            star1.setColorFilter(Color.LTGRAY);
+        if (rating != 0) {
+            if ((rating * 10) % 10 != 0) {
+                stars[(int) Math.ceil(rating) - 1].setImageResource(R.drawable.ic_baseline_star_half_24);
+            }
         }
     }
 }
