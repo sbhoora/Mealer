@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -83,6 +84,7 @@ public class MealViewerFragment extends Fragment {
             createdBy = getArguments().getString(CREATED_BY);
             mealIndex = getArguments().getInt(MEAL_INDEX);
         }
+        Log.i("Fragment", getClass().getCanonicalName() + " Created");
     }
 
     @Override
@@ -97,7 +99,11 @@ public class MealViewerFragment extends Fragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new ClientSearchFragment());
+                // Bundle info to send to activity to end MealViewerFragment
+                Bundle result = new Bundle();
+                result.putBoolean("finished", true);
+                // Setting result in parent fragment manager
+                getParentFragmentManager().setFragmentResult("closeMealViewerFragment", result);
             }
         });
 
@@ -187,7 +193,7 @@ public class MealViewerFragment extends Fragment {
                     description.setText(Html.fromHtml("<b>Description:</b> ", Html.FROM_HTML_MODE_LEGACY));
                     description.append( (String) meal.get("description"));
 
-                    if (createdBy.equals("com.example.app.ClientHistoryFragment$2$2")) {
+                    if (createdBy.equals("ClientHistoryFragment")) {
                         // Click on star rating
                         // Message for client to rate the cook
                         rateMessage.setText("Click on a star to leave a rating.");
@@ -341,7 +347,7 @@ public class MealViewerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("Fragment", getClass().getName() + " Destroyed");
+        Log.i("Fragment", getClass().getCanonicalName() + " Destroyed");
     }
 
     private void rated(Boolean rated) {
@@ -361,47 +367,42 @@ public class MealViewerFragment extends Fragment {
         ImageButton star4 = (ImageButton) view.findViewById(R.id.mealViewerStar4);
         ImageButton star5 = (ImageButton) view.findViewById(R.id.mealViewerStar5);
 
-        // Drawables
-        Drawable fullStar = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_star_24);
-        Drawable halfStar = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_star_half_24);
+        // Rate Message
+        TextView rateMessage = (TextView) view.findViewById(R.id.mealViewerRateMessage);
 
-        // Grey ColorFilter
-        PorterDuffColorFilter lightGrey = new PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_ATOP);
+        if (isAdded()) {
+            // Drawables
+            Drawable fullStar = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_star_24);
+            Drawable halfStar = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_star_half_24);
 
-        // Making sure all stars are default sized yellow first
-//        star5.setBackground(fullStar);
-//        star4.setBackground(fullStar);
-//        star3.setBackground(fullStar);
-//        star2.setBackground(fullStar);
-//        star1.setBackground(fullStar);
-        star5.setColorFilter(null);
-        star4.setColorFilter(null);
-        star3.setColorFilter(null);
-        star2.setColorFilter(null);
-        star1.setColorFilter(null);
+            // Grey ColorFilter
+            PorterDuffColorFilter lightGrey = new PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_ATOP);
 
-        ImageButton[] stars = new ImageButton[5];
-        stars[0] = star1;
-        stars[1] = star2;
-        stars[2] = star3;
-        stars[3] = star4;
-        stars[4] = star5;
+            // Making sure all stars are default sized yellow first
+            star5.setColorFilter(null);
+            star4.setColorFilter(null);
+            star3.setColorFilter(null);
+            star2.setColorFilter(null);
+            star1.setColorFilter(null);
 
-        for (int i = 4; i >= rating; i--) {
-            stars[i].setBackground(fullStar);
-            stars[i].getBackground().setColorFilter(lightGrey);
-        }
-        if (rating != 0) {
-            if ((rating * 10) % 10 != 0) {
-                stars[(int) Math.ceil(rating) - 1].setBackground(halfStar);
+            ImageButton[] stars = new ImageButton[5];
+            stars[0] = star1;
+            stars[1] = star2;
+            stars[2] = star3;
+            stars[3] = star4;
+            stars[4] = star5;
+
+            for (int i = 4; i >= rating; i--) {
+                stars[i].setBackground(fullStar);
+                stars[i].getBackground().setColorFilter(lightGrey);
             }
+            if (rating != 0) {
+                if ((rating * 10) % 10 != 0) {
+                    stars[(int) Math.ceil(rating) - 1].setBackground(halfStar);
+                }
+            }
+        } else {
+            rateMessage.setText("Rating could not be updated.");
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.clientContentFrame, fragment);
-        fragmentTransaction.commit();
     }
 }

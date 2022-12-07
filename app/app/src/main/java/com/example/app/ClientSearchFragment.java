@@ -141,10 +141,14 @@ public class ClientSearchFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        replaceFragment(MealViewerFragment.newInstance(position, getClass().getName()));
+                        // Bundle info to send to activity to create a MealViewerFragment
+                        Bundle result = new Bundle();
+                        result.putInt("position", position);
+                        result.putString("createdBy", "ClientSearchFragment");
+                        // Setting result in parent fragment manager
+                        getParentFragmentManager().setFragmentResult("openMealInClientSearchFragment", result);
                     }
                 });
-
 
             }
 
@@ -160,12 +164,5 @@ public class ClientSearchFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.i("Fragment", getClass().getName() + " Destroyed");
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.clientContentFrame, fragment);
-        fragmentTransaction.commit();
     }
 }

@@ -3,6 +3,7 @@ package com.example.app;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,6 +37,13 @@ public class ClientHistoryFragment extends Fragment {
     MenuItem[] meals;
     String[] mealsNames;
     ArrayAdapter<String> arrayAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.i("Fragment", getClass().getCanonicalName() + " Created");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,7 +118,12 @@ public class ClientHistoryFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        replaceFragment(MealViewerFragment.newInstance(position, getClass().getName()));
+                        // Bundle info to send to activity to create a MealViewerFragment
+                        Bundle result = new Bundle();
+                        result.putInt("position", position);
+                        result.putString("createdBy", "ClientHistoryFragment");
+                        // Setting result in parent fragment manager
+                        getParentFragmentManager().setFragmentResult("openMealInClientHistoryFragment", result);
                     }
                 });
 
@@ -129,12 +142,5 @@ public class ClientHistoryFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.i("Fragment", getClass().getName() + " Destroyed");
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.clientContentFrame, fragment);
-        fragmentTransaction.commit();
     }
 }
