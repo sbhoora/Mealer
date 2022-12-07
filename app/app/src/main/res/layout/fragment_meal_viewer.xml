@@ -172,6 +172,37 @@
             android:text="out of "
             android:textAlignment="center"
             android:textStyle="italic"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="433dp">
+
+            <Button
+                android:id="@+id/submit_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="#e4024d"
+                android:text="Submit meal request"
+                android:textAllCaps="false"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:backgroundTint="#e4024d"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
