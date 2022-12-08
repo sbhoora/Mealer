@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
+            android:id="@+id/clientHomeHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,12 +23,13 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <LinearLayout
+            android:id="@+id/clientHomeListViewLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clientSearchSearchView"
+            app:layout_constraintTop_toBottomOf="@id/clientHomeHeading"
             app:layout_constraintBottom_toBottomOf="parent">
             <ListView
-                android:id="@+id/clientSearchListView"
+                android:id="@+id/clientHomeListView"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_margin="50dp"

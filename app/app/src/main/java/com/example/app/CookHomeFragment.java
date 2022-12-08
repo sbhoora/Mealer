@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -140,15 +141,24 @@ public class CookHomeFragment extends Fragment {
                         builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 history.setValue("Accepted");
-                                request.removeValue();
-
+                                request.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.i("CookHomeFragment", "Meal removed from requests with meal name: " + mealName);
+                                    }
+                                });
                                 dialog.cancel();
                             }
                         });
                         builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 history.setValue("Rejected");
-                                request.removeValue();
+                                request.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.i("CookHomeFragment", "Meal removed from requests with meal name: " + mealName);
+                                    }
+                                });
                                 dialog.cancel();
                             }
                         });

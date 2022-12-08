@@ -128,77 +128,80 @@ public class CookMenuFragment extends Fragment {
                 String[] mealTitles = tempMealTitles.toArray(new String[tempMealTitles.size()]);
                 MenuItem[] items = tempItems.toArray(new MenuItem[tempItems.size()]);
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.complaint_list_item, R.id.textView, mealTitles);
-                mealListView.setAdapter(arrayAdapter);
+                // Only enters if an activity is attached to the fragment
+                if (isAdded()) {
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.complaint_list_item, R.id.textView, mealTitles);
+                    mealListView.setAdapter(arrayAdapter);
 
-                mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
-                        // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
-                        MenuItem item = items[i];
-                        String name, type, cuisineType, description;
-                        name = item.getName();
-                        type = item.getType();
-                        cuisineType = item.getCuisineType();
-                        description = item.getDescription();
+                    mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(), R.style.AlertDialogTheme));
+                            // USE THE ARRAY OF MEALS FROM ABOVE AT INDEX i TO GET THE DATA OF THIS MEAL
+                            MenuItem item = items[i];
+                            String name, type, cuisineType, description;
+                            name = item.getName();
+                            type = item.getType();
+                            cuisineType = item.getCuisineType();
+                            description = item.getDescription();
 
-                        builder.setTitle(name);
-                        builder.setMessage(String.format("Type: %s\nCuisine Type: %s\nDescription: %s\n", type, cuisineType, description));
+                            builder.setTitle(name);
+                            builder.setMessage(String.format("Type: %s\nCuisine Type: %s\nDescription: %s\n", type, cuisineType, description));
 
-                        final CheckBox input = new CheckBox(view.getContext());
-                        if(menu.isInNotOffered(item)){
-                            input.setText("Offered");
-                        }else{
-                            input.setText("Not Offered");
+                            final CheckBox input = new CheckBox(view.getContext());
+                            if(menu.isInNotOffered(item)){
+                                input.setText("Offered");
+                            }else{
+                                input.setText("Not Offered");
+                            }
+                            builder.setView(input);
+
+                            builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Log.i("APPLY","HERE");
+                                    boolean newOffered = input.isChecked();
+                                    // APPLY THE CHANGES TO THE DATABASE
+                                    if(input.isChecked()&&input.getText().equals("Offered")){
+                                        menu.removeFromNotOfferedMeals(item);
+                                        cook.save(menu);
+                                        Toast.makeText(getActivity(),"This meal has been moved to Offered Meals.", Toast.LENGTH_SHORT).show();
+                                    }else if(input.isChecked()&&input.getText().equals("Not Offered")){
+                                        menu.removeFromOfferedMeals(item);
+                                        cook.save(menu);
+                                        Toast.makeText(getActivity(),"This meal has been moved to Not Offered Meals.", Toast.LENGTH_SHORT).show();
+                                    }
+                                    dialog.cancel();
+                                    update();
+                                }
+                            });
+                            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Log.i("DISMISS","HERE");
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Log.i("DELETE","HERE");
+                                    // DELETE MEAL FROM DATABASE
+                                    if(!menu.deleteMeal(item)){
+                                        Toast.makeText(getActivity(),"This meal cannot be deleted. It is currently offered.", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        Toast.makeText(getActivity(),"This meal has been deleted.", Toast.LENGTH_SHORT).show();
+                                    }
+                                    cook.save(menu);
+                                    dialog.cancel();
+                                    update();
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                         }
-                        builder.setView(input);
-
-                        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                Log.i("APPLY","HERE");
-                                boolean newOffered = input.isChecked();
-                                // APPLY THE CHANGES TO THE DATABASE
-                                if(input.isChecked()&&input.getText().equals("Offered")){
-                                    menu.removeFromNotOfferedMeals(item);
-                                    cook.save(menu);
-                                    Toast.makeText(getActivity(),"This meal has been moved to Offered Meals.", Toast.LENGTH_SHORT).show();
-                                }else if(input.isChecked()&&input.getText().equals("Not Offered")){
-                                    menu.removeFromOfferedMeals(item);
-                                    cook.save(menu);
-                                    Toast.makeText(getActivity(),"This meal has been moved to Not Offered Meals.", Toast.LENGTH_SHORT).show();
-                                }
-                                dialog.cancel();
-                                update();
-                            }
-                        });
-                        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                Log.i("DISMISS","HERE");
-                                dialog.cancel();
-                            }
-                        });
-                        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                Log.i("DELETE","HERE");
-                                // DELETE MEAL FROM DATABASE
-                                if(!menu.deleteMeal(item)){
-                                    Toast.makeText(getActivity(),"This meal cannot be deleted. It is currently offered.", Toast.LENGTH_LONG).show();
-                                }else{
-                                    Toast.makeText(getActivity(),"This meal has been deleted.", Toast.LENGTH_SHORT).show();
-                                }
-                                cook.save(menu);
-                                dialog.cancel();
-                                update();
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                });
+                    });
+                }
             }
         });
     }

@@ -33,14 +33,9 @@
             <ListView
                 android:id="@+id/mealListView"
                 android:layout_width="match_parent"
-<<<<<<< HEAD
-                android:layout_height="350dp"/>
-
-=======
                 android:layout_height="350dp"
                 android:layout_margin="50dp"
-                android:overScrollMode="never"/>
->>>>>>> 979b66b (maybe fixed menu error)
+                android:overScrollMode="never" />
             <Button
                 android:id="@+id/addMealButton"
                 android:layout_width="64dp"

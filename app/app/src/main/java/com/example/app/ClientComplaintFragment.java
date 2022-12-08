@@ -125,7 +125,7 @@ public class ClientComplaintFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     setUpCloseFragment();
-                                    Toast.makeText(getContext(),"Complaint sent to administrator.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(),"Complaint sent to administrator.", Toast.LENGTH_LONG).show();
                                     Log.i("Firebase", "Complaint saved successfully against cook: " + cookEmailFromActivity);
                                 }
                             })

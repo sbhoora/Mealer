@@ -61,7 +61,7 @@ public class ClientHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_client_home, container, false);
-        listView = view.findViewById(R.id.clientSearchListView);
+        listView = view.findViewById(R.id.clientHomeListView);
 
         Context cntx = container.getContext();
 
