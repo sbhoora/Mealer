@@ -106,7 +106,6 @@ public class ClientComplaintFragment extends Fragment {
 
                 Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
 
-
                 EditText[] texts = {subject, description};
 
                 boolean empty = false;
@@ -121,7 +120,7 @@ public class ClientComplaintFragment extends Fragment {
 
                 // Checking that the user has provided all information and nothing is blank
                 if (empty==false) {
-                    database.getReference("Accounts").child("admin").child("Complaints").child(cookEmailFromActivity).child(subjectAsString).setValue(complaint)
+                    database.getReference("Accounts").child("admin").child("Complaints").child(subjectAsString).setValue(complaint)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
