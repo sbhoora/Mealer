@@ -128,7 +128,7 @@ public class CookMenuFragment extends Fragment {
                 String[] mealTitles = tempMealTitles.toArray(new String[tempMealTitles.size()]);
                 MenuItem[] items = tempItems.toArray(new MenuItem[tempItems.size()]);
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.complaint_list_item, R.id.textView, mealTitles);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.complaint_list_item, R.id.textView, mealTitles);
                 mealListView.setAdapter(arrayAdapter);
 
                 mealListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -186,7 +186,7 @@ public class CookMenuFragment extends Fragment {
                                 Log.i("DELETE","HERE");
                                 // DELETE MEAL FROM DATABASE
                                 if(!menu.deleteMeal(item)){
-                                    Toast.makeText(getActivity(),"This meal cannot be deleted.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(),"This meal cannot be deleted. It is currently offered.", Toast.LENGTH_LONG).show();
                                 }else{
                                     Toast.makeText(getActivity(),"This meal has been deleted.", Toast.LENGTH_SHORT).show();
                                 }
