@@ -88,8 +88,6 @@ public class ClientComplaintFragment extends Fragment {
         cookEmail.setText(email);
 
         // TextViews as strings
-        String subjectAsString = subject.getText().toString();
-        String descriptionAsString = description.getText().toString();
 
         // Close meal on pressing X
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -101,9 +99,14 @@ public class ClientComplaintFragment extends Fragment {
 
         // Listening for client to click on submit button
         submitButton.setOnClickListener(new View.OnClickListener() {
-            Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
             @Override
             public void onClick(View v) {
+                String subjectAsString = subject.getText().toString();
+                String descriptionAsString = description.getText().toString();
+
+                Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
+
+
                 EditText[] texts = {subject, description};
 
                 boolean empty = false;
@@ -113,6 +116,8 @@ public class ClientComplaintFragment extends Fragment {
                         text.setError("Please fill in this field");
                     }
                 }
+
+                Log.i("SUBJECT",subjectAsString);
 
                 // Checking that the user has provided all information and nothing is blank
                 if (empty==false) {
