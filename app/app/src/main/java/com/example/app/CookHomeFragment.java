@@ -95,7 +95,7 @@ public class CookHomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_cook_home, container, false);
 
         // ListView from XML
-        listView = view.findViewById(R.id.clientSearchListView);
+        listView = view.findViewById(R.id.cookHomeListView);
 
         //email IS NULL CHANGE THAT
         database.getReference("Accounts").child("Cooks").child(email).child("Requests").addValueEventListener(new ValueEventListener() {

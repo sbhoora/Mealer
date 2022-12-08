@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.app.AlertDialog;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class AdminHome extends AppCompatActivity {
         System.out.println("New Activity: AdminHome");
 
         // Buttons
-        MaterialButton signOutButton = (MaterialButton) findViewById(R.id.signOutButton);
+        ImageButton signOutButton = (ImageButton) findViewById(R.id.adminLogoutButton);
 
         update();
 
