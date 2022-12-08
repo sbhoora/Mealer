@@ -88,8 +88,6 @@ public class ClientComplaintFragment extends Fragment {
         cookEmail.setText(email);
 
         // TextViews as strings
-        String subjectAsString = subject.getText().toString();
-        String descriptionAsString = description.getText().toString();
 
         // Close meal on pressing X
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -101,9 +99,13 @@ public class ClientComplaintFragment extends Fragment {
 
         // Listening for client to click on submit button
         submitButton.setOnClickListener(new View.OnClickListener() {
-            Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
             @Override
             public void onClick(View v) {
+                String subjectAsString = subject.getText().toString();
+                String descriptionAsString = description.getText().toString();
+
+                Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
+
                 EditText[] texts = {subject, description};
 
                 boolean empty = false;
@@ -114,9 +116,11 @@ public class ClientComplaintFragment extends Fragment {
                     }
                 }
 
+                Log.i("SUBJECT",subjectAsString);
+
                 // Checking that the user has provided all information and nothing is blank
                 if (empty==false) {
-                    database.getReference("Accounts").child("admin").child("Complaints").child(cookEmailFromActivity).child(subjectAsString).setValue(complaint)
+                    database.getReference("Accounts").child("admin").child("Complaints").child(subjectAsString).setValue(complaint)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

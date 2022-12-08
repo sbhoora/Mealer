@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/cookHomeListView"
+            app:layout_constraintBottom_toTopOf="@+id/cookHomeListViewLayout"
             android:text="Purchase Requests"
             android:textAlignment="center"
             android:layout_marginTop="30dp"
@@ -24,12 +24,13 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <LinearLayout
+            android:id="@+id/cookHomeListViewLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clientSearchSearchView"
+            app:layout_constraintTop_toBottomOf="@id/cookHomeHeading"
             app:layout_constraintBottom_toBottomOf="parent">
             <ListView
-                android:id="@+id/clientSearchListView"
+                android:id="@+id/cookHomeListView"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_margin="50dp"
