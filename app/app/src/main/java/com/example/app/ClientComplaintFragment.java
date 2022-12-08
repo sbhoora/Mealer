@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,8 +108,18 @@ public class ClientComplaintFragment extends Fragment {
             Complaint complaint = new Complaint(subjectAsString, cookEmailFromActivity, descriptionAsString);
             @Override
             public void onClick(View v) {
+                EditText[] texts = {subject, description};
+
+                boolean empty = false;
+                for (EditText text : texts) {
+                    if (TextUtils.isEmpty(text.getText().toString())) {
+                        empty = true;
+                        text.setError("Please fill in this field");
+                    }
+                }
+
                 // Checking that the user has provided all information and nothing is blank
-                if (!subjectAsString.isEmpty() && !descriptionAsString.isEmpty()) {
+                if (empty==false) {
                     database.getReference("Accounts").child("admin").child("Complaints").setValue(complaint)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -122,12 +133,6 @@ public class ClientComplaintFragment extends Fragment {
                                     Log.e("Firebase", "Failed to save complaint against cook:" + cookEmailFromActivity);
                                 }
                             });
-                } else {
-                    // Put red flags
-                    subject.setError("Please fill in this field.");
-                    description.setError("Please fill in this field.");
-                    // Sending out toast message notifying client to fill in fields
-                    Toast.makeText(getContext(),"Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

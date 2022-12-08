@@ -1,13 +1,17 @@
 package com.example.app;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
@@ -85,6 +89,8 @@ public class CookHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Context cntx = container.getContext();
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cook_home, container, false);
 
@@ -135,6 +141,7 @@ public class CookHomeFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 history.setValue("Accepted");
                                 request.removeValue();
+
                                 dialog.cancel();
                             }
                         });
