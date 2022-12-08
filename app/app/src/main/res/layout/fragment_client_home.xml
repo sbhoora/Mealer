@@ -21,6 +21,18 @@
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clientSearchSearchView"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ListView
+                android:id="@+id/clientSearchListView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="50dp"
+                android:overScrollMode="never"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
