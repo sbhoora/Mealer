@@ -95,11 +95,7 @@ public class ClientComplaintFragment extends Fragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Bundle info to send to activity to end MealViewerFragment
-                Bundle result = new Bundle();
-                result.putBoolean("finished", true);
-                // Setting result in parent fragment manager
-                getParentFragmentManager().setFragmentResult("closeFragment", result);
+                setUpCloseFragment();
             }
         });
 
@@ -120,10 +116,12 @@ public class ClientComplaintFragment extends Fragment {
 
                 // Checking that the user has provided all information and nothing is blank
                 if (empty==false) {
-                    database.getReference("Accounts").child("admin").child("Complaints").setValue(complaint)
+                    database.getReference("Accounts").child("admin").child("Complaints").child(cookEmailFromActivity).child(subjectAsString).setValue(complaint)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+                                    setUpCloseFragment();
+                                    Toast.makeText(getContext(),"Complaint sent to administrator.", Toast.LENGTH_SHORT).show();
                                     Log.i("Firebase", "Complaint saved successfully against cook: " + cookEmailFromActivity);
                                 }
                             })
@@ -140,15 +138,23 @@ public class ClientComplaintFragment extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Bundle info to send to activity to end MealViewerFragment
-                Bundle result = new Bundle();
-                result.putBoolean("finished", true);
-                // Setting result in parent fragment manager
-                getParentFragmentManager().setFragmentResult("closeFragment", result);
+                setUpCloseFragment();
             }
         });
 
         return view;
     }
 
+    private void setUpCloseFragment() {
+        // Bundle info to send to activity to end MealViewerFragment
+        Bundle result = new Bundle();
+        result.putBoolean("finished", true);
+        // Setting result in parent fragment manager
+        getParentFragmentManager().setFragmentResult("closeFragment", result);
+    }
 }
+
+
+
+
+

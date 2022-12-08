@@ -174,7 +174,7 @@ public class MealViewerFragment extends Fragment {
                             }
                             // Setting number of ratings
                             int numberOfRatings = Integer.parseInt(String.valueOf(accountInfo.get("numberOfRatings")));
-                            ratingNumberMessage.setText("out of " + numberOfRatings + " ratings.");
+                            ratingNumberMessage.setText("out of " + numberOfRatings + " rating(s).");
                         }
 
                         @Override
